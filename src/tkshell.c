@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:40:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 16:07:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:40:05 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(int argc, char **argv, const char **initial_envp)
 	(void)argc;
 	(void)argv;
 	envp = ft_strdup(*initial_envp);
+	env(initial_envp);
 	while (1)
 	{
 		char *tokens = tksh_prompt(envp);
@@ -32,10 +33,10 @@ int main(int argc, char **argv, const char **initial_envp)
 		// 	// 	// run_builtin(token);
 		// 	// else
 		// 	// 	run_executable(token);
-			
+
 		// }
 		// 시그널에 따른 종료
-		
+
 	}
 	return (0);
 }

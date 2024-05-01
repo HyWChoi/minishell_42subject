@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tksh.h                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 18:12:04 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 17:43:39 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/05/01 17:22:11 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/05/01 17:43:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_H
-# define MS_H
+#include "../includes/tksh.h"
+#include <stdio.h>
 
-#include "libft.h"
+void	env(const char **envp){
+	int	i;
 
-void	env(const char **env);
-
-#endif
+	i = 0;
+	while (envp[i])
+		printf("%s\n", envp[i++]);
+}
