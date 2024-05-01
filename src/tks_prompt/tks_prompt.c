@@ -6,16 +6,16 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 16:05:20 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:27:56 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "tksh_prompt.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <signal.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
 #include <termios.h>
 
 static int	tks_rl_event_hook_placeholder(void)
