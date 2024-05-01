@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra
 srcs = $(shell find . -name "*.c" | grep -v "libft")
 
 OBJS = $(srcs:.c=.o)
-NAME = minishell
+NAME = tksh
 LIBFT = libs/libft/libft.a
 
 
