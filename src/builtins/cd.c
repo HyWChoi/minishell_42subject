@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/01 19:36:45 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:00:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void	cd(char *path){
-	printf("target path: %s\n", path);
-	if (!chdir(path))
+void	cd(char *path)
+{
+	char	*error_msg;
+
+	error_msg = "cd: no such file or directory: ";
+	if (chdir(path) != 0)
 	{
-		perror(" : No such file or directory");
+		write(2, error_msg, ft_strlen(error_msg));
+		write(2, path, ft_strlen(path));
+		write(2, "\n", 1);
 	}
 }
