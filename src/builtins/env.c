@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tksh.h"
+#include "tksh.h"
 #include <stdio.h>
 
 void	env(const char **envp){
