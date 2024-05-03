@@ -29,7 +29,8 @@ void	echo(char **strings, char *option)
 	size_t			i;
 	char 			*ret;
 
-	ft_calloc_guard((void **)&ret, 1, sizeof(char *));
+	if(ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
