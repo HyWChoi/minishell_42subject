@@ -22,6 +22,7 @@ int main(int argc, char **argv, const char **initial_envp)
 	(void)argc;
 	(void)argv;
 	envp = ft_strdup(*initial_envp);
+	env(initial_envp);
 	while (1)
 	{
 		char *tokens = tksh_prompt(envp);
