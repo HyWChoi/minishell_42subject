@@ -90,7 +90,7 @@ typedef enum e_bool
 	TRUE = 1,
 }	t_bool;
 
-char				**ft_strs_copy(const char **strs)
+char				**ft_strs_copy(const char **strs);
 size_t				ft_strs_len(const char **strs);
 void				*ft_free_strs(char **strs);
 char				*ft_strjoin_and_free(char *s1, char *s2,
