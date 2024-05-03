@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tksh.h                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 18:12:04 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/03 12:28:30 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/05/03 12:28:16 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_H
-# define MS_H
-# define PWD_MAX_BUFF_SIZE 4096
-#include "libft.h"
+#include "tksh.h"
+#include <unistd.h>
+#include <stdio.h>
 
-void	pwd(void);
-void	env(const char **env);
-void	exit_shell(unsigned char exit_code);
-void	unset(char **argv, char **envp);
+void	pwd(void)
+{
+	char	buff[MAX_BUFF_SIZE];
 
-#endif
+	if (!getcwd(buff, MAX_BUFF_SIZE))
+		printf("getcwd: buffer space is too small to disply the path.\n");
+	else
+		printf("%s\n", buff);
+}
