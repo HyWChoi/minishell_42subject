@@ -55,5 +55,7 @@ dkms.conf
 .vscode
 
 # build files
-.tksh
+tksh
+minishell
+
 
