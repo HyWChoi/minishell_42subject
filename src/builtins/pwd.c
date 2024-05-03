@@ -6,11 +6,11 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/01 18:14:16 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:28:16 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tksh.h"
+#include "tksh.h"
 #include <unistd.h>
 #include <stdio.h>
 

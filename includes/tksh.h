@@ -6,13 +6,13 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:12:04 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 18:07:45 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:28:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_H
 # define MS_H
-# define MAX_BUFF_SIZE 4096
+# define PWD_MAX_BUFF_SIZE 4096
 #include "libft.h"
 
 void	pwd(void);
