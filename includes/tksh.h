@@ -15,6 +15,7 @@
 # define PWD_MAX_BUFF_SIZE 4096
 #include "libft.h"
 
+void cd(char *path);
 void	pwd(void);
 void	env(const char **env);
 void	exit_shell(unsigned char exit_code);

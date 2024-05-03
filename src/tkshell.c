@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:40:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 18:14:47 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:10:16 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 int main(int argc, char **argv, const char **initial_envp)
 {
 	char	*envp;
-
 	(void)argc;
 	(void)argv;
 	envp = ft_strdup(*initial_envp);
