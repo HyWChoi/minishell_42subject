@@ -16,5 +16,7 @@
 #include "libft.h"
 
 void	env(const char **env);
+void	exit_shell(unsigned char exit_code);
+void	unset(char **argv, char **envp);
 
 #endif
