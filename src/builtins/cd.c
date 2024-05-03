@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/03 11:02:32 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:17:00 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/**
+ * @brief change directory
+ * 
+ * This function will change the current working directory 
+ * to the path specified by the argunment.
+ * 
+ * @param path The path to change the current working directory to.
+ * @return void
+*/
 void	cd(char *path)
 {
 	char	*error_msg;
 
-	error_msg = "cd: no such file or directory: ";
 	if (chdir(path) != 0)
 	{
-		write(2, error_msg, ft_strlen(error_msg));
-		write(2, path, ft_strlen(path));
-		write(2, "\n", 1);
+		write(2, "cd: ", 4);
+		perror(path);
 	}
 }
