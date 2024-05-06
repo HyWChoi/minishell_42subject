@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/03 14:17:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:28:43 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
+#include "tksh_builtins.h"
 #include <unistd.h>
 #include <stdio.h>
 
 /**
  * @brief change directory
- * 
- * This function will change the current working directory 
+ *
+ * This function will change the current working directory
  * to the path specified by the argunment.
- * 
+ *
  * @param path The path to change the current working directory to.
  * @return void
 */
