@@ -1,7 +1,14 @@
 #ifndef MS_H
 # define MS_H
 # define PWD_MAX_BUFF_SIZE 4096
-#include "libft.h"
+# define CD "cd"
+# define ECHO "echo"
+# define ENV "env"
+# define EXIT "exit"
+# define PWD "pwd"
+# define UNSET "unset"
+# define EXPORT "export"
+# include "libft.h"
 
 typedef struct	s_token
 {
@@ -9,6 +16,8 @@ typedef struct	s_token
 	char	**argv;
 	char	***envp;
 }	t_token;
+
+typedef void	t_builtin_dto(t_token *tokens);
 
 void	cd(char *path);
 void	pwd(void);
