@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tkshell.c                                          :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 17:40:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/06 15:15:30 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/05/06 15:05:18 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include "tksh_prompt.h"
 #include <stdio.h>
 
+/**
+ * @brief main of test
+ * IMPORTANT: This is a MAIN Function of "test_shell"
+*/
 int main(int argc, char **argv, const char **initial_envp)
 {
 	char	*envp;
@@ -28,5 +32,3 @@ int main(int argc, char **argv, const char **initial_envp)
 	}
 	return (0);
 }
-
-

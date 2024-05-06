@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tks_prompt.c                                       :+:      :+:    :+:   */
+/*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/01 17:27:56 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:16:10 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "tksh_prompt.h"
+#include "libft.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
