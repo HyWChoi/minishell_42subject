@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/06 14:14:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:18:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static ssize_t builtin_hander_helper_get_cmd(char *cmd){
 void	builtin_hander(t_token *token){
 	t_builtin_dto	*builtin_dtos[7] = {cd, echo, env, exit, pwd, unset};
 	char			*bultin_cmds = {CD, ECHO, ENV, EXIT, PWD, UNSET};
-	const			ssize_t	cmd_idx = builtin_hander_helper_get_cmd(token->cmd_path);
+	const ssize_t	cmd_idx = builtin_hander_helper_get_cmd(token->cmd_path);
 
 	// TODO: 추후 상세한 에러처리 필요
 	if(cmd_idx == -1)
