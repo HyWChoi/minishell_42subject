@@ -6,11 +6,12 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/03 16:58:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:29:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
+#include "tksh_builtins.h"
+#include "libft.h"
 #include <stdio.h>
 
 /**

@@ -6,11 +6,11 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:22:11 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/01 17:43:44 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:28:53 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
+#include "tksh_builtins.h"
 #include <stdio.h>
 
 void	env(const char **envp){

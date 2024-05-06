@@ -6,11 +6,13 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/06 14:18:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:29:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
+#include "tksh_builtins.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static ssize_t builtin_hander_helper_get_cmd(char *cmd){
