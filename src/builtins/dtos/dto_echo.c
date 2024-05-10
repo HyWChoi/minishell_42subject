@@ -30,6 +30,6 @@ void	dto_echo(t_token *token)
 		option = NULL;
 	else
 		option = *(token->argv);
-	if (ft_strncmp(token->cmd_path, "echo", 2) == 0)
+	if (ft_strncmp(token->cmd_path, "echo", 4) == 0)
 		echo(token->argv + 1, option);
 }
