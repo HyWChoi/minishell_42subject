@@ -14,7 +14,7 @@
  * @return void
 */
 
-static int	is_option(char *str)
+static t_bool	is_option(char *str)
 {
 	if (ft_strncmp("-n", str, 2) == 0)
 		return TRUE;
@@ -27,9 +27,9 @@ void	dto_echo(t_token *token)
 
 	printf("-----token pass through the dto echo-----\n");
 	if (!is_option(*(token->argv)))
-		option = NULL;
+		*option = "";
 	else
 		option = *(token->argv);
-	if (ft_strncmp(token->cmd_path, "echo", 4) == 0)
+	if (ft_strncmp(token->cmd_path, "echo", 5) == 0)
 		echo(token->argv + 1, option);
 }
