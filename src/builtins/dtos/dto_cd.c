@@ -17,6 +17,6 @@
 void	dto_cd(t_token *token)
 {
 	printf("-----token pass through the dto cd-----\n");
-	if (ft_strncmp(token->cmd_path, "cd", 2) == 0)
+	if (ft_strncmp(token->cmd_path, "cd", 3) == 0)
 		cd(*(token->argv));
 }
