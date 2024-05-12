@@ -8,5 +8,5 @@ void	dto_env(t_token *token)
 {
 	printf("-----token pass through the dto env-----\n");
 	if (ft_strncmp(token->cmd_path, "env", 3) == 0)
-		env(*(token->envp));
+		env((const char **)*(token->envp));
 }
