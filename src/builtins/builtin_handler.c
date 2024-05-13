@@ -33,7 +33,6 @@ void	builtin_hander(t_token *token){
 	t_builtin_dto	*builtin_dtos[7] = {dto_cd, dto_echo, dto_env, exit, dto_pwd, dto_unset};
 	const ssize_t	cmd_idx = builtin_hander_helper_get_cmd(token->cmd_path);
 
-	printf("cmd_idx: %ld\n", cmd_idx);
 	// TODO: 추후 상세한 에러처리 필요
 	if(cmd_idx == -1)
 	{
