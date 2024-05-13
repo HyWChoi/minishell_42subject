@@ -26,5 +26,6 @@ void	env(const char **env);
 void	exit_shell(unsigned char exit_code);
 void	unset(char **argv, char **envp);
 void	echo(char **strings, char *option);
+void    builtin_hander(t_token *token);
 
 # endif

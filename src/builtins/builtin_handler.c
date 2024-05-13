@@ -6,23 +6,23 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/13 19:04:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:05:56 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_builtins.h"
 #include "libft.h"
-#include <stdlib.h>
+#include <stdio.h>
 
 static ssize_t builtin_hander_helper_get_cmd(char *cmd){
 	ssize_t	cmd_idx;
-	char	*bultin_cmds = {CD, ECHO, ENV, EXIT, PWD, UNSET};
+	char	*bultin_cmds[7] = {CD, ECHO, ENV, EXIT, PWD, UNSET};
 
 	cmd_idx = 0;
 	while(cmd_idx < 7)
 	{
-		if(ft_strncmp(bultin_cmds, cmd, ft_strlen(bultin_cmds)+1) == 0)
+		if(ft_strncmp(bultin_cmds[cmd_idx], cmd, ft_strlen(bultin_cmds[cmd_idx])) == 0)
 			return (cmd_idx);
 		cmd_idx++;
 	}
@@ -33,8 +33,11 @@ void	builtin_hander(t_token *token){
 	t_builtin_dto	*builtin_dtos[7] = {dto_cd, dto_echo, dto_env, exit, dto_pwd, dto_unset};
 	const ssize_t	cmd_idx = builtin_hander_helper_get_cmd(token->cmd_path);
 
+	printf("cmd_idx: %ld\n", cmd_idx);
 	// TODO: 추후 상세한 에러처리 필요
 	if(cmd_idx == -1)
+	{
 		return (void)printf("err");
+	}
 	return (builtin_dtos[cmd_idx](token));
 }
