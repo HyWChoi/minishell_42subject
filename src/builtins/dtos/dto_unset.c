@@ -6,6 +6,6 @@
 void	dto_unset(t_token *token)
 {
 	printf("-----token pass through the dto unset-----\n");
-	if (ft_strncmp(token->cmd_path, "cd", 3) == 0)
+	if (ft_strncmp(token->cmd_path, "unset", 6) == 0)
 		unset(token->argv, *(token->envp));
 }
