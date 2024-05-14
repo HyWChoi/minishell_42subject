@@ -14,10 +14,22 @@
  * @return void
 */
 
-static t_bool	is_option(char *str)
+static t_bool	is_option(char **str)
 {
-	if (ft_strncmp("-n", str, 2) == 0)
+	char *tmp = *str;
+	if (!*str)
+		return FALSE;
+	if (ft_strncmp("-n", *str, 2) == 0)
+	{
+		tmp++;
+		while (*tmp)
+		{
+			if (*tmp != 'n')
+				return (FALSE);
+			tmp++;
+		}
 		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -26,10 +38,13 @@ void	dto_echo(t_token *token)
 	char	*option;
 
 	printf("-----token pass through the dto echo-----\n");
-	if (!is_option(*(token->argv)))
-		*option = "";
+	if (!is_option(token->argv))
+		option = "";
 	else
+	{
 		option = *(token->argv);
+		token->argv = token->argv + 1;
+	}
 	if (ft_strncmp(token->cmd_path, "echo", 5) == 0)
-		echo(token->argv + 1, option);
+		echo(token->argv, option);
 }
