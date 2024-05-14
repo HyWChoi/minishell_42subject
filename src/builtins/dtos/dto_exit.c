@@ -5,7 +5,7 @@
 
 void	dto_exit(t_token *token)
 {
-	printf("-----token pass through the dto dto-----\n");
+	printf("-----token pass through the dto exit-----\n");
 	if (ft_strncmp(token->cmd_path, "exit", 5) == 0)
 		exit(SIGKILL); // 임시로 넣은 SIG 추후 개선 필요
 }
