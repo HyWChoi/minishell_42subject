@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/06 14:28:43 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:04:14 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 */
 void	cd(char *path)
 {
-	char	*error_msg;
+
 
 	if (chdir(path) != 0)
 	{
