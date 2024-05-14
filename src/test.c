@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/14 18:03:43 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/05/14 18:24:00 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int main(int argc, char **argv, const char **initial_envp)
 	(void)argc;
 	(void)argv;
 	
-	*envp = ft_strs_copy(initial_envp);
+	char **tmp = ft_strs_copy(initial_envp);
+	envp = &tmp;
 	while (1)
 	{
 		char *origin_str = tksh_prompt(**envp);
