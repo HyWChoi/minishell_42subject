@@ -18,6 +18,7 @@ void    builtin_handler(t_token *token);
 void	dto_cd(t_token *token);
 void	dto_pwd(t_token *token);
 void	dto_echo(t_token *token);
+void	dto_exit(t_token *token);
 void	dto_env(t_token *token);
 void	dto_unset(t_token *token);
 void	cd(char *path);
