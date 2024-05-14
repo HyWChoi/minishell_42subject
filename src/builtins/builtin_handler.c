@@ -22,7 +22,7 @@ static ssize_t builtin_handler_helper_get_cmd(char *cmd){
 	cmd_idx = 0;
 	while(cmd_idx < 7)
 	{
-		if(ft_strncmp(builtin_cmds[cmd_idx], cmd, ft_strlen(builtin_cmds[cmd_idx])) == 0)
+		if(ft_strncmp(builtin_cmds[cmd_idx], cmd, ft_strlen(builtin_cmds[cmd_idx] + 1)) == 0)
 			return (cmd_idx);
 		cmd_idx++;
 	}
