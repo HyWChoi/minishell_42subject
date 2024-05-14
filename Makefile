@@ -1,6 +1,6 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror -g
 
 srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "*test.c")
 test_srcs = $(shell find . -name "*test.c")
@@ -9,6 +9,14 @@ NAME = tksh
 TEST = test
 TEST_EXEC = test_tksh
 LIBFT = libs/libft/libft.a
+READLINE_FLAGS = -lreadline
+
+
+# arm architecture compatibility
+ifeq ($(shell uname -p), arm)
+	READLINE_PATH = -I /opt/homebrew/opt/readline/include
+	READLINE_FLAGS += $(READLINE_PATH) -L/opt/homebrew/opt/readline/lib
+endif
 
 ifdef WITH_TEST
 	srcs := $(test_srcs)
@@ -20,7 +28,7 @@ endif
 all : $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes -lreadline
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes $(READLINE_FLAGS)
 
 $(TEST):
 	@make WITH_TEST=1 all
@@ -32,7 +40,7 @@ $(LIBFT):
 
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I includes -I libft/includes
+	$(CC) $(CFLAGS) -c $< -o $@ -I includes -I libft/includes $(READLINE_PATH)
 
 clean:
 	make -C libft clean
