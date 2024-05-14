@@ -31,7 +31,7 @@ void	echo(char **strings, char *option)
 	char 			*ret;
 
 	if(ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
-		return (NULL);
+		return ; // TODO: 상세한 에러처리 필요
 	i = 0;
 	while (i < len)
 	{
