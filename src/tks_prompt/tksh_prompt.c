@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/06 15:16:10 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:48:06 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*tksh_prompt(char *envp)
 	tksh_sig_hook();
 	input = readline(PROMPT);
 	if (!input)
-		exit(0);
+		exit(0); // TODO: 상세한 에러처리 필요
+	if (*input)
+		add_history(input);
 	return (input);
 }
