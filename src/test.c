@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/13 20:09:04 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:03:43 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_token	*new_token(char *cmd, char **argv, char ***env)
 */
 int main(int argc, char **argv, const char **initial_envp)
 {
-	char	***envp = NULL;
+	char	***envp;
 	char	**splited_str;
 	t_token	*token;
 	(void)argc;
