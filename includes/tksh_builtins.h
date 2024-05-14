@@ -4,6 +4,12 @@
 # include "tksh.h"
 
 # define PWD_MAX_BUFF_SIZE 4096
+
+/** 
+ * @brief Builtin Command Amount
+ * 
+*/
+# define BUITIN_CMD_AMOUNT 6 // export is not implemented yet
 # define CD "cd"
 # define ECHO "echo"
 # define ENV "env"
@@ -14,7 +20,7 @@
 
 typedef void	t_builtin_dto(t_token *tokens);
 
-void    builtin_handler(t_token *token);
+void  builtin_handler(t_token *token);
 void	dto_cd(t_token *token);
 void	dto_pwd(t_token *token);
 void	dto_echo(t_token *token);
@@ -28,4 +34,4 @@ void	exit_shell(unsigned char exit_code);
 void	unset(char **argv, char **envp);
 void	echo(char **strings, char *option);
 
-# endif
+#endif
