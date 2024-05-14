@@ -14,7 +14,7 @@
 
 typedef void	t_builtin_dto(t_token *tokens);
 
-
+void    builtin_handler(t_token *token);
 void	dto_cd(t_token *token);
 void	dto_pwd(t_token *token);
 void	dto_echo(t_token *token);
@@ -26,6 +26,5 @@ void	env(const char **env);
 void	exit_shell(unsigned char exit_code);
 void	unset(char **argv, char **envp);
 void	echo(char **strings, char *option);
-void    builtin_hander(t_token *token);
 
 # endif

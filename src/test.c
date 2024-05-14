@@ -15,8 +15,9 @@
 #include "tksh_prompt.h"
 #include "tksh_builtins.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-static t_token	*set_token(char *cmd, char **argv, char ***env)
+static t_token	*new_token(char *cmd, char **argv, char ***env)
 {
 	t_token	*token;
 
@@ -47,11 +48,11 @@ int main(int argc, char **argv, const char **initial_envp)
 		char *origin_str = tksh_prompt(**envp);
 		printf("ori str: %s\n", origin_str);
 		splited_str = ft_split(origin_str, ' ');
-		token = set_token(splited_str[0], splited_str + 1, &initial_envp);
+		token = new_token(splited_str[0], splited_str + 1, envp);
 		printf("tokens cmd: %s\n", token->cmd_path);
 		printf("tokens argv: %s\n", *(token->argv));
 		printf("tokens envp: %s\n", *(*(token->envp)));
-		builtin_hander(token);
+		builtin_handler(token);
 	}
 	return (0);
 }

@@ -15,23 +15,23 @@
 #include "libft.h"
 #include <stdio.h>
 
-static ssize_t builtin_hander_helper_get_cmd(char *cmd){
+static ssize_t builtin_handler_helper_get_cmd(char *cmd){
 	ssize_t	cmd_idx;
-	char	*bultin_cmds[7] = {CD, ECHO, ENV, EXIT, PWD, UNSET};
+	char	*builtin_cmds[7] = {CD, ECHO, ENV, EXIT, PWD, UNSET};
 
 	cmd_idx = 0;
 	while(cmd_idx < 7)
 	{
-		if(ft_strncmp(bultin_cmds[cmd_idx], cmd, ft_strlen(bultin_cmds[cmd_idx])) == 0)
+		if(ft_strncmp(builtin_cmds[cmd_idx], cmd, ft_strlen(builtin_cmds[cmd_idx])) == 0)
 			return (cmd_idx);
 		cmd_idx++;
 	}
 	return (-1);
 }
 
-void	builtin_hander(t_token *token){
+void	builtin_handler(t_token *token){
 	t_builtin_dto	*builtin_dtos[7] = {dto_cd, dto_echo, dto_env, exit, dto_pwd, dto_unset};
-	const ssize_t	cmd_idx = builtin_hander_helper_get_cmd(token->cmd_path);
+	const ssize_t	cmd_idx = builtin_handler_helper_get_cmd(token->cmd_path);
 
 	// TODO: 추후 상세한 에러처리 필요
 	if(cmd_idx == -1)
