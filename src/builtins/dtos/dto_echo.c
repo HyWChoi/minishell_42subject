@@ -37,13 +37,17 @@ void	dto_echo(t_token *token)
 {
 	char	*option;
 
+	option = "";
 	printf("-----token pass through the dto echo-----\n");
-	if (!is_option(token->argv))
-		option = "";
-	else
+	while (*(token->argv)) // NOTE: echo -n -n -n -n -n 같이 -n이 여러개 들어오는 경우 argv를 돌면서 option이 유효한지 판단하여 option을 설정
 	{
-		option = *(token->argv);
-		token->argv = token->argv + 1;
+		if (is_option(token->argv))
+		{
+			option = *(token->argv);
+			token->argv = token->argv + 1;
+		}
+		else
+			break ;
 	}
 	if (ft_strncmp(token->cmd_path, "echo", 5) == 0)
 		echo(token->argv, option);

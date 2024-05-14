@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/14 17:20:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:46:50 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	echo(char **strings, char *option)
 		ret = ft_strjoin_and_free(ret, " ", FREE_S1);
 		i++;
 	}
-	if (option && ft_strncmp(option, "-n", 3))
+	if (ft_strncmp(option, "-n", 2))
 		ret[ft_strlen(ret) - 1] = '\n';
 	else
 		ret[ft_strlen(ret) - 1] = '\0';
