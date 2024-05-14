@@ -30,7 +30,7 @@ static ssize_t builtin_handler_helper_get_cmd(char *cmd){
 }
 
 void	builtin_handler(t_token *token){
-	t_builtin_dto	*builtin_dtos[7] = {dto_cd, dto_echo, dto_env, exit, dto_pwd, dto_unset};
+	t_builtin_dto	*builtin_dtos[7] = {dto_cd, dto_echo, dto_env, dto_exit, dto_pwd, dto_unset};
 	const ssize_t	cmd_idx = builtin_handler_helper_get_cmd(token->cmd_path);
 
 	// TODO: 추후 상세한 에러처리 필요
