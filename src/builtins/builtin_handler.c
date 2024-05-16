@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/14 18:00:07 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/05/16 19:30:00 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static ssize_t builtin_handler_helper_get_cmd(char *cmd){
 	cmd_idx = 0;
 	while(cmd_idx < BUITIN_CMD_AMOUNT)
 	{
-		if(ft_strncmp(builtin_cmds[cmd_idx], cmd, ft_strlen(builtin_cmds[cmd_idx] + 1)) == 0)
+		if(ft_strncmp(builtin_cmds[cmd_idx], cmd, ft_strlen(builtin_cmds[cmd_idx]) + 1) == 0)
 			return (cmd_idx);
 		cmd_idx++;
 	}
