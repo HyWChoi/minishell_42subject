@@ -2,12 +2,22 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "*test.c")
-test_srcs = $(shell find . -name "*test.c")
+srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test")
+# test_main = $(shell find . -name "*test.c")
+test_main = src/__test__/shell/main.c
 OBJS := $(srcs:.c=.o)
 NAME = tksh
 TEST = test
 TEST_EXEC = test_tksh
+
+PARSE = parse
+parse_test_main = src/__test__/parse/main.c
+PARSE_TEST_EXEC = parse_test
+
+EXECUTE = excute
+execute_test_main = src/__test__/excute/main.c
+EXECUTE_TEST_EXEC = excute_test
+
 LIBFT = libs/libft/libft.a
 READLINE_FLAGS = -lreadline
 
@@ -19,20 +29,41 @@ ifeq ($(shell uname -p), arm)
 endif
 
 ifdef WITH_TEST
-	srcs := $(test_srcs)
+	srcs += $(test_main)
+	OBJS := $(srcs:.c=.o)
 	NAME = $(TEST_EXEC)
 else
-	srcs := src/tkshell.c
+	ifdef WITH_PARSE
+		srcs += src/__test__/parse/main.c
+		OBJS := $(srcs:.c=.o)
+		NAME = $(PARSE_TEST_EXEC)
+	else
+		ifdef WITH_EXCUTE
+			srcs += src/__test__/excute/main.c
+			OBJS := $(srcs:.c=.o)
+			NAME = $(EXECUTE_TEST_EXEC)
+		else
+			srcs += src/tkshell.c
+			OBJS := $(srcs:.c=.o)
+			NAME = tksh
+		endif
+	endif
 endif
+
 
 all : $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes $(READLINE_FLAGS)
 
-$(TEST):
+$(TEST): 
 	@make WITH_TEST=1 all
 
+$(PARSE):
+	@make WITH_PARSE=1 all
+
+$(EXECUTE):
+	@make WITH_EXCUTE=1 all
 
 $(LIBFT):
 	make -C libft
@@ -45,14 +76,13 @@ $(LIBFT):
 clean:
 	make -C libft clean
 	rm -f $(OBJS)
-	rm -rf */**.o
+	rm -rf **/**.o
 
 fclean: clean
 	make -C libft fclean
 	rm -f libs/libft.a
-	rm -f $(NAME) $(TEST_EXEC)
+	rm -f $(NAME) $(TEST_EXEC) $(PARSE_TEST_EXEC) $(EXECUTE_TEST_EXEC)
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
