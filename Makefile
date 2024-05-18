@@ -34,7 +34,7 @@ ifdef WITH_TEST
 	NAME = $(TEST_EXEC)
 else
 	ifdef WITH_PARSE
-		srcs += src/__test__/parse/main.c
+		srcs += src/__test__/parse/main.c src/__test__/parse/parse_stack.c
 		OBJS := $(srcs:.c=.o)
 		NAME = $(PARSE_TEST_EXEC)
 	else
@@ -56,7 +56,7 @@ all : $(NAME)
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes $(READLINE_FLAGS)
 
-$(TEST): 
+$(TEST):
 	@make WITH_TEST=1 all
 
 $(PARSE):
