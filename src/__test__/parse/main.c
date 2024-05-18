@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/18 16:58:03 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:08:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_token	*new_token(char *cmd, char **argv, char ***env)
 	token->envp = env;
 	return (token);
 }
-//0123456789
 /**
  * @brief main of parse test
  * IMPORTANT: This is a MAIN Function of "parse_test"
