@@ -15,7 +15,7 @@ t_bool	prs_stack_is_full(t_prs_stack *stack);
 void	prs_stack_push(t_prs_stack *stack, char elem);
 char	prs_stack_pop(t_prs_stack *stack);
 char	prs_stack_pick(t_prs_stack *stack);
-void	prs_free_stack(t_prs_stack *stack);
-void	prs_print_stack(t_prs_stack *stack);
+void	prs_stack_free(t_prs_stack *stack);
+void	dbg_prs_stack_print(t_prs_stack *stack);
 
 #endif

@@ -113,15 +113,15 @@ int main(int argc, char **argv, const char **initial_envp)
 			i++;
 		}
 		printf("str stack: %s\n", stack->stack);
-		prs_print_stack(stack);
+		dbg_prs_stack_print(stack);
 		while (!prs_stack_is_empty(stack))
 		{
 			printf("\n----picking & poping stack----\n");
 			printf("picking: %c :", prs_stack_pick(stack));
 			printf("poping: %c \n", prs_stack_pop(stack));
-			prs_print_stack(stack);
+			dbg_prs_stack_print(stack);
 		}
-		prs_print_stack(stack);
+		dbg_prs_stack_print(stack);
 	}
 	return (0);
 }
