@@ -11,8 +11,8 @@ TEST = test
 TEST_EXEC = test_tksh
 
 PARSE = parse
-parse_test_main = src/__test__/parse/main.c
-PARSE_TEST_EXEC = parse_test
+prs_test_main = src/__test__/parse/main.c
+prs_TEST_EXEC = prs_test
 
 EXECUTE = excute
 execute_test_main = src/__test__/excute/main.c
@@ -34,9 +34,9 @@ ifdef WITH_TEST
 	NAME = $(TEST_EXEC)
 else
 	ifdef WITH_PARSE
-		srcs += src/__test__/parse/main.c
+		srcs += src/__test__/parse/main.c src/__test__/parse/prs_stack.c
 		OBJS := $(srcs:.c=.o)
-		NAME = $(PARSE_TEST_EXEC)
+		NAME = $(prs_TEST_EXEC)
 	else
 		ifdef WITH_EXCUTE
 			srcs += src/__test__/excute/main.c
@@ -56,7 +56,7 @@ all : $(NAME)
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes $(READLINE_FLAGS)
 
-$(TEST): 
+$(TEST):
 	@make WITH_TEST=1 all
 
 $(PARSE):
@@ -81,7 +81,7 @@ clean:
 fclean: clean
 	make -C libft fclean
 	rm -f libs/libft.a
-	rm -f $(NAME) $(TEST_EXEC) $(PARSE_TEST_EXEC) $(EXECUTE_TEST_EXEC)
+	rm -f $(NAME) $(TEST_EXEC) $(prs_TEST_EXEC) $(EXECUTE_TEST_EXEC)
 
 re: fclean all
 
