@@ -1,21 +1,21 @@
-#ifndef TKSHELL_PARSE_H
-# define TKSHELL_PARSE_H
+#ifndef TKSHELL_prs_H
+# define TKSHELL_prs_H
 # include "tksh.h"
 
-typedef struct	s_parse_stack
+typedef struct	s_prs_stack
 {
 	char	*stack;
 	ssize_t	top;
 	size_t	size;
-}	t_parse_stack;
+}	t_prs_stack;
 
-void	init_parse(t_parse_stack	**stack, size_t	size);
-t_bool	parse_is_empty(t_parse_stack *stack);
-t_bool	parse_is_full(t_parse_stack *stack);
-void	parse_push(t_parse_stack *stack, char elem);
-char	parse_pop(t_parse_stack *stack);
-char	parse_pick(t_parse_stack *stack);
-void	free_parse(t_parse_stack *stack);
-void	print_stack(t_parse_stack *stack);
+void	prs_stack_init(t_prs_stack	**stack, size_t	size);
+t_bool	prs_stack_is_empty(t_prs_stack *stack);
+t_bool	prs_stack_is_full(t_prs_stack *stack);
+void	prs_stack_push(t_prs_stack *stack, char elem);
+char	prs_stack_pop(t_prs_stack *stack);
+char	prs_stack_pick(t_prs_stack *stack);
+void	prs_free_stack(t_prs_stack *stack);
+void	prs_print_stack(t_prs_stack *stack);
 
 #endif

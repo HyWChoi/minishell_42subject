@@ -19,7 +19,7 @@
 #include <stdlib.h>
 
 /**
- * @brief parse_qoute
+ * @brief prs_qoute
  *
  * 일단 스택에 하나 씩 담으면서 가다가 ", ', `만나면 스택에 넣고 이전꺼까진 push하자
  * 근데 띄어쓰기는 제거하고 넣어주는게 맞을듯
@@ -86,11 +86,11 @@ t_token	*new_token(char *cmd, char **argv, char ***env)
 }
 /**
  * @brief main of parse test
- * IMPORTANT: This is a MAIN Function of "parse_test"
+ * IMPORTANT: This is a MAIN Function of "prs_test"
 */
 int main(int argc, char **argv, const char **initial_envp)
 {
-	t_parse_stack	*stack;
+	t_prs_stack	*stack;
 	char	***envp;
 	(void)argc;
 	(void)argv;
@@ -103,25 +103,25 @@ int main(int argc, char **argv, const char **initial_envp)
 		int i = 0;
 		char *origin_str = tksh_prompt(**envp);
 		printf("ori str: %s\n", origin_str);
-		init_parse(&stack, ft_strlen((char *)origin_str));
+		prs_stack_init(&stack, ft_strlen((char *)origin_str));
 		printf("stack->stack: %s\n", stack->stack);
 		printf("stack->top: %zu\n", stack->top);
 		printf("stack->size: %zu\n", stack->size);
-		while (!parse_is_full(stack))
+		while (!prs_stack_is_full(stack))
 		{
-			parse_push(stack, '0' + i);
+			prs_stack_push(stack, '0' + i);
 			i++;
 		}
 		printf("str stack: %s\n", stack->stack);
-		print_stack(stack);
-		while (!parse_is_empty(stack))
+		prs_print_stack(stack);
+		while (!prs_stack_is_empty(stack))
 		{
 			printf("\n----picking & poping stack----\n");
-			printf("picking: %c :", parse_pick(stack));
-			printf("poping: %c \n", parse_pop(stack));
-			print_stack(stack);
+			printf("picking: %c :", prs_stack_pick(stack));
+			printf("poping: %c \n", prs_stack_pop(stack));
+			prs_print_stack(stack);
 		}
-		print_stack(stack);
+		prs_print_stack(stack);
 	}
 	return (0);
 }
