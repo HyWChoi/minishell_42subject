@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:51:44 by yechakim          #+#    #+#             */
-/*   Updated: 2024/04/17 15:47:48 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:24:43 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void				*ft_free_strs(char **strs);
 char				*ft_strjoin_and_free(char *s1, char *s2,
 						t_free_type free_target);
 void				*ft_calloc_guard(void **dst, size_t count, size_t size);
+char				*ft_strndup(const char *s1, size_t n);
 #endif
