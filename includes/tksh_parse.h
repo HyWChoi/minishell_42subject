@@ -2,6 +2,15 @@
 # define TKSHELL_prs_H
 # include "tksh.h"
 
+typedef struct s_argv_list	t_argv_list;
+
+typedef struct s_argv_list
+{
+	char			*argv;
+	t_argv_list	*next;
+} t_argv_list;
+
+
 typedef struct	s_prs_stack
 {
 	char	*stack;
