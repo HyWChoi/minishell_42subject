@@ -21,8 +21,8 @@ typedef struct	s_prs_stack
 	char	***envp;
 	ssize_t	top;
 	size_t	size;
-	t_bool	in_double_quote;
-	t_bool	in_single_quote;
+	t_bool	is_double_quote;
+	t_bool	is_single_quote;
 	t_bool	err_flag;
 }	t_prs_stack;
 

@@ -67,7 +67,7 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 	(*stack)->envp = envp;
 	(*stack)->top = -1;
 	(*stack)->size = size;
-	(*stack)->in_double_quote = FALSE;
-	(*stack)->in_single_quote = FALSE;
+	(*stack)->is_double_quote = FALSE;
+	(*stack)->is_single_quote = FALSE;
 	(*stack)->err_flag = FALSE;
 }
