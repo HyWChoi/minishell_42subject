@@ -29,9 +29,8 @@
 char	*ft_strndup(const char *s1, size_t n)
 {
 	char	*ret;
-	size_t	len;
-
-	len = ft_strlen(s1);
+	const size_t	len = ft_strlen(s1);=
+	
 	if (len < n)
 		n = len;
 	ret = NULL;
