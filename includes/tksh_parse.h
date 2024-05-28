@@ -44,6 +44,10 @@ char		prs_stack_pick(t_prs_stack *stack);
 void		prs_stack_free(t_prs_stack *stack);
 t_token		**prs_init_token_list(size_t size, char ***envp);
 void		prs_init_token(t_token **token, char	***envp);
+t_argv_list	*prs_new_arg_node(char *str);
+char		*prs_argv_list_get_str(t_argv_list *argv_list);
+t_argv_list	*prs_argv_list_find_last(t_argv_list **start);
+size_t		prs_argv_list_count(t_argv_list **start);
 
 void		dbg_prs_stack_print(t_prs_stack *stack);
 #endif

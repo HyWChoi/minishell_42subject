@@ -3,7 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_argv_list	*prs_new_token_arg(char *str)
+t_argv_list	*prs_new_arg_node(char *str)
 {
 	t_argv_list	*new;
 
@@ -18,14 +18,14 @@ t_argv_list	*prs_new_token_arg(char *str)
 	return (new);
 }
 
-char	*prs_get_str_argv(t_argv_list *argv_list)
+char	*prs_argv_list_get_str(t_argv_list *argv_list)
 {
 	if (!argv_list)
 		return (NULL);
 	return (argv_list->argv);
 }
 
-t_argv_list	*prs_find_last_argv_list(t_argv_list **start)
+t_argv_list	*prs_argv_list_find_last(t_argv_list **start)
 {
 	if (start == NULL || *start == NULL)
 		return NULL;
@@ -36,7 +36,7 @@ t_argv_list	*prs_find_last_argv_list(t_argv_list **start)
 	return (*start);
 }
 
-size_t	prs_count_list(t_argv_list **start)
+size_t	prs_argv_list_count(t_argv_list **start)
 {
 	size_t	i;
 	t_argv_list	*tmp;
