@@ -32,7 +32,7 @@ void	prs_init_token(t_token **token, char	***envp)
 	(*token)->is_heredoc = FALSE;
 }
 
-t_prs_stack	**prs_init_stack_list(char *ori_str)
+t_prs_stack	**prs_init_stack_list(char *ori_str, char ***envp)
 {
 	char	**splited_strs;
 	size_t	splited_num;
@@ -47,14 +47,14 @@ t_prs_stack	**prs_init_stack_list(char *ori_str)
 		return (NULL);
 	while (i < splited_num)
 	{
-		prs_stack_init(&parse_list[i], splited_strs[i]);
+		prs_stack_init(&parse_list[i], splited_strs[i], envp);
 		i++;
 	}
 	ft_free_strs(splited_strs);
 	return (parse_list);
 }
 
-void	prs_stack_init(t_prs_stack	**stack, char *ori_str)
+void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 {
 	size_t	size;
 
@@ -64,6 +64,7 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str)
 	size = ft_strlen((const char *)(*stack)->ori_str);
 	if(!ft_calloc_guard((void **)&((*stack)->stack), size + 1, sizeof(char *)))
 		return ;
+	(*stack)->envp = envp;
 	(*stack)->top = -1;
 	(*stack)->size = size;
 	(*stack)->skip_len = 0;

@@ -16,6 +16,7 @@ typedef struct	s_prs_stack
 {
 	char	*stack;
 	char	*ori_str;
+	char	***envp;
 	ssize_t	top;
 	size_t	size;
 	size_t	skip_len;
@@ -24,8 +25,8 @@ typedef struct	s_prs_stack
 	t_bool	err_flag;
 }	t_prs_stack;
 
-t_prs_stack	**prs_init_stack_list(char *ori_str);
-void		prs_stack_init(t_prs_stack	**stack, char *ori_str);
+t_prs_stack	**prs_init_stack_list(char *ori_str, char ***envp);
+void		prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp);
 t_bool		prs_stack_is_empty(t_prs_stack *stack);
 t_bool		prs_stack_is_full(t_prs_stack *stack);
 void		prs_stack_push(t_prs_stack *stack, char elem);
