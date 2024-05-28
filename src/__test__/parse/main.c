@@ -100,7 +100,6 @@ int main(int argc, char **argv, const char **initial_envp)
 	envp = &tmp;
 	while (1)
 	{
-		int i = 0;
 		char *origin_str = tksh_prompt(**envp);
 	}
 	return (0);
