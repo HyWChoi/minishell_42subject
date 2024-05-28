@@ -11,6 +11,8 @@
 # define PRS_HEREDOC "<<"
 # define PRS_SINGLE_QUOTE '\''
 # define PRS_DOUBLE_QUOTE '\"'
+# define PRS_VARIABLE '$'
+# define PRS_UNDERBAR '_'
 
 typedef struct	s_prs_stack
 {
@@ -19,7 +21,6 @@ typedef struct	s_prs_stack
 	char	***envp;
 	ssize_t	top;
 	size_t	size;
-	size_t	skip_len;
 	t_bool	in_double_quote;
 	t_bool	in_single_quote;
 	t_bool	err_flag;
