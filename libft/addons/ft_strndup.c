@@ -13,6 +13,19 @@
 #include "libft.h"
 #include <stdlib.h>
 
+/**
+ * @brief Duplicates a string up to a specified length.
+ * 
+ * This function duplicates up to 'n' characters from the input string 's1'.
+ * If the length of 's1' is less than 'n', it duplicates the entire string.
+ * The resulting string is null-terminated.
+ * 
+ * @note The input string 's1' must not be a null pointer.
+ *
+ * @param s1 The null-terminated input string to duplicate.
+ * @param n The maximum number of characters to duplicate.
+ * @return A pointer to the newly allocated string, or NULL if the allocation fails.
+ */
 char	*ft_strndup(const char *s1, size_t n)
 {
 	char	*ret;
