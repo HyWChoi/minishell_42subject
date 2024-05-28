@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/27 16:26:15 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:41:23 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,6 @@ int main(int argc, char **argv, const char **initial_envp)
 	while (1)
 	{
 		char *origin_str = tksh_prompt(**envp);
-		printf("test strndup: %s\n", ft_strndup(origin_str, 5));
-		printf("test strndup: %s\n", ft_strndup(origin_str, 0));
-		printf("test strndup: %s\n", ft_strndup(origin_str, 10));
-		printf("test strndup: %s\n", ft_strndup(origin_str, 100));
-		printf("test strndup: %s\n", ft_strndup(origin_str, 1));
 	}
 	return (0);
 }

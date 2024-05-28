@@ -2,16 +2,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-void	prs_stack_init(t_prs_stack	**stack, size_t	size)
-{
-	if(ft_calloc_guard((void **)stack, 1, sizeof(t_prs_stack)) == NULL)
-		return ;
-	if(ft_calloc_guard((void **)&((*stack)->stack), size + 1, sizeof(char *)) == NULL)
-		return ;
-	(*stack)->top = -1;
-	(*stack)->size = size;
-}
-
 t_bool	prs_stack_is_empty(t_prs_stack *stack)
 {
 	return (stack->top == -1);

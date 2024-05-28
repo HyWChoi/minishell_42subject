@@ -12,6 +12,7 @@ TEST_EXEC = test_tksh
 
 PARSE = parse
 prs_test_main = src/__test__/parse/main.c
+prs_srcs = src/__test__/parse/prs_init.c src/__test__/parse/prs_stack.c
 prs_TEST_EXEC = prs_test
 
 EXECUTE = excute
@@ -34,7 +35,7 @@ ifdef WITH_TEST
 	NAME = $(TEST_EXEC)
 else
 	ifdef WITH_PARSE
-		srcs += src/__test__/parse/main.c src/__test__/parse/prs_stack.c
+		srcs += $(prs_test_main) $(prs_srcs)
 		OBJS := $(srcs:.c=.o)
 		NAME = $(prs_TEST_EXEC)
 	else
