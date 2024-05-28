@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/18 19:08:28 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:41:23 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,28 +100,7 @@ int main(int argc, char **argv, const char **initial_envp)
 	envp = &tmp;
 	while (1)
 	{
-		int i = 0;
 		char *origin_str = tksh_prompt(**envp);
-		printf("ori str: %s\n", origin_str);
-		prs_stack_init(&stack, ft_strlen((char *)origin_str));
-		printf("stack->stack: %s\n", stack->stack);
-		printf("stack->top: %zu\n", stack->top);
-		printf("stack->size: %zu\n", stack->size);
-		while (!prs_stack_is_full(stack))
-		{
-			prs_stack_push(stack, '0' + i);
-			i++;
-		}
-		printf("str stack: %s\n", stack->stack);
-		dbg_prs_stack_print(stack);
-		while (!prs_stack_is_empty(stack))
-		{
-			printf("\n----picking & poping stack----\n");
-			printf("picking: %c :", prs_stack_pick(stack));
-			printf("poping: %c \n", prs_stack_pop(stack));
-			dbg_prs_stack_print(stack);
-		}
-		dbg_prs_stack_print(stack);
 	}
 	return (0);
 }
