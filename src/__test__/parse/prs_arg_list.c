@@ -3,7 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_argv_list	*prs_new_arg_node(char *str)
+t_argv_list	*prs_argv_list_new_node(char *str)
 {
 	t_argv_list	*new;
 
