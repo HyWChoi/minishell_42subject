@@ -44,6 +44,10 @@ char		prs_stack_pick(t_prs_stack *stack);
 void		prs_stack_free(t_prs_stack *stack);
 t_token		**prs_init_token_list(size_t size, char ***envp);
 void		prs_init_token(t_token **token, char	***envp);
-
+void		prs_add_argv_in_token(char *str, t_argv_list	**head);
+void		prs_add_file_in_token(t_token *token, t_prs_stack *stack);
+char		*prs_make_argv(t_prs_stack *stack, char ***envp);
+size_t		prs_count_list(t_argv_list **start);
+void		prs_set_argv_in_token(t_token *token, t_argv_list **argv_list, t_prs_stack *stack);
 void		dbg_prs_stack_print(t_prs_stack *stack);
 #endif
