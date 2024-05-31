@@ -18,6 +18,19 @@ t_argv_list	*prs_argv_list_new_node(char *str)
 	return (new);
 }
 
+void	prs_argv_list_add_node(char *str, t_argv_list	**head)
+{
+	t_argv_list	*last;
+
+	if (!*head)
+		*head = prs_argv_list_new_node(str);
+	else
+	{
+		last = prs_argv_list_find_last(head);
+		last->next = prs_argv_list_new_node(str);
+	}
+}
+
 char	*prs_argv_list_get_str(t_argv_list *argv_list)
 {
 	if (!argv_list)

@@ -23,11 +23,7 @@ void	prs_init_token(t_token **token, char	***envp)
 {
 	if (!ft_calloc_guard((void **)token, 1, sizeof(t_token)))
 		return ;
-	(*token)->cmd_path = NULL;
-	(*token)->argv = NULL;
 	(*token)->envp = envp;
-	(*token)->infile_path = NULL;
-	(*token)->outfile_path = NULL;
 	(*token)->is_append = FALSE;
 	(*token)->is_heredoc = FALSE;
 }

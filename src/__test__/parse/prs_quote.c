@@ -42,13 +42,13 @@ char	*prs_remove_quote(t_prs_stack *stack, char ***envp)
 	{
 		while (*(stack->ori_str + i) && !prs_is_single_quote(stack->ori_str + i))
 			i++;
-		result = ft_strndup(stack->ori_str, i - 1);
+		result = ft_strndup(stack->ori_str, i);
 	}
 	else
 	{
 		while (*(stack->ori_str + i) && !prs_is_double_quote(stack->ori_str + i))
 			i++;
-		result = ft_strndup(stack->ori_str, i - 1);
+		result = ft_strndup(stack->ori_str, i);
 		if (ft_strchr(result, '$'))
 			result = prs_find_envp(result, envp);
 	}

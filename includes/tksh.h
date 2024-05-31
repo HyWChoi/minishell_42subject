@@ -14,4 +14,7 @@ typedef struct	s_token
 	t_bool	is_heredoc;
 }	t_token;
 
+void	tksh_free_token(t_token *token);
+void	tksh_free_token_list(t_token **token_list);
+
 #endif
