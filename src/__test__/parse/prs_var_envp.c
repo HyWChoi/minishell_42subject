@@ -1,5 +1,6 @@
 #include "tksh_parse.h"
 #include "libft.h"
+#include <stdio.h>
 
 char	*prs_find_value_in_envp(char *str, char ***envp)
 {
@@ -9,18 +10,19 @@ char	*prs_find_value_in_envp(char *str, char ***envp)
 
 	i = 0;
 	is_found = FALSE;
-	while (*envp[i])
+	while (*(*envp + i))
 	{
-		if (ft_strncmp(*envp[i], str, len) == 0)
+		if (ft_strncmp(*(*envp + i), str, len) == 0)
 		{
 			is_found = TRUE;
 			break ;
 		}
+		printf("i: %ld\n", i);
 		i++;
 	}
 	free(str);
 	if (is_found)
-		return (*envp[i] + len);
+		return (*(*envp + i) + len);
 	return (NULL);
 }
 
@@ -35,14 +37,18 @@ char	*prs_find_envp(char *str, char ***envp)
 	start = str;
 	while (*start && !prs_is_variable(start))
 		start++;
-	result = ft_strndup(start, start - str - 1);
+	printf("result: %ld\n", start - str);
+	result = ft_strndup(start, start - str);
 	if (prs_is_variable(start) && prs_is_possible_var_space(start + 1))
 	{
-		str++;
+		start++;
 		while (*(start + i) && prs_is_possible_var_name(start + i))
 			i++;
-		envp_value = ft_strjoin_and_free(ft_strndup(start, i - 1), "=", FREE_S1);
+		printf("str: %s\n", ft_strndup(start, i));
+		envp_value = ft_strjoin_and_free(ft_strndup(start, i), "=", FREE_S1);
+		printf("envp_value: %s\n", envp_value);
 		envp_value = prs_find_value_in_envp(envp_value, envp);
+		printf("envp_value: %s\n", envp_value);
 		if (envp_value)
 			result = ft_strjoin_and_free(result, envp_value, FREE_BOTH);
 	}

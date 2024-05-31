@@ -40,6 +40,8 @@ void	prs_argv_list_add_node(char *str, t_argv_list	**head)
 {
 	t_argv_list	*last;
 
+	if (!str)
+		return ;
 	if (!*head)
 		*head = prs_argv_list_new_node(str);
 	else

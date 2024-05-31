@@ -37,5 +37,8 @@ t_bool	prs_is_end_of_name(char *str)
 {
 	if (*str && !prs_is_white_space(str) && !prs_is_redir(str) && !prs_is_quote(str))
 		return (TRUE);
+	// 변수 parsing 기능 적용시 변경 예정
+	// if (*str && !prs_is_white_space(str) && !prs_is_redir(str) && !prs_is_quote(str) && !prs_is_variable(str))
+	// 	return (TRUE);
 	return (FALSE);
 }

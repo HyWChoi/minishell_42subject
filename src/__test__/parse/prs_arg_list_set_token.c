@@ -19,6 +19,18 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 	char	*result;
 
 	i = 0;
+	// description: if the string is a variable, find the value from the environment variables
+	// if the value is found, update the stack->ori_str and return the value
+	// if the value is not found, return NULL
+	// This part is not complete, so it should be implemented
+	// if (prs_is_variable(stack->ori_str))
+	// {
+	// 	result = prs_find_envp(stack->ori_str, stack->envp);
+	// 	if (result == NULL)
+	// 		return (NULL);
+	// 	stack->ori_str += ft_strlen(result);
+	// 	return (result);
+	// }
 	while (prs_is_end_of_name(stack->ori_str + i))
 		i++;
 	result = ft_strndup((const char *)stack->ori_str, i);

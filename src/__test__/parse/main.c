@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/31 21:44:57 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/05/31 22:43:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ int main(int argc, char **argv, const char **initial_envp)
 	{
 		char *origin_str = tksh_prompt(**envp);
 		token_list = prs_parse(origin_str, envp);
+		dbg_print_token(token_list);
 		if (token_list)
 		{
-			dbg_print_token(token_list);
 			tksh_free_token_list(token_list);
 		}
 	}

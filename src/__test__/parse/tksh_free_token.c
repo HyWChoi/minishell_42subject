@@ -19,8 +19,8 @@ void	tksh_free_token(t_token *token)
 		free(token->outfile_path);
 	if (token->argv)
 		ft_free_strs(token->argv);
-	if (*token->envp)
-		ft_free_strs(*(token->envp));
+	// if (*token->envp)
+	// 	ft_free_strs(*(token->envp));
 	free(token);
 }
 
