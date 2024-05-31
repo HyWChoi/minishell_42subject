@@ -1,6 +1,14 @@
 #include "tksh.h"
 #include <stdlib.h>
 
+/**
+ * @brief tksh_free_token
+ *
+ * This function frees the memory allocated for a single token.
+ * It frees the command path, input and output file paths, argument list, environment variables, and the token itself.
+ *
+ * @param t_token* token - The token to be freed.
+ */
 void	tksh_free_token(t_token *token)
 {
 	if (token->cmd_path)
@@ -11,11 +19,19 @@ void	tksh_free_token(t_token *token)
 		free(token->outfile_path);
 	if (token->argv)
 		ft_free_strs(token->argv);
-	// if (*token->envp)
-	// 	ft_free_strs(*(token->envp));
+	if (*token->envp)
+		ft_free_strs(*(token->envp));
 	free(token);
 }
 
+/**
+ * @brief tksh_free_token_list
+ *
+ * This function frees the memory allocated for a list of tokens.
+ * It iterates through each token in the list and frees it using tksh_free_token, then frees the token list itself.
+ *
+ * @param t_token** token_list - The list of tokens to be freed.
+ */
 void	tksh_free_token_list(t_token **token_list)
 {
 	int	i;

@@ -53,7 +53,6 @@ t_token	**prs_parse(char *usr_input, char ***envp)
 	{
 		prs_set_token(stack_list[i], token_list[i]);
 		prs_set_cmd_path_in_token(token_list[i]);
-		printf("token_list[%d]: %s\n", i, token_list[i]->cmd_path);
 		if (is_check_err_in_stack(stack_list[i]))
 		{
 			tksh_free_token_list(token_list);

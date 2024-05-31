@@ -3,6 +3,15 @@
 #include "libft.h"
 #include <stdio.h>
 
+/**
+ * @brief prs_is_balanced_quote
+ *
+ * This function checks if the quotes in the stack's original string are balanced.
+ * It updates the stack's quote status and uses a stack to track unmatched quotes.
+ *
+ * @param t_prs_stack* stack - The stack containing the original string and quote status.
+ * @return t_bool - TRUE if quotes are balanced, FALSE otherwise.
+ */
 t_bool	prs_is_balanced_quote(t_prs_stack *stack)
 {
 	char	*start = stack->ori_str;
@@ -30,6 +39,16 @@ t_bool	prs_is_balanced_quote(t_prs_stack *stack)
 	return (prs_stack_is_empty(stack));
 }
 
+/**
+ * @brief prs_remove_quote
+ *
+ * This function removes the surrounding quotes from the stack's original string.
+ * It handles both single and double quotes and resolves environment variables if needed.
+ *
+ * @param t_prs_stack* stack - The stack containing the original string and quote status.
+ * @param char*** envp - The environment variables for resolving variables inside double quotes.
+ * @return char* - The string with quotes removed, or NULL if an error occurs.
+ */
 char	*prs_remove_quote(t_prs_stack *stack, char ***envp)
 {
 	size_t	i;

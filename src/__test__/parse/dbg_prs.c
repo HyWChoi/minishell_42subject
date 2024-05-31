@@ -3,6 +3,14 @@
 #include "libft.h"
 #include <stdio.h>
 
+/**
+ * @brief dbg_print_argv
+ *
+ * This function prints the given argv array in a formatted way.
+ * It prints each argument surrounded by backticks and separated by commas.
+ *
+ * @param char** argv - The array of argument strings to be printed.
+ */
 void	dbg_print_argv(char **argv)
 {
 	printf("argv: [");
@@ -16,6 +24,14 @@ void	dbg_print_argv(char **argv)
 	printf("]\n");
 }
 
+/**
+ * @brief dbg_print_arg_list
+ *
+ * This function prints the given linked list of argv in a formatted way.
+ * It prints each argument surrounded by backticks and separated by commas.
+ *
+ * @param t_argv_list** argv - Pointer to the linked list of argument strings to be printed.
+ */
 void	dbg_print_arg_list(t_argv_list **argv)
 {
 	t_argv_list	*start;
@@ -33,6 +49,14 @@ void	dbg_print_arg_list(t_argv_list **argv)
 	printf("]\n");
 }
 
+/**
+ * @brief dbg_print_token
+ *
+ * This function prints the details of each token in the given token list.
+ * It prints the command path, argv, envp (if exists), infile and outfile paths, and flags for append and heredoc.
+ *
+ * @param t_token** token_list - Pointer to the list of tokens to be printed.
+ */
 void	dbg_print_token(t_token **token_list)
 {
 	if (!token_list)

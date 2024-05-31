@@ -3,6 +3,15 @@
 #include "libft.h"
 #include <stdio.h>
 
+/**
+ * @brief prs_set_file_path_in_token
+ *
+ * This function sets the file path in the given token based on the stack's original string.
+ * It determines if the file path is for input or output, checks for heredoc, and updates the token accordingly.
+ *
+ * @param t_token* token - The token to update with the file path.
+ * @param t_prs_stack* stack - The stack containing the original string and error flag.
+ */
 void	prs_set_file_path_in_token(t_token *token, t_prs_stack *stack)
 {
 	if (prs_is_in_file(stack->ori_str))
@@ -23,6 +32,15 @@ void	prs_set_file_path_in_token(t_token *token, t_prs_stack *stack)
 	}
 }
 
+/**
+ * @brief prs_find_file_name
+ *
+ * This function finds the file name in the stack's original string.
+ * It skips redirection characters and white spaces, removes quotes if present, and extracts the file name.
+ *
+ * @param t_prs_stack* stack - The stack containing the original string and error flag.
+ * @return char* - The extracted file name, or NULL if an error occurs.
+ */
 char	*prs_find_file_name(t_prs_stack *stack)
 {
 	size_t	i;
@@ -45,18 +63,3 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	stack->ori_str += i;
 	return (result);
 }
-
-// t_bool	prs_check_redir_valid(char *str, t_token *token)
-// {
-// 	if (prs_is_in_file(str))
-// 	{
-// 		if (prs_is_in_file(str + 1))
-// 			token->is_heredoc = TRUE;
-// 	}
-// 	else if (prs_is_out_file(str))
-// 	{
-// 		if (prs_is_out_file(str + 1))
-// 			token->is_append = TRUE;
-// 	}
-// 	return (TRUE);
-// }
