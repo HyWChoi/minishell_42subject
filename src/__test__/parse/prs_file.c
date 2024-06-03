@@ -53,7 +53,7 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	while (*stack->ori_str && prs_is_white_space(stack->ori_str) )
 		stack->ori_str++;
 	if (*stack->ori_str && prs_is_quote(stack->ori_str))
-		return (prs_remove_quote(stack, stack->envp));
+		return (prs_remove_quote(stack));
 	else if (*stack->ori_str && prs_is_redir(stack->ori_str))
 		stack->err_flag = TRUE;
 	while (!stack->err_flag && prs_is_end_of_name(stack->ori_str + i))

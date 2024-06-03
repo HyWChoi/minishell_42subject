@@ -49,7 +49,7 @@ t_bool	prs_is_balanced_quote(t_prs_stack *stack)
  * @param char*** envp - The environment variables for resolving variables inside double quotes.
  * @return char* - The string with quotes removed, or NULL if an error occurs.
  */
-char	*prs_remove_quote(t_prs_stack *stack, char ***envp)
+char	*prs_remove_quote(t_prs_stack *stack)
 {
 	size_t	i;
 	char	*result;
@@ -69,7 +69,7 @@ char	*prs_remove_quote(t_prs_stack *stack, char ***envp)
 			i++;
 		result = ft_strndup(stack->ori_str, i);
 		if (ft_strchr(result, '$'))
-			result = prs_find_envp(result, envp);
+			result = prs_parse_variable(result, stack->envp);
 	}
 	stack->ori_str += i + 1;
 	return (result);

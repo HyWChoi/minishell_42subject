@@ -65,7 +65,7 @@ void		prs_set_argv_into_token(t_token *token, t_argv_list **argv_list, t_prs_sta
 
 // description: func for judging that quote is balanced, if it is TRUE, remove quote
 t_bool		prs_is_balanced_quote(t_prs_stack *stack);
-char		*prs_remove_quote(t_prs_stack *stack, char ***envp);
+char		*prs_remove_quote(t_prs_stack *stack);
 
 // description: func for setting file path in token
 void		prs_set_file_path_in_token(t_token *token, t_prs_stack *stack);
@@ -73,7 +73,7 @@ char		*prs_find_file_name(t_prs_stack *stack);
 
 // description: func for find value in envp and judging that it is valid variable name
 char		*prs_find_value_in_envp(char *str, char ***envp);
-char		*prs_find_envp(char *str, char ***envp);
+char		*prs_parse_variable(char *str, char ***envp);
 
 // description: uitliteis for checking that char is valid characte
 t_bool		prs_is_double_quote(char *c);

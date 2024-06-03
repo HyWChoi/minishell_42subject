@@ -2,57 +2,76 @@
 #include "libft.h"
 #include <stdio.h>
 
+static size_t	prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true)
+{
+	size_t	count;
+	
+	count = 0;
+	if (count_if_true)
+	{
+		while (*str && f(str))
+		{
+			count++;
+			str++;
+		}
+	}
+	else
+	{
+		while (*str && !f(str))
+		{
+			count++;
+			str++;
+		}
+	}
+	return (count);
+}
+
 char	*prs_find_value_in_envp(char *str, char ***envp)
 {
-	const size_t	len = ft_strlen(str);
-	t_bool			is_found;
-	size_t			i;
+	size_t	count;
+	char	*envp_key;
+	int		i;
 
 	i = 0;
-	is_found = FALSE;
+	envp_key = NULL;
+	count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
+	envp_key = ft_strjoin_and_free(ft_strndup(str, count), "=", FREE_S1);
 	while (*(*envp + i))
 	{
-		if (ft_strncmp(*(*envp + i), str, len) == 0)
+		if (ft_strncmp(envp_key, *(*envp + i), count + 1) == 0)
 		{
-			is_found = TRUE;
-			break ;
+			free(envp_key);
+			return (ft_strdup(*(*envp + i) + count + 1));
 		}
-		printf("i: %ld\n", i);
 		i++;
 	}
-	free(str);
-	if (is_found)
-		return (*(*envp + i) + len);
 	return (NULL);
 }
 
-char	*prs_find_envp(char *str, char ***envp)
+char	*prs_parse_variable(char *str, char ***envp)
 {
 	char	*start;
-	char	*envp_value;
 	char	*result;
-	size_t	i;
+	char	*parsed_var;
+	size_t	count;
 
-	i = 0;
 	start = str;
-	while (*start && !prs_is_variable(start))
-		start++;
-	printf("result: %ld\n", start - str);
-	result = ft_strndup(start, start - str);
-	if (prs_is_variable(start) && prs_is_possible_var_space(start + 1))
+	result = NULL;
+	parsed_var = NULL;
+	count = prs_count_str_using_func(str, prs_is_variable, FALSE);
+	result = ft_strndup(start, count);
+	printf("count : %zu\n", count);
+	str += count + 1;
+	if (prs_is_possible_var_space(str))
 	{
-		start++;
-		while (*(start + i) && prs_is_possible_var_name(start + i))
-			i++;
-		printf("str: %s\n", ft_strndup(start, i));
-		envp_value = ft_strjoin_and_free(ft_strndup(start, i), "=", FREE_S1);
-		printf("envp_value: %s\n", envp_value);
-		envp_value = prs_find_value_in_envp(envp_value, envp);
-		printf("envp_value: %s\n", envp_value);
-		if (envp_value)
-			result = ft_strjoin_and_free(result, envp_value, FREE_BOTH);
+		count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
+		parsed_var = prs_find_value_in_envp(str, envp);
+		str += count;
 	}
-	result = ft_strjoin_and_free(result, ft_strdup(start + i), FREE_S1);
-	free(str);
+	if (parsed_var)
+		result = ft_strjoin_and_free(result, parsed_var, FREE_BOTH);
+	if (*str != '\0')
+		result = ft_strjoin_and_free(result, str, FREE_S1);
+	free(start);
 	return (result);
 }

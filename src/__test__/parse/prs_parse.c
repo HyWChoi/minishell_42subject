@@ -28,7 +28,7 @@ static void	prs_set_token(t_prs_stack *stack, t_token *token)
 	while (!stack->err_flag && *stack->ori_str)
 	{
 		if (prs_is_quote(stack->ori_str))
-			prs_argv_list_add_node(prs_remove_quote(stack, token->envp), &argv_list);
+			prs_argv_list_add_node(prs_remove_quote(stack), &argv_list);
 		else if (prs_is_redir(stack->ori_str))
 			prs_set_file_path_in_token(token, stack);
 		else if (!prs_is_white_space(stack->ori_str))
