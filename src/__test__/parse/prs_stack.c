@@ -39,12 +39,6 @@ char	prs_stack_pick(t_prs_stack *stack)
 	return (stack->stack[stack->top]);
 }
 
-void	prs_stack_free(t_prs_stack *stack)
-{
-	free(stack->stack);
-	free(stack);
-}
-
 void	dbg_prs_stack_print(t_prs_stack *stack)
 {
 	ssize_t	i;

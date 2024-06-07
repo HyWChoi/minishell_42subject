@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/27 16:41:23 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:19:57 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,65 +42,28 @@
 */
 
 /**
- * @brief print_strs
- *
- * This function will print the strs
- *
- * @param char** intialized strs
- * @return void
-*/
-void	print_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while(strs[i])
-	{
-		printf("strs[%d]: %s\n", i, strs[i]);
-		i++;
-	}
-	printf("strs[%d]: NULL\n", i);
-}
-
-
-/**
- * @brief initailize token
- *
- * This function will init the token that input
- * to the path specified by the argunment.
- *
- * @param void
- * @return void
-*/
-t_token	*new_token(char *cmd, char **argv, char ***env)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->cmd_path = cmd;
-	token->argv = argv;
-	token->envp = env;
-	return (token);
-}
-/**
  * @brief main of parse test
  * IMPORTANT: This is a MAIN Function of "prs_test"
 */
 int main(int argc, char **argv, const char **initial_envp)
 {
-	t_prs_stack	*stack;
+	t_token	**token_list;
 	char	***envp;
 	(void)argc;
 	(void)argv;
 
-	stack = NULL;
+	token_list = NULL;
 	char **tmp = ft_strs_copy(initial_envp);
 	envp = &tmp;
 	while (1)
 	{
 		char *origin_str = tksh_prompt(**envp);
+		token_list = prs_parse(origin_str, envp);
+		dbg_print_token(token_list);
+		if (token_list)
+		{
+			tksh_free_token_list(token_list);
+		}
 	}
 	return (0);
 }
