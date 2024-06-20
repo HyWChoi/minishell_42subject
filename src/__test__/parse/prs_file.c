@@ -14,21 +14,19 @@
  */
 void	prs_set_file_path_in_token(t_token *token, t_prs_stack *stack)
 {
+	t_file_type type;
+
+	if (!stack->ori_str || stack->err_flag)
+		return ;
 	if (prs_is_in_file(stack->ori_str))
 	{
-		if (prs_is_in_file(stack->ori_str + 1))
-			token->is_heredoc = TRUE;
-		token->infile_path = prs_find_file_name(stack);
-		if (!token->infile_path)
-			stack->err_flag = TRUE;
+		type = IN_FILE;
+		prs_setting_file(token, stack, prs_is_in_file, type);
 	}
 	else if (prs_is_out_file(stack->ori_str))
 	{
-		if (prs_is_out_file(stack->ori_str + 1))
-			token->is_heredoc = TRUE;
-		token->outfile_path = prs_find_file_name(stack);
-		if (!token->outfile_path)
-			stack->err_flag = TRUE;
+		type = OUT_FILE;
+		prs_setting_file(token, stack, prs_is_out_file, type);
 	}
 }
 

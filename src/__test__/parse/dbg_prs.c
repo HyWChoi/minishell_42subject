@@ -49,6 +49,45 @@ void	dbg_print_arg_list(t_argv_list **argv)
 	printf("]\n");
 }
 
+void	dbg_print_file_list(t_file_list **argv)
+{
+	t_file_list	*start;
+
+	start = *argv;
+	printf("argv: [\n");
+	while (start)
+	{
+		if (start->next)
+		{
+			printf("file path: `%s`, ", start->file_name);
+			printf("fd: %d, ", start->fd);
+			if (start->type == IN_FILE)
+				printf("type: IN_FILE\n");
+			else if (start->type == OUT_FILE)
+				printf("type: OUT_FILE\n");
+			else if (start->type == APPEND)
+				printf("type: APPEND\n");
+			else if (start->type == HEREDOC)
+				printf("type: HEREDOC\n");
+		}
+		else
+		{
+			printf("file path: `%s`,", start->file_name);
+			printf("fd: %d, ", start->fd);
+			if (start->type == IN_FILE)
+				printf("type: IN_FILE\n");
+			else if (start->type == OUT_FILE)
+				printf("type: OUT_FILE\n");
+			else if (start->type == APPEND)
+				printf("type: APPEND\n");
+			else if (start->type == HEREDOC)
+				printf("type: HEREDOC\n");
+		}
+		start = start->next;
+	}
+	printf("]\n");
+}
+
 /**
  * @brief dbg_print_token
  *
@@ -71,12 +110,13 @@ void	dbg_print_token(t_token **token_list)
 		if ((*token_list)->envp)
 			printf("envp[0]: %p -> %s\n", *((*token_list)->envp), **(*token_list)->envp);
 			// printf("hihihihihihi\n");
-		if ((*token_list)->infile_path)
-			printf("infile_path: %s\n", (*token_list)->infile_path);
-		if ((*token_list)->outfile_path)
-			printf("outfile path: %s\n", (*token_list)->outfile_path);
-		(*token_list)->is_append ? printf("append activate\n") : printf("append deactivate\n");
-		(*token_list)->is_heredoc ? printf("heredoc activate\n") : printf("heredoc deactivate\n");
+		// if ((*token_list)->infile_path)
+		// 	printf("infile_path: %s\n", (*token_list)->infile_path);
+		// if ((*token_list)->outfile_path)
+		// 	printf("outfile path: %s\n", (*token_list)->outfile_path);
+		// (*token_list)->is_append ? printf("append activate\n") : printf("append deactivate\n");
+		// (*token_list)->is_heredoc ? printf("heredoc activate\n") : printf("heredoc deactivate\n");
+		dbg_print_file_list((*token_list)->file);
 		printf("-----------------------------\n");
 		token_list++;
 	}

@@ -43,8 +43,10 @@ void	prs_init_token(t_token **token, char	***envp)
 	if (!ft_calloc_guard((void **)token, 1, sizeof(t_token)))
 		return ;
 	(*token)->envp = envp;
-	(*token)->is_append = FALSE;
-	(*token)->is_heredoc = FALSE;
+	(*token)->cmd_path = NULL;
+	(*token)->argv = NULL;
+	if (!ft_calloc_guard((void **)&((*token)->file), 1, sizeof(t_file_list *)))
+		return ;
 }
 
 /**
