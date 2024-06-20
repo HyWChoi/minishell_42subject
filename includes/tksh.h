@@ -3,15 +3,27 @@
 
 # include "libft.h"
 
+typedef enum	e_type
+{
+	APPEND,
+	HEREDOC,
+	IN_FILE,
+	OUT_FILE
+}	t_type;
+
+typedef struct	s_file_list
+{
+	char	*file_name;
+	t_type	type;
+	int		fd;
+}	t_file_list;
+
 typedef struct	s_token
 {
-	char	*cmd_path;
-	char	**argv;
-	char	***envp;
-	char	*infile_path;
-	char	*outfile_path;
-	t_bool	is_append;
-	t_bool	is_heredoc;
+	char		*cmd_path;
+	char		**argv;
+	char		***envp;
+	t_file_list	*file;
 }	t_token;
 
 void	tksh_free_token(t_token *token);
