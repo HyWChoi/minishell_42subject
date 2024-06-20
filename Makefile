@@ -16,9 +16,11 @@ prs_srcs = $(shell find "src/__test__/parse" -name "*.c" | grep -v "main")
 prs_obj = $(shell find "src/__test__/parse" -name "*.o")
 prs_TEST_EXEC = prs_test
 
-EXECUTE = excute
-execute_test_main = src/__test__/excute/main.c
-EXECUTE_TEST_EXEC = excute_test
+EXECUTE = execute
+execute_test_main = src/__test__/execute/main.c
+execute_test_srcs = $(shell find "src/__test__/execute" -name "*.c" | grep -v "main") \
+# execute_obj = $(shell find "src/__test__/execute" -name "*.o")
+EXECUTE_TEST_EXEC = execute_test
 
 LIBFT = libs/libft/libft.a
 READLINE_FLAGS = -lreadline
@@ -40,8 +42,8 @@ else
 		OBJS := $(srcs:.c=.o)
 		NAME = $(prs_TEST_EXEC)
 	else
-		ifdef WITH_EXCUTE
-			srcs += src/__test__/excute/main.c
+		ifdef WITH_EXECUTE
+			srcs += src/__test__/execute/main.c $(execute_test_srcs) $(prs_srcs)
 			OBJS := $(srcs:.c=.o)
 			NAME = $(EXECUTE_TEST_EXEC)
 		else
@@ -65,7 +67,7 @@ $(PARSE):
 	@make WITH_PARSE=1 all
 
 $(EXECUTE):
-	@make WITH_EXCUTE=1 all
+	@make WITH_EXECUTE=1 all
 
 $(LIBFT):
 	make -C libft
@@ -77,7 +79,7 @@ $(LIBFT):
 
 clean:
 	make -C libft clean
-	rm -f $(OBJS) $(prs_obj)
+	rm -f $(OBJS) $(prs_obj) $(execute_obj)
 	rm -rf **/**.o
 
 fclean: clean
