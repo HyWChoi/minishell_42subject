@@ -97,4 +97,5 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 	(*stack)->is_double_quote = FALSE;
 	(*stack)->is_single_quote = FALSE;
 	(*stack)->err_flag = FALSE;
+	(*stack)->heredoc_count = 0;
 }

@@ -68,7 +68,10 @@ void	dbg_print_file_list(t_file_list **argv)
 			else if (start->type == APPEND)
 				printf("type: APPEND\n");
 			else if (start->type == HEREDOC)
+			{
 				printf("type: HEREDOC\n");
+				printf("limiter: `%s`\n", start->limiter);
+			}
 		}
 		else
 		{
@@ -81,7 +84,10 @@ void	dbg_print_file_list(t_file_list **argv)
 			else if (start->type == APPEND)
 				printf("type: APPEND\n");
 			else if (start->type == HEREDOC)
+			{
 				printf("type: HEREDOC\n");
+				printf("limiter: `%s`\n", start->limiter);
+			}
 		}
 		start = start->next;
 	}

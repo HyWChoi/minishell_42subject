@@ -18,7 +18,7 @@ typedef struct s_argv_list	t_argv_list;
 
 typedef struct s_argv_list
 {
-	char			*argv;
+	char		*argv;
 	t_argv_list	*next;
 } t_argv_list;
 
@@ -27,6 +27,7 @@ typedef struct	s_prs_stack
 	char	*stack;
 	char	*ori_str;
 	char	***envp;
+	int		heredoc_count;
 	ssize_t	top;
 	size_t	size;
 	t_bool	is_double_quote;
@@ -100,7 +101,7 @@ void		prs_free_arg_list(t_argv_list **start);
 void		dbg_prs_stack_print(t_prs_stack *stack);
 void		dbg_print_token(t_token **token_list);
 
-t_file_list *prs_create_file_list(char *file_name, t_file_type type);
+t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limiter);
 void		prs_free_file_list(t_file_list *file);
 t_file_list	*prs_file_list_find_last(t_file_list **start);
 void		prs_file_list_add_node(t_file_list *new, t_file_list **head);
