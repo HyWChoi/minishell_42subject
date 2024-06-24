@@ -14,48 +14,6 @@
 #include <stdio.h>
 #include "tksh_builtins.h"
 
-typedef struct s_pipe
-{
-	int prev[2];
-	int curr[2];
-} t_pipe;
-
-typedef enum e_pipe
-{
-	FD_IN,
-	FD_OUT
-} t_pipe_fd;
-
-
-
-void ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes)
-{
-	(void)ps_len;
-	if (nth == 0)
-		pipe(pipes->curr);
-	else
-	{
-		pipes->prev[FD_IN] = pipes->curr[FD_IN];
-		pipes->prev[FD_OUT] = pipes->curr[FD_OUT];
-		pipe(pipes->curr);
-	}
-}
-
-
-void pipe_connect(t_token *ps, t_pipe *pipes, int nth, int ps_len)
-{
-	int	infile_fd;
-	int	outfile_fd;
-
-	if (nth == 0)
-		ex_move2fd((pipes->curr[FD_OUT], STDOUT_FILENO);
-	else
-	{
-		ex_move2fd((pipes->prev[FD_IN], STDIN_FILENO);
-		ex_move2fd((pipes->curr[FD_OUT], STDOUT_FILENO);
-	}
-}
-
 t_bool ex_is_parent(pid_t pid)
 {
 	if (pid > 0)
@@ -70,6 +28,28 @@ void ex_run_subprocess(t_token *token, t_pipe *pipes, int nth, int ps_len)
 	run_cmd(token);
 }
 
+void ex_run_singlecmd(t_token *token)
+{
+	pid_t pid;
+	io_redirection(token);
+  	if (is_builtin_cmd(token->cmd_path))
+    {
+        builtin_handler(token);
+        // TODO: signal 처리
+        return ;
+    }
+	pid = fork();
+	if(pid == 0)
+		run_cmd(token);
+}
+
+void shutout_signal()
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+}
+
 void	execute(t_token **token_list)
 {
 	const io_fd_t	io_fd = io_store();
@@ -77,39 +57,39 @@ void	execute(t_token **token_list)
 	int				endstatus;
 	size_t			i;
 	pid_t			last_pid;
-	t_pipe			*pipes;
+	t_pipe			pipes;
 
 
 	i = 0;
+	shutout_signal();
 	token_len = get_token_len(token_list);
-
 	heredoc_hook(token_list);
 	if (token_len == 1)
 	{
 		ex_run_singlecmd(*token_list);
-		return ;
+		return (io_restore(io_fd));
 	}
 	while (i < token_len)
 	{
-		ex_prepare_pipe(token_len, i, pipe);
+		ex_prepare_pipe(token_len, i, &pipes);
 		last_pid = fork();
 		if (!ex_is_parent(last_pid))
 		{
 			ex_fork_error_guard(last_pid, "fork error");
-			ex_run_subprocess(token_list[i], pipe, i, token_len);
+			ex_run_subprocess(token_list[i], &pipes, i, token_len);
 		}
-		destroy_pipe(pipe, i);
+		destroy_pipe(&pipes, i, token_len);
 		i++;
 	}
 	io_restore(io_fd);
 	while(token_len)
 	{
-		end_pid = waitpid(-1, &endstatus, 0);
-		if (end_pid == -1)
+		last_pid = waitpid(-1, &endstatus, 0);
+		if (last_pid == -1)
 			break;
-		if (end_pid == 0)
+		if (last_pid == 0)
 			continue;
 		token_len--;
 	}
-	(void)end_pid;
+	(void)last_pid;
 }

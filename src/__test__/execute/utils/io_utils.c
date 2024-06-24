@@ -6,13 +6,14 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:39:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 20:58:06 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/06/24 21:48:45 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
 #include "tksh_parse.h"
 #include <fcntl.h>
+#include <stdio.h>
 /* 
 typedef enum	e_file_type
 {
@@ -33,10 +34,10 @@ typedef struct	s_file_list
 
 token {
     t_file_list **file;
-}
+}m
 */
 
-void ex_move2fd((int from, int to)
+void ex_move_2fd(int from, int to)
 {
 	dup2(from, to);
 	close(from);
@@ -95,6 +96,16 @@ t_bool ex_file_has_next(t_file_list *file)
     return (file->next != NULL);
 }
 
+void throw_open_error(int fd)
+{
+    if (fd == -1)
+    {
+        perror("open");
+        exit(1);
+    }
+}
+
+
 
 void infile_redirection(t_file_list *file)
 {
@@ -112,34 +123,68 @@ void infile_redirection(t_file_list *file)
             }
             last_infile_node = file;
             file->fd = open(file->file_name, O_RDONLY);
-            if (file->fd == -1)
-            {
-                perror("open");
-                exit(1);
-            }
+            if(file->fd == -1)
+                throw_open_error(file->fd);
         }
         file = file->next;
     }
 	if (last_infile_node)
-		move2fd(last_infile_ndoe->fd, STDIN_FILENO);
-	
-		
+		ex_move_2fd(last_infile_node->fd, STDIN_FILENO);
 }
 
+void output_redirection(t_file_list *file)
+{
+    t_file_list *last_outfile_node;
 
+    last_outfile_node = NULL;
+    while (file)
+    {
+        if (file->type == OUT_FILE || file->type == APPEND)
+        {
+            if (last_outfile_node != file && last_outfile_node)
+                close(last_outfile_node->fd);
+            last_outfile_node = file;
+            if(file->type == OUT_FILE)
+                file->fd = open(file->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            else if (file->type == APPEND)
+                file->fd = open(file->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            if (file->fd == -1)
+                throw_open_error(file->fd);
+        }
+        file = file->next;
+    }
+    if (last_outfile_node)
+        ex_move_2fd(last_outfile_node->fd, STDOUT_FILENO);
+}
 
 
 void    io_redirection(t_token *token)
 {
     t_file_list	*file;
-    int			last_in_fd;
-    int			last_out_fd;
     
     if (!token->file)
         return ;
     file = *token->file;
     infile_redirection(file);
     output_redirection(file);
+}
+
+void destroy_pipe(t_pipe *pipe, int i, int cmd_cnt)
+{
+    if (i == 0)
+        close(pipe->curr[FD_OUT]);
+    else if (i != (cmd_cnt - 1))
+    {
+        close(pipe->prev[FD_IN]);
+        close(pipe->curr[FD_OUT]);
+    }
+    else
+    {
+        close(pipe->prev[FD_IN]);
+        close(pipe->curr[FD_OUT]);
+        close(pipe->curr[FD_IN]);
+    }
+        
 }
 
 void io_restore(io_fd_t io_fd)
@@ -157,4 +202,33 @@ io_fd_t io_store(void)
     io_fd.stdin_fd = dup(STDIN_FILENO);
     io_fd.stdout_fd = dup(STDOUT_FILENO);
     return (io_fd);
+}
+
+void ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes)
+{
+	(void)ps_len;
+	if (nth == 0)
+		pipe(pipes->curr);
+	else
+	{
+		pipes->prev[FD_IN] = pipes->curr[FD_IN];
+		pipes->prev[FD_OUT] = pipes->curr[FD_OUT];
+		pipe(pipes->curr);
+	}   
+}
+void pipe_connect(t_token *ps, t_pipe *pipes, int nth, int ps_len)
+{
+    (void)ps_len;
+    (void)ps;
+    
+	if (nth == 0)
+		ex_move_2fd(pipes->curr[FD_OUT], STDOUT_FILENO);
+	else if(nth == (ps_len - 1))
+        ex_move_2fd(pipes->prev[FD_IN], STDIN_FILENO);
+    else
+    {
+        ex_move_2fd(pipes->prev[FD_IN], STDIN_FILENO);
+        ex_move_2fd(pipes->curr[FD_OUT], STDOUT_FILENO);
+    }
+
 }

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 18:05:57 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/06/24 21:13:59 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "tksh_parse.h"
+#include <stdio.h>
+#include <readline/readline.h>
 
 void heredoc(char *filename, char *limiter)
 {
@@ -47,7 +49,7 @@ void heredoc_hook(t_token **token_list)
 {
 	t_file_list	*file_list;
 
-	t_file_list = NULL;
+	file_list = NULL;
 	while (*token_list)
 	{
 		if ((*token_list)->file)

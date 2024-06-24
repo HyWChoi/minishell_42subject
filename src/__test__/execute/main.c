@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/21 01:37:01 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/06/24 22:02:00 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "tksh_execute.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <readline/readline.h>
 
 int main(int argc, char **argv, const char **initial_envp)
 {
@@ -34,12 +34,14 @@ int main(int argc, char **argv, const char **initial_envp)
 	{
 		char *origin_str = tksh_prompt(**envp);
 		token_list = prs_parse(origin_str, envp);
-		dbg_print_token(token_list);
+		// dbg_print_token(token_list);
+		
 		execute(token_list);
 		if (token_list)
 		{
 			tksh_free_token_list(token_list);
 		}
+		rl_on_new_line();
 	}
 	return (0);
 }
