@@ -13,10 +13,6 @@ void	tksh_free_token(t_token *token)
 {
 	if (token->cmd_path)
 		free(token->cmd_path);
-	if (token->infile_path)
-		free(token->infile_path);
-	if (token->outfile_path)
-		free(token->outfile_path);
 	if (token->argv)
 		ft_free_strs(token->argv);
 	// if (*token->envp)
