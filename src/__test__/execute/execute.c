@@ -16,9 +16,11 @@
 
 void    execute(t_token **token_list)
 {
-    const size_t token_len = get_token_len(token_list);
-    const io_fd_t io_fd = io_store(); // io save function is save parents's io fd
+    const io_fd_t   io_fd = io_store(); // io save function is save parents's io fd
+    size_t          token_len;
+    int             endstatus;
 
+    token_len = get_token_len(token_list);
     if (token_len == 1 && is_builtin_cmd(token_list[0]-> cmd_path))
         return (builtin_handler(*token_list));
     while(*token_list)
@@ -30,14 +32,19 @@ void    execute(t_token **token_list)
         {
             pid_t pid = fork();
             run_cmd(*token_list, pid);
-            if(pid != 0)
-                waitpid(pid, NULL, 0);
         }
         io_restore(io_fd);
         token_list++;
     }
-    
-    // printf("in execute\n");
-    // printf("token_len: %zu\n", token_len);
-
+    pid_t end_pid;
+    while(token_len)
+    {
+        end_pid = waitpid(-1, &endstatus, 0);
+        if (end_pid == -1)
+            break;
+        if (end_pid == 0)
+            continue;
+        token_len--;
+    }
+    (void)end_pid;
 }

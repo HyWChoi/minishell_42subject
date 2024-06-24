@@ -17,6 +17,10 @@
 void	dto_cd(t_token *token)
 {
 	printf("-----token pass through the dto cd-----\n");
-	if (ft_strncmp(token->cmd_path, "cd", 3) == 0)
-		cd(*(token->argv));
+	if(ft_strs_len((const char **)token->argv) == 1)
+		cd(getenv("HOME"));
+	else if(ft_strs_len((const char **)token->argv) == 2)
+		cd(*(token->argv + 1));
+	else 
+		write(2, "cd: too many arguments\n", 24);
 }
