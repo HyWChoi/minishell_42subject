@@ -16,7 +16,7 @@ static void	prs_set_cmd_path_in_token(t_token *token)
 		token->cmd_path = ft_strdup(token->argv[0]);
 }
 
-static void	prs_set_token(t_prs_stack *stack, t_token *token)
+static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 {
 	t_argv_list	*argv_list;
 	char	*start;
@@ -24,7 +24,7 @@ static void	prs_set_token(t_prs_stack *stack, t_token *token)
 	argv_list = NULL;
 	start = stack->ori_str;
 	if (!prs_is_balanced_quote(stack)) // TODO: error handling
-		return ((void)printf("unblanced qoutation\n"));
+		return (NULL);
 	while (!stack->err_flag && *stack->ori_str)
 	{
 		if (prs_is_quote(stack->ori_str))
@@ -38,20 +38,37 @@ static void	prs_set_token(t_prs_stack *stack, t_token *token)
 	}
 	prs_set_argv_into_token(token, &argv_list, stack);
 	stack->ori_str = start;
+	return (token);
+}
+
+void	prs_set_heredoc_path(t_file_list **start, int *heredoc_count)
+{
+	printf("start: %p\n", start);
+	if (start == NULL || *start == NULL)
+		return ;
+	while ((*start))
+	{
+		if ((*start)->type == HEREDOC)
+			(*start)->file_name = ft_strjoin_and_free(TK_HEREDOC_PATH, ft_itoa((*heredoc_count)++), FREE_S2);
+		start = &(*start)->next;
+	}
 }
 
 t_token	**prs_parse(char *usr_input, char ***envp)
 {
 	int			i;
+	int			heredoc_count;
 	t_token		**token_list;
 	t_prs_stack	**stack_list;
 
 	i = 0;
+	heredoc_count = 0;
 	stack_list = prs_init_stack_list(usr_input, envp);
 	token_list = prs_init_token_list(ft_strs_len((const char **)stack_list), envp);
 	while (stack_list && stack_list[i])
 	{
-		prs_set_token(stack_list[i], token_list[i]);
+		if (!prs_set_token(stack_list[i], token_list[i]))
+			return (NULL);
 		prs_set_cmd_path_in_token(token_list[i]);
 		if (is_check_err_in_stack(stack_list[i]))
 		{
@@ -59,6 +76,7 @@ t_token	**prs_parse(char *usr_input, char ***envp)
 			token_list = NULL;
 			break ;
 		}
+		prs_set_heredoc_path(token_list[i]->file, &heredoc_count);
 		i++;
 	}
 	prs_free_stack_list(stack_list);
