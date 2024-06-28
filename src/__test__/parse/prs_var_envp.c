@@ -5,7 +5,7 @@
 static size_t	prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true)
 {
 	size_t	count;
-
+	
 	count = 0;
 	if (count_if_true)
 	{
@@ -60,7 +60,7 @@ char	*prs_parse_variable(char *str, char ***envp)
 	parsed_var = NULL;
 	count = prs_count_str_using_func(str, prs_is_variable, FALSE);
 	result = ft_strndup(start, count);
-	// printf("count : %zu\n", count);
+	printf("count : %zu\n", count);
 	str += count + 1;
 	if (prs_is_possible_var_space(str))
 	{
