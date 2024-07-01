@@ -7,8 +7,6 @@ t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limit
 {
 	t_file_list *file;
 
-	if (!file_name)
-		return (NULL);
 	file = (t_file_list *)malloc(sizeof(t_file_list));
 	if (!file)
 		return (NULL);
@@ -54,19 +52,17 @@ void	prs_file_list_add_node(t_file_list *new, t_file_list **head)
 	}
 }
 
-char	*prs_make_heredoc_file(t_prs_stack *stack)
+char	*prs_make_heredoc_file(int count)
 {
-	return (ft_strjoin(TK_HEREDOC_PATH, ft_itoa(stack->heredoc_count++)));
+	return (ft_strjoin(TK_HEREDOC_PATH, ft_itoa(count)));
 }
 
 void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack, t_file_type type)
 {
-	char	*file_name;
 	char	*limiter;
 
 	limiter = prs_find_file_name(stack);
-	file_name = prs_make_heredoc_file(stack);
-	prs_file_list_add_node(prs_create_file_list(file_name, type, limiter), token->file);
+	prs_file_list_add_node(prs_create_file_list(NULL, type, limiter), token->file);
 }
 
 void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_type)(char *str), t_file_type type)
