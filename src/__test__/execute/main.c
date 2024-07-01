@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/24 22:02:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:00:35 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main(int argc, char **argv, const char **initial_envp)
 {
 	t_token	**token_list;
 	char	***envp;
+	t_exit_code exit_code = 0;
 	(void)argc;
 	(void)argv;
 
@@ -33,15 +34,19 @@ int main(int argc, char **argv, const char **initial_envp)
 	while (1)
 	{
 		char *origin_str = tksh_prompt(**envp);
+		if(ft_strncmp(origin_str, "$?", 3) == 0)
+		{
+			printf("exit code: %d\n", exit_code);
+			continue;
+		}
 		token_list = prs_parse(origin_str, envp);
-		// dbg_print_token(token_list);
-		
-		execute(token_list);
+		dbg_print_token(token_list);
+		exit_code = execute(token_list);
 		if (token_list)
 		{
 			tksh_free_token_list(token_list);
 		}
-		rl_on_new_line();
+		// rl_on_new_line();
 	}
 	return (0);
 }

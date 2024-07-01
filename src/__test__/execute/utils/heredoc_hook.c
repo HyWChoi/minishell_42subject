@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 21:13:59 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/06/24 23:51:37 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void heredoc(char *filename, char *limiter)
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror("open");
+		perror("heredoc open");
 		exit(1);
 	}
 	while (1)

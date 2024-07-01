@@ -32,6 +32,9 @@ void ex_run_singlecmd(t_token *token)
 {
 	pid_t pid;
 	io_redirection(token);
+
+	if (token->cmd_path == NULL)
+		return ;
   	if (is_builtin_cmd(token->cmd_path))
     {
         builtin_handler(token);
@@ -41,33 +44,46 @@ void ex_run_singlecmd(t_token *token)
 	pid = fork();
 	if(pid == 0)
 		run_cmd(token);
+    waitpid(pid, NULL, 0);
 }
 
 void shutout_signal()
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void	execute(t_token **token_list)
+t_exit_code ex_return_exit_code(int status)
+{
+	if (WIFSIGNALED(status))
+		return (WTERMSIG(status) + 128);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (0);
+}
+
+unsigned char execute(t_token **token_list)
 {
 	const io_fd_t	io_fd = io_store();
 	size_t			token_len;
 	int				endstatus;
 	size_t			i;
 	pid_t			last_pid;
+    pid_t           ended_pid;
 	t_pipe			pipes;
 
 
 	i = 0;
 	shutout_signal();
+	if(!token_list)
+		return (1); // TODO : parse error에 대한 exitcode정의 처리	
 	token_len = get_token_len(token_list);
 	heredoc_hook(token_list);
 	if (token_len == 1)
 	{
 		ex_run_singlecmd(*token_list);
-		return (io_restore(io_fd));
+		io_restore(io_fd);
+		return (0);
 	}
 	while (i < token_len)
 	{
@@ -82,14 +98,15 @@ void	execute(t_token **token_list)
 		i++;
 	}
 	io_restore(io_fd);
-	while(token_len)
+	while (token_len)
 	{
-		last_pid = waitpid(-1, &endstatus, 0);
-		if (last_pid == -1)
+		ended_pid = waitpid(-1, &endstatus, WNOHANG);
+		if (ended_pid == -1)
 			break;
-		if (last_pid == 0)
-			continue;
+		if (last_pid == ended_pid)
+			break ;
 		token_len--;
 	}
+	return (ex_return_exit_code(endstatus));
 	(void)last_pid;
 }

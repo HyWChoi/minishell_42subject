@@ -4,7 +4,9 @@
 # include "tksh.h"
 # include "tksh_parse.h"
 
-void		execute(t_token **token_list);
+typedef unsigned char t_exit_code;
+
+t_exit_code		execute(t_token **token_list);
 size_t		get_token_len(t_token **token_list);
 
 /* UTILS */

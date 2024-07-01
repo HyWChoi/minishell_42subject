@@ -6,12 +6,13 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 15:45:44 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 21:54:13 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:17:58 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
 #include "libft.h"
+
 char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 {
 	char	*ret;
@@ -25,7 +26,7 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	{
 		temp = ft_strjoin(paths[i], "/");
 		ret = ft_strjoin(temp, cmd);
-		if (access(ret, F_OK | X_OK) == 0)
+		if (access(ret, F_OK) == 0)
 		{
 			free(temp);
 			return (ret);
