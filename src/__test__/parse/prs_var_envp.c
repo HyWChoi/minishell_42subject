@@ -2,10 +2,10 @@
 #include "libft.h"
 #include <stdio.h>
 
-static size_t	prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true)
+size_t	prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true)
 {
 	size_t	count;
-	
+
 	count = 0;
 	if (count_if_true)
 	{
@@ -56,22 +56,34 @@ char	*prs_parse_variable(char *str, char ***envp)
 	size_t	count;
 
 	start = str;
-	result = NULL;
-	parsed_var = NULL;
-	count = prs_count_str_using_func(str, prs_is_variable, FALSE);
-	result = ft_strndup(start, count);
-	printf("count : %zu\n", count);
-	str += count + 1;
-	if (prs_is_possible_var_space(str))
+	result = ft_strdup("");
+	parsed_var = NULL; //$앞까지 저장
+	count = 0;
+	while (*str)
 	{
-		count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
-		parsed_var = prs_find_value_in_envp(str, envp);
-		str += count;
+		if (prs_is_variable(str - 1)) // $뒤에 가능한 공간이면 파싱
+		{
+			count = prs_count_str_using_func(start, prs_is_variable, FALSE);
+			result = ft_strjoin_and_free(result, ft_strndup(start, count), FREE_S1);
+			if (prs_is_possible_var_space(str))
+			{
+				count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
+				parsed_var = prs_find_value_in_envp(str, envp);
+				if (parsed_var)
+					result = ft_strjoin_and_free(result, parsed_var, FREE_S1);
+				str += count;
+			}
+			else
+			{
+				result = ft_strjoin_and_free(result, "", FREE_S1);
+				str += 1;
+			}
+			start = str;
+		}
+		else
+			str++;
 	}
-	if (parsed_var)
-		result = ft_strjoin_and_free(result, parsed_var, FREE_BOTH);
-	if (*str != '\0')
-		result = ft_strjoin_and_free(result, str, FREE_S1);
-	free(start);
+	if (*start)
+		result = ft_strjoin_and_free(result, start, FREE_S1);
 	return (result);
 }

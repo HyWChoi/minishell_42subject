@@ -71,6 +71,7 @@ char		*prs_remove_quote(t_prs_stack *stack);
 // description: func for setting file path in token
 void		prs_set_file_path_in_token(t_token *token, t_prs_stack *stack);
 char		*prs_find_file_name(t_prs_stack *stack);
+char		*prs_make_heredoc_file(int count);
 
 // description: func for find value in envp and judging that it is valid variable name
 char		*prs_find_value_in_envp(char *str, char ***envp);
@@ -92,6 +93,8 @@ t_bool		prs_is_underbar(char *c);
 t_bool		prs_is_possible_var_space(char *c);
 t_bool		prs_is_possible_var_name(char *c);
 t_bool		prs_is_end_of_name(char *str);
+size_t		prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true);
+
 
 // description: func for cleaning up
 void		prs_free_stack_list(t_prs_stack **stack_list);
