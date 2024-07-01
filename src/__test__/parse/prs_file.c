@@ -42,22 +42,40 @@ void	prs_set_file_path_in_token(t_token *token, t_prs_stack *stack)
 char	*prs_find_file_name(t_prs_stack *stack)
 {
 	size_t	i;
+	char	*start;
 	char	*result;
+	char	*temp;
 
 	i = 0;
-	result = NULL;
-	while (*stack->ori_str && prs_is_redir(stack->ori_str))
-		stack->ori_str++;
-	while (*stack->ori_str && prs_is_white_space(stack->ori_str) )
-		stack->ori_str++;
-	if (*stack->ori_str && prs_is_quote(stack->ori_str))
-		return (prs_remove_quote(stack));
-	else if (*stack->ori_str && prs_is_redir(stack->ori_str))
-		stack->err_flag = TRUE;
-	while (!stack->err_flag && prs_is_end_of_name(stack->ori_str + i))
-		i++;
-	if (i > 0 && !stack->err_flag)
-		result = ft_strndup(stack->ori_str, i);
+	result = ft_strdup("");
+	temp = NULL;
+	i = prs_count_str_using_func(stack->ori_str, prs_is_redir, TRUE);
 	stack->ori_str += i;
+	i = prs_count_str_using_func(stack->ori_str, prs_is_white_space, TRUE);
+	stack->ori_str += i;
+	start = stack->ori_str;
+	while (!stack->err_flag && !prs_is_white_space(stack->ori_str))
+	{
+		if (prs_is_quote(stack->ori_str))
+		{
+			result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
+			temp = prs_remove_quote(stack);
+			result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+			start = stack->ori_str;
+		}
+		else if (prs_is_variable(stack->ori_str))
+		{
+			result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
+			temp = prs_parse_variable(stack->ori_str, stack->envp);
+			if (temp)
+				result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+			start = stack->ori_str;
+		}
+		else
+			stack->ori_str++;
+	}
+	if (stack->ori_str != start)
+		result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
+	stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_white_space, TRUE);
 	return (result);
 }
