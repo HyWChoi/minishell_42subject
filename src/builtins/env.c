@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:22:11 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/06 14:28:53 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:15:36 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,9 @@ void	env(const char **envp){
 
 	i = 0;
 	while (envp[i])
-		printf("%s\n", envp[i++]);
+	{
+		if(ft_strchr(envp[i], '=') != NULL)
+			printf("%s\n", envp[i]);
+		i++;
+	}
 }
