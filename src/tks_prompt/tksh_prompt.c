@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/14 17:48:06 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/06/24 22:00:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
