@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/14 18:04:14 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/01 22:01:10 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 */
 void	cd(char *path)
 {
-
-
 	if (chdir(path) != 0)
 	{
 		write(2, "cd: ", 4);
