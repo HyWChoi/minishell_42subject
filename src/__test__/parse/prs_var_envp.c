@@ -61,14 +61,14 @@ char	*prs_parse_variable(char *str, char ***envp)
 	count = 0;
 	while (*str)
 	{
-		if (prs_is_variable(str - 1)) // $뒤에 가능한 공간이면 파싱
+		if (prs_is_variable(str)) // $뒤에 가능한 공간이면 파싱
 		{
 			count = prs_count_str_using_func(start, prs_is_variable, FALSE);
 			result = ft_strjoin_and_free(result, ft_strndup(start, count), FREE_S1);
-			if (prs_is_possible_var_space(str))
+			if (prs_is_possible_var_space(str + 1))
 			{
-				count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
-				parsed_var = prs_find_value_in_envp(str, envp);
+				count = prs_count_str_using_func(str + 1, prs_is_possible_var_name, TRUE);
+				parsed_var = prs_find_value_in_envp(str + 1, envp);
 				if (parsed_var)
 					result = ft_strjoin_and_free(result, parsed_var, FREE_S1);
 				str += count;
@@ -78,7 +78,7 @@ char	*prs_parse_variable(char *str, char ***envp)
 				result = ft_strjoin_and_free(result, "", FREE_S1);
 				str += 1;
 			}
-			start = str;
+			start = str + 1;
 		}
 		else
 			str++;

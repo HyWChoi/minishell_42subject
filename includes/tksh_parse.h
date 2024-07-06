@@ -27,7 +27,6 @@ typedef struct	s_prs_stack
 	char	*stack;
 	char	*ori_str;
 	char	***envp;
-	int		heredoc_count;
 	ssize_t	top;
 	size_t	size;
 	t_bool	is_double_quote;

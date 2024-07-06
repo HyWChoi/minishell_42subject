@@ -10,6 +10,8 @@ t_bool	prs_is_pipe(char *c)
 
 t_bool	prs_is_white_space(char *c)
 {
+	if (!*c)
+		return (FALSE);
 	return (ft_strchr(PRS_WHITE_SPACE, *c) != NULL);
 }
 
