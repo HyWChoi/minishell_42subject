@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/06/03 19:19:57 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:20:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int main(int argc, char **argv, const char **initial_envp)
 	{
 		char *origin_str = tksh_prompt(**envp);
 		token_list = prs_parse(origin_str, envp);
+		printf("hi");
 		dbg_print_token(token_list);
 		if (token_list)
 		{

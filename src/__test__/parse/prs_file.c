@@ -54,8 +54,9 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	i = prs_count_str_using_func(stack->ori_str, prs_is_white_space, TRUE);
 	stack->ori_str += i;
 	start = stack->ori_str;
-	while (!stack->err_flag && !prs_is_white_space(stack->ori_str))
+	while (!stack->err_flag && *stack->ori_str && !prs_is_white_space(stack->ori_str))
 	{
+		printf("stack->ori_str:%s\n", stack->ori_str);
 		if (prs_is_quote(stack->ori_str))
 		{
 			result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
@@ -69,6 +70,7 @@ char	*prs_find_file_name(t_prs_stack *stack)
 			temp = prs_parse_variable(stack->ori_str, stack->envp);
 			if (temp)
 				result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+			stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_end_of_name, TRUE);
 			start = stack->ori_str;
 		}
 		else
@@ -77,5 +79,15 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	if (stack->ori_str != start)
 		result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
 	stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_white_space, TRUE);
+	if (*result &&
+			(ft_strncmp(result, "<", ft_strlen((const char *)result)) == 0
+			 || ft_strncmp(result, ">", ft_strlen((const char *)result)) == 0
+			 || ft_strncmp(result, ">>", ft_strlen((const char *)result)) == 0
+			 || ft_strncmp(result, "<<", ft_strlen((const char *)result)) == 0))
+		stack->err_flag = TRUE;
+	if (!*result)
+	{
+		result = NULL;
+	}
 	return (result);
 }

@@ -37,7 +37,7 @@ void	dbg_print_arg_list(t_argv_list **argv)
 	t_argv_list	*start;
 
 	start = *argv;
-	printf("argv: [");
+	printf("files: [");
 	while (start)
 	{
 		if (start->next)
