@@ -24,9 +24,8 @@ t_exit_code	dto_exit(t_token *token)
 	if (2 < argc) 
 	{
 		printf("exit: too many arguments\n");
-		return ;
+		return (EXIT_FAILURE);
 	}
-	if (ft_strncmp(token->cmd_path, "exit", 5) == 0)
-		exit((unsigned char)ft_atoi(token->argv[1]));
+	return (exit_shell((unsigned char)ft_atoi(token->argv[1])));
 }
 

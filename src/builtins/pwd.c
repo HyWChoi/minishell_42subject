@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/08 15:31:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:04:03 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_exit_code	pwd(void)
 	char	buff[PWD_MAX_BUFF_SIZE];
 
 	if (!getcwd(buff, PWD_MAX_BUFF_SIZE))
+	{
 		perror("pwd");
-	else
-		printf("%s\n", buff);
+		return (EXIT_FAILURE);
+	}
+	printf("%s\n", buff);
+	return (EXIT_SUCCESS);
 }

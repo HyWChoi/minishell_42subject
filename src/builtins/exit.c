@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:23:07 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 15:27:05 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:02:49 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@
 t_exit_code	exit_shell(unsigned char exit_code)
 {
 	exit(exit_code);
+	return(exit_code);
 }

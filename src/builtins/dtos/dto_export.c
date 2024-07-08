@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 15:23:08 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:03:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ void	display_declare(char **envp)
 t_exit_code	dto_export(t_token *token)
 {
 	if (token->argv[1] == NULL)
+	{
 		display_declare(*(token->envp));
+		return (EXIT_SUCCESS);
+	}
 	else 
-		export(token);	
+		return (export(token));
+	
 }

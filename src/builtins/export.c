@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 15:27:24 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:06:11 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,22 @@ static t_bool invalid_char(char *str)
 //TODO: when key is exist, update value
 t_exit_code	export(t_token *token)
 {
-	int		i;
-	int		argv_len = ft_strs_len((const char **)(token->argv));
+	int			i;
+	int			argv_len = ft_strs_len((const char **)(token->argv));
+	t_exit_code ret;
 
 	i = 1;
-	printf("argv_len: %d\n", argv_len);
-	printf("argv: %s\n", token->argv[1]);
+	ret = EXIT_SUCCESS;
 	while (i < argv_len)
 	{
-		if (ft_isdigit(*token->argv[i]) == TRUE || ft_strchr(token->argv[i], ' ') != NULL || ft_strchr(token->argv[i], '\t') != NULL || *token->argv[i] == '=' || invalid_char(token->argv[i]))
+		if (ft_isdigit(*token->argv[i]) == TRUE || ft_strchr(token->argv[i], ' ') != NULL || ft_strchr(token->argv[i], '\t') != NULL || *token->argv[i] == '=' || invalid_char(token->argv[i])){
 			printf("export: '%s': not a valid identifier\n", token->argv[i]);
+			ret = EXIT_FAILURE;
+		}
 		// else if (is_exist_env(token->argv))
 
 			add_env(token, token->argv[i]); //TODO: if key is exist, update value
 		i++;
 	}
+	return (ret);
 }

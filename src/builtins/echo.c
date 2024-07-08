@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/08 15:26:47 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:04:50 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_exit_code	echo(char **strings, char *option)
 	char 			*ret;
 
 	if(ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
-		return ; // TODO: 상세한 에러처리 필요
+		return (EXIT_FAILURE);
 	i = 0;
 	while (i < len)
 	{
@@ -46,4 +46,5 @@ t_exit_code	echo(char **strings, char *option)
 	printf("%s", ret);
 	if (ret)
 		free(ret);
+	return (EXIT_SUCCESS);
 }

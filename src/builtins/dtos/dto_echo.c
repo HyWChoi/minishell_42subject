@@ -48,7 +48,6 @@ t_exit_code	dto_echo(t_token *token)
 		}
 		else
 			break ;
-	}
-	if (ft_strncmp(token->cmd_path, "echo", 5) == 0)
-		echo(token->argv, option);
+	}	
+	return (echo(token->argv, option));
 }

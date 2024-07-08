@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:22:11 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/08 15:27:01 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:05:06 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ t_exit_code	env(const char **envp)
 			printf("%s\n", envp[i]);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }

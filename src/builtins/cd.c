@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/08 15:26:33 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:59:52 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ t_exit_code	cd(char *path)
 		write(2, "cd: ", 4);
 		perror(path);
 	}
+	return (EXIT_SUCCESS);
 }
