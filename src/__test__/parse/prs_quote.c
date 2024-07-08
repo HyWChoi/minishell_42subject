@@ -53,6 +53,7 @@ char	*prs_remove_quote(t_prs_stack *stack)
 {
 	size_t	i;
 	char	*result;
+	char	*tmp;
 
 	i = 0;
 	result = NULL;
@@ -68,8 +69,12 @@ char	*prs_remove_quote(t_prs_stack *stack)
 		while (*(stack->ori_str + i) && !prs_is_double_quote(stack->ori_str + i))
 			i++;
 		result = ft_strndup(stack->ori_str, i);
+		tmp = result;
 		if (ft_strchr(result, '$'))
+		{
 			result = prs_parse_variable(result, stack->envp);
+			free(tmp);
+		}
 	}
 	stack->ori_str += i + 1;
 	return (result);

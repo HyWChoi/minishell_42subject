@@ -39,16 +39,12 @@ void	prs_free_arg_list(t_argv_list **start)
 {
 	t_argv_list	*tmp;
 
-	tmp = NULL;
-	if (start == NULL || *start == NULL)
-		return ;
 	while (*start)
 	{
-		printf("arg: free: %s\n", (*start)->argv);
-		tmp = (*start)->next;
-		if ((*start)->argv)
-			free((*start)->argv);
-		free(*start);
-		*start = tmp;
+		tmp = *start;
+		*start = (*start)->next;
+		if (tmp->argv)
+			free(tmp->argv);
+		free(tmp);
 	}
 }

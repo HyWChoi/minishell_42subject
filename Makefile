@@ -1,8 +1,8 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
-srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test")
+srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test" | grep -v "builtins")
 # test_main = $(shell find . -name "*test.c")
 test_main = src/__test__/shell/main.c
 OBJS := $(srcs:.c=.o)
@@ -11,7 +11,7 @@ TEST = test
 TEST_EXEC = test_tksh
 
 PARSE = parse
-prs_test_main = src/__test__/parse/main.c 
+prs_test_main = src/__test__/parse/main.c
 prs_srcs = $(shell find "src/__test__/parse" -name "*.c" | grep -v "main")
 prs_obj = $(shell find "src/__test__/parse" -name "*.o")
 prs_TEST_EXEC = prs_test
@@ -34,7 +34,7 @@ endif
 
 ifdef WITH_TEST
 	srcs += $(test_main) $(prs_srcs)
-	OBJS := $(srcs:.c=.o) 
+	OBJS := $(srcs:.c=.o)
 	NAME = $(TEST_EXEC)
 else
 	ifdef WITH_PARSE

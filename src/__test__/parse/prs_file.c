@@ -56,7 +56,6 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	start = stack->ori_str;
 	while (!stack->err_flag && *stack->ori_str && !prs_is_white_space(stack->ori_str))
 	{
-		printf("stack->ori_str:%s\n", stack->ori_str);
 		if (prs_is_quote(stack->ori_str))
 		{
 			result = ft_strjoin_and_free(result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
@@ -85,9 +84,5 @@ char	*prs_find_file_name(t_prs_stack *stack)
 			 || ft_strncmp(result, ">>", ft_strlen((const char *)result)) == 0
 			 || ft_strncmp(result, "<<", ft_strlen((const char *)result)) == 0))
 		stack->err_flag = TRUE;
-	if (!*result)
-	{
-		result = NULL;
-	}
 	return (result);
 }

@@ -18,14 +18,6 @@ t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limit
 	return (file);
 }
 
-void	prs_free_file_list(t_file_list *file)
-{
-	if (!file)
-		return ;
-	free(file->file_name);
-	free(file);
-}
-
 t_file_list	*prs_file_list_find_last(t_file_list **start)
 {
 	if (start == NULL || *start == NULL)
@@ -54,7 +46,7 @@ void	prs_file_list_add_node(t_file_list *new, t_file_list **head)
 
 char	*prs_make_heredoc_file(int count)
 {
-	return (ft_strjoin(TK_HEREDOC_PATH, ft_itoa(count)));
+	return (ft_strjoin_and_free(TK_HEREDOC_PATH, ft_itoa(count), FREE_S2));
 }
 
 void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack, t_file_type type)
@@ -90,7 +82,6 @@ void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_ty
 		if (prs_is_redir(stack->ori_str + 1))
 			stack->err_flag = TRUE;
 	file_name = prs_find_file_name(stack);
-	printf("hi r u here>\n");
 	if (!file_name)
 		stack->err_flag = TRUE;
 	if (!stack->err_flag)

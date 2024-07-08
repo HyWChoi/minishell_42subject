@@ -28,7 +28,10 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 	tmp = NULL;
 	start = stack->ori_str;
 	if (!prs_is_balanced_quote(stack)) // TODO: error handling
+	{
+		free(result);
 		return (NULL);
+	}
 	while (!stack->err_flag && *stack->ori_str)
 	{
 		if (prs_is_quote(stack->ori_str))
@@ -37,17 +40,14 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 		{
 			prs_set_file_path_in_token(token, stack);
 			if (*result)
+			{
 				prs_argv_list_add_node(result, &argv_list);
-			result = ft_strdup("");
+				result = ft_strdup("");
+			}
 			continue ;
 		}
 		else if (!prs_is_white_space(stack->ori_str))
 			tmp = prs_make_argv_str(stack);
-		// printf("result: %s\n", result);
-		// printf("tmp: %s\n", tmp);
-		// printf("%c\n", *stack->ori_str);
-		// printf("%d\n", *stack->ori_str);
-		// printf("%d\n", prs_is_white_space(stack->ori_str));
 		if (prs_is_white_space(stack->ori_str))
 		{
 			stack->ori_str++;
@@ -61,7 +61,6 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 		}
 		else
 		{
-			printf("FUCKUP\n");
 			result = ft_strjoin_and_free(result, tmp, FREE_BOTH);
 			// prs_argv_list_add_node(result, &argv_list);
 			// break ;
@@ -69,6 +68,8 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 		if (!*stack->ori_str)
 			prs_argv_list_add_node(result, &argv_list);
 	}
+	if (*result == 0)
+		free(result);
 	prs_set_argv_into_token(token, &argv_list, stack);
 	stack->ori_str = start;
 	return (token);
@@ -108,7 +109,12 @@ t_token	**prs_parse(char *usr_input, char ***envp)
 	while (stack_list && stack_list[i])
 	{
 		if (!prs_set_token(stack_list[i], token_list[i]))
+		{
+			free(usr_input);
+			prs_free_stack_list(stack_list);
+			tksh_free_token_list(token_list);
 			return (NULL);
+		}
 		prs_set_cmd_path_in_token(token_list[i]);
 		if (is_check_err_in_stack(stack_list[i]))
 		{
@@ -120,5 +126,6 @@ t_token	**prs_parse(char *usr_input, char ***envp)
 	}
 	prs_free_stack_list(stack_list);
 	set_heredoc_path(token_list);
+	free(usr_input);
 	return (token_list);
 }

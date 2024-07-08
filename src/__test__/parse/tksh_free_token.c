@@ -1,6 +1,22 @@
 #include "tksh.h"
 #include <stdlib.h>
 
+void prs_free_file_list(t_file_list **file)
+{
+	t_file_list	*tmp;
+
+	while (*file)
+	{
+		tmp = *file;
+		*file = (*file)->next;
+		if (tmp->file_name)
+			free(tmp->file_name);
+		if (tmp->limiter)
+			free(tmp->limiter);
+		free(tmp);
+	}
+	free(file);
+}
 /**
  * @brief tksh_free_token
  *
@@ -15,6 +31,8 @@ void	tksh_free_token(t_token *token)
 		free(token->cmd_path);
 	if (token->argv)
 		ft_free_strs(token->argv);
+	if (token->file)
+		prs_free_file_list(token->file);
 	// if (*token->envp)
 	// 	ft_free_strs(*(token->envp));
 	free(token);

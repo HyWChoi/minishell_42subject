@@ -45,6 +45,7 @@ char	*prs_find_value_in_envp(char *str, char ***envp)
 		}
 		i++;
 	}
+	free(envp_key);
 	return (NULL);
 }
 
@@ -64,13 +65,13 @@ char	*prs_parse_variable(char *str, char ***envp)
 		if (prs_is_variable(str)) // $뒤에 가능한 공간이면 파싱
 		{
 			count = prs_count_str_using_func(start, prs_is_variable, FALSE);
-			result = ft_strjoin_and_free(result, ft_strndup(start, count), FREE_S1);
+			result = ft_strjoin_and_free(result, ft_strndup(start, count), FREE_BOTH);
 			if (prs_is_possible_var_space(str + 1))
 			{
 				count = prs_count_str_using_func(str + 1, prs_is_possible_var_name, TRUE);
 				parsed_var = prs_find_value_in_envp(str + 1, envp);
 				if (parsed_var)
-					result = ft_strjoin_and_free(result, parsed_var, FREE_S1);
+					result = ft_strjoin_and_free(result, parsed_var, FREE_BOTH);
 				str += count;
 			}
 			else
