@@ -4,6 +4,12 @@
 # include "libft.h"
 # define TK_HEREDOC_PATH "/tmp/.tksh_here_doc/"
 
+typedef unsigned char t_exit_code;
+
+enum e_exit_code {
+	ECODE_CMD_NOT_FOUND = 127,
+};
+
 typedef enum	e_file_type
 {
 	APPEND,
@@ -29,6 +35,12 @@ typedef struct	s_token
 	char		***envp;
 	t_file_list	**file;
 }	t_token;
+
+
+enum e_corect{
+	ACCESS_SUCESS = 0,
+	ACCESS_ERROR = -1
+};
 
 void	tksh_free_token(t_token *token);
 void	tksh_free_token_list(t_token **token_list);

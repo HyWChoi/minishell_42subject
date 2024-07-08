@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/01 22:01:10 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:26:33 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * @param path The path to change the current working directory to.
  * @return void
 */
-void	cd(char *path)
+t_exit_code	cd(char *path)
 {
 	if (chdir(path) != 0)
 	{

@@ -47,7 +47,7 @@ else
 			OBJS := $(srcs:.c=.o)
 			NAME = $(EXECUTE_TEST_EXEC)
 		else
-			srcs += src/tkshell.c
+			srcs += src/tkshell.c $(execute_test_srcs) $(prs_srcs)
 			OBJS := $(srcs:.c=.o)
 			NAME = tksh
 		endif

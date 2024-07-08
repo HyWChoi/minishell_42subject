@@ -3,7 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-void	dto_exit(t_token *token)
+t_exit_code	dto_exit(t_token *token)
 {
 	size_t argc;
 	char *exit_str;

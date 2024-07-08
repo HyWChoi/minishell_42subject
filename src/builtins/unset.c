@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:45:55 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/06 14:29:18 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:30:54 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ static size_t *us_get_key_idx(char *name, char **envp)
  * @param envp The environment variables.
  * @return void
 */
-void unset(char **argv, char **envp)
+// TODO: unset 유효하지 않은 변수명이 올 경우 1 리턴 - 하나라도 유효하지 않은 변수명이 있다면 1 리턴
+// 대신 동작은 다해야함
+t_exit_code unset(char **argv, char **envp)
 {
 	size_t env_len;
 	size_t *key_idx;
@@ -67,4 +69,5 @@ void unset(char **argv, char **envp)
 		envp[env_len] = NULL;
 		argv++;
 	}
+	return (0);
 }

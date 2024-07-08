@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:23:07 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/06 14:28:56 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:27:05 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param exit_code exit code that will be ranged from 0 to 255
  * @return void
 */
-void	exit_shell(unsigned char exit_code)
+t_exit_code	exit_shell(unsigned char exit_code)
 {
 	exit(exit_code);
 }

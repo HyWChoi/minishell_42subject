@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/01 21:25:22 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:27:24 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include "tksh.h"
 #include "tksh_parse.h"
 #include <stdio.h>
-
-
-
 
 void	add_env(t_token *token, char *key_value)
 {
@@ -55,8 +52,8 @@ static t_bool invalid_char(char *str)
  * @param path The path to change the current working directory to.
  * @return void
 */
-
-void	export(t_token *token)
+//TODO: when key is exist, update value
+t_exit_code	export(t_token *token)
 {
 	int		i;
 	int		argv_len = ft_strs_len((const char **)(token->argv));
@@ -66,10 +63,11 @@ void	export(t_token *token)
 	printf("argv: %s\n", token->argv[1]);
 	while (i < argv_len)
 	{
-		if (ft_isdigit(*token->argv[i]) == 1 || ft_strchr(token->argv[i], ' ') != NULL || ft_strchr(token->argv[i], '\t') != NULL || *token->argv[i] == '=' || invalid_char(token->argv[i]))
+		if (ft_isdigit(*token->argv[i]) == TRUE || ft_strchr(token->argv[i], ' ') != NULL || ft_strchr(token->argv[i], '\t') != NULL || *token->argv[i] == '=' || invalid_char(token->argv[i]))
 			printf("export: '%s': not a valid identifier\n", token->argv[i]);
-		else
-			add_env(token, token->argv[i]);
+		// else if (is_exist_env(token->argv))
+
+			add_env(token, token->argv[i]); //TODO: if key is exist, update value
 		i++;
 	}
 }

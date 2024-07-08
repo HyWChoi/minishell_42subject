@@ -3,30 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 17:40:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/06 15:15:30 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/05 15:31:31 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "tksh.h"
 #include "tksh_prompt.h"
+#include "tksh_builtins.h"
+#include "tksh_parse.h"
+#include "tksh_execute.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
 
 int main(int argc, char **argv, const char **initial_envp)
 {
-	char	*envp;
+	t_token	**token_list;
+	char	***envp;
+	t_exit_code exit_code = 0;
 	(void)argc;
 	(void)argv;
-	envp = ft_strdup(*initial_envp);
+
+	token_list = NULL;
+	char **tmp = ft_strs_copy(initial_envp);
+	envp = &tmp;
+	// set_exit_code(0);
 	while (1)
 	{
-		char *tokens = tksh_prompt(envp);
-		printf("tokens: %s\n", tokens);
+		char *origin_str = tksh_prompt(**envp);
+		// if(ft_strncmp(origin_str, "$?", 3) == 0)
+		// {
+		// 	printf("exit code: %d\n", exit_code);
+		// 	continue;
+		// }
+		token_list = prs_parse(origin_str, envp);
+		// dbg_print_token(token_list);
+		exit_code = execute(token_list);
+		if (token_list)
+		{
+			tksh_free_token_list(token_list);
+		}
+		// rl_on_new_line();
 	}
 	return (0);
 }
-
-

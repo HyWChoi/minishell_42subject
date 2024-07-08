@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/06 14:29:02 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:31:00 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void	pwd(void)
+t_exit_code	pwd(void)
 {
 	char	buff[PWD_MAX_BUFF_SIZE];
 

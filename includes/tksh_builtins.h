@@ -19,22 +19,22 @@
 # define EXPORT "export"
 # define DECLARE_EXPORT "declare -x %s\n"
 
-typedef void	t_builtin_dto(t_token *tokens);
+typedef t_exit_code	t_builtin_dto(t_token *tokens);
 
-void  builtin_handler(t_token *token);
-void	dto_cd(t_token *token);
-void	dto_pwd(t_token *token);
-void	dto_echo(t_token *token);
-void	dto_exit(t_token *token);
-void	dto_env(t_token *token);
-void	dto_unset(t_token *token);
-void	dto_export(t_token *token);
-void	cd(char *path);
-void	pwd(void);
-void	env(const char **env);
-void	exit_shell(unsigned char exit_code);
-void	unset(char **argv, char **envp);
-void	echo(char **strings, char *option);
-void	export(t_token *token);
+t_exit_code	builtin_handler(t_token *token);
+t_exit_code	dto_cd(t_token *token);
+t_exit_code	dto_pwd(t_token *token);
+t_exit_code	dto_echo(t_token *token);
+t_exit_code	dto_exit(t_token *token);
+t_exit_code	dto_env(t_token *token);
+t_exit_code	dto_unset(t_token *token);
+t_exit_code	dto_export(t_token *token);
+t_exit_code	cd(char *path);
+t_exit_code	pwd(void);
+t_exit_code	env(const char **env);
+t_exit_code	exit_shell(unsigned char exit_code);
+t_exit_code	unset(char **argv, char **envp);
+t_exit_code	echo(char **strings, char *option);
+t_exit_code	export(t_token *token);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/01 16:14:20 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:25:04 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static ssize_t builtin_handler_helper_get_cmd(char *cmd){
 	return (-1);
 }
 
-void	builtin_handler(t_token *token){
+t_exit_code	builtin_handler(t_token *token){
 	t_builtin_dto	*builtin_dtos[BUITIN_CMD_AMOUNT] = {dto_cd, dto_echo, dto_env, dto_exit, dto_pwd, dto_unset, dto_export};
 	const ssize_t	cmd_idx = builtin_handler_helper_get_cmd(token->cmd_path);
 
 	// TODO: 추후 상세한 에러처리 필요
 	if (cmd_idx == -1)
-		return (void)printf("err");
+		return (ECODE_CMD_NOT_FOUND);
 	return (builtin_dtos[cmd_idx](token));
 }

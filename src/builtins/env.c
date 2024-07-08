@@ -6,20 +6,21 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:22:11 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/01 21:15:36 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:27:01 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_builtins.h"
 #include <stdio.h>
 
-void	env(const char **envp){
+t_exit_code	env(const char **envp)
+{
 	int	i;
 
 	i = 0;
 	while (envp[i])
 	{
-		if(ft_strchr(envp[i], '=') != NULL)
+		if(ft_strchr(envp[i], '=') != NULL && *envp[i] != '?') //TODO: exitcode 숨기기
 			printf("%s\n", envp[i]);
 		i++;
 	}

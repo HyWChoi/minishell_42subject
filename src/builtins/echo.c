@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/05/14 18:46:50 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:26:47 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @return void
 */
 
-void	echo(char **strings, char *option)
+t_exit_code	echo(char **strings, char *option)
 {
 	const size_t	len = ft_strs_len((const char **)strings);
 	size_t			i;

@@ -33,7 +33,7 @@ static t_bool	is_option(char **str)
 	return FALSE;
 }
 
-void	dto_echo(t_token *token)
+t_exit_code	dto_echo(t_token *token)
 {
 	char	*option;
 

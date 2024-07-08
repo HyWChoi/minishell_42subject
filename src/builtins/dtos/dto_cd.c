@@ -14,12 +14,14 @@
  * @return void
 */
 
-void	dto_cd(t_token *token)
+t_exit_code	dto_cd(t_token *token)
 {
 	if (ft_strs_len((const char **)token->argv) == 1)
-		cd(getenv("HOME"));
+		return (cd(getenv("HOME")));
 	else if (ft_strs_len((const char **)token->argv) == 2)
-		cd(*(token->argv + 1));
-	else 
+		return (cd(*(token->argv + 1)));
+	else {
 		write(2, "cd: too many arguments\n", 24);
+		return (1);
+	} 
 }

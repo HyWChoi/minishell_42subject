@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	dto_env(t_token *token)
+t_exit_code	dto_env(t_token *token)
 {
 	printf("-----token pass through the dto env-----\n");
 	if (ft_strncmp(token->cmd_path, "env", 4) == 0)
