@@ -44,9 +44,12 @@ void	prs_file_list_add_node(t_file_list *new, t_file_list **head)
 	}
 }
 
-char	*prs_make_heredoc_file(int count)
+char	*prs_make_heredoc_file(char *str, int count)
 {
-	return (ft_strjoin_and_free(TK_HEREDOC_PATH, ft_itoa(count), FREE_S2));
+	char *result;
+
+	result = ft_strjoin_and_free(str, "-", FREE_S1);
+	return (ft_strjoin_and_free(result, ft_itoa(count), FREE_BOTH));
 }
 
 void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack, t_file_type type)

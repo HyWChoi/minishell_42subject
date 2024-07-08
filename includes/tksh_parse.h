@@ -70,7 +70,7 @@ char		*prs_remove_quote(t_prs_stack *stack);
 // description: func for setting file path in token
 void		prs_set_file_path_in_token(t_token *token, t_prs_stack *stack);
 char		*prs_find_file_name(t_prs_stack *stack);
-char		*prs_make_heredoc_file(int count);
+char		*prs_make_heredoc_file(char *str, int count);
 
 // description: func for find value in envp and judging that it is valid variable name
 char		*prs_find_value_in_envp(char *str, char ***envp);

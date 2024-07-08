@@ -77,6 +77,8 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 
 void	set_heredoc_path(t_token **token)
 {
+	const char *const tty = ttyname(STDIN_FILENO);
+	char *dirname;
 	t_file_list	*file_list;
 	int			count;
 
@@ -88,7 +90,8 @@ void	set_heredoc_path(t_token **token)
 		{
 			if (file_list->type == HEREDOC)
 			{
-				file_list->file_name = prs_make_heredoc_file(count);
+				dirname = ft_strjoin(TK_HEREDOC_PATH, tty);
+				file_list->file_name = prs_make_heredoc_file(dirname, count);
 				count++;
 			}
 			file_list = file_list->next;
