@@ -36,10 +36,18 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 		else if (prs_is_redir(stack->ori_str))
 		{
 			prs_set_file_path_in_token(token, stack);
+			if (*result)
+				prs_argv_list_add_node(result, &argv_list);
+			result = ft_strdup("");
 			continue ;
 		}
 		else if (!prs_is_white_space(stack->ori_str))
 			tmp = prs_make_argv_str(stack);
+		// printf("result: %s\n", result);
+		// printf("tmp: %s\n", tmp);
+		// printf("%c\n", *stack->ori_str);
+		// printf("%d\n", *stack->ori_str);
+		// printf("%d\n", prs_is_white_space(stack->ori_str));
 		if (prs_is_white_space(stack->ori_str))
 		{
 			stack->ori_str++;
@@ -52,7 +60,14 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 			}
 		}
 		else
+		{
+			printf("FUCKUP\n");
 			result = ft_strjoin_and_free(result, tmp, FREE_BOTH);
+			// prs_argv_list_add_node(result, &argv_list);
+			// break ;
+		}
+		if (!*stack->ori_str)
+			prs_argv_list_add_node(result, &argv_list);
 	}
 	prs_set_argv_into_token(token, &argv_list, stack);
 	stack->ori_str = start;

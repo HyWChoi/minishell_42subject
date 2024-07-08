@@ -70,6 +70,11 @@ void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_ty
 	char	*file_name;
 
 	file_name = NULL;
+	if ((ft_strlen(stack->ori_str) > 1) && prs_is_redir(stack->ori_str + 2))
+	{
+		stack->err_flag = TRUE;
+		return ;
+	}
 	if (judge_file_type(stack->ori_str + 1))
 	{
 		if (type == OUT_FILE)
@@ -85,6 +90,7 @@ void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_ty
 		if (prs_is_redir(stack->ori_str + 1))
 			stack->err_flag = TRUE;
 	file_name = prs_find_file_name(stack);
+	printf("hi r u here>\n");
 	if (!file_name)
 		stack->err_flag = TRUE;
 	if (!stack->err_flag)
