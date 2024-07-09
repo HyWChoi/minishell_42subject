@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/09 11:34:32 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:46:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,27 @@
 #include <readline/readline.h>
 #include <unistd.h>
 
+static char	**copy_envp(const char **envp)
+{
+	int		i;
+	char	**new_envp;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	if (!ft_calloc_guard((void **)&new_envp, i + 2, sizeof(char *)))
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		new_envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new_envp[i] = ft_strdup("?=0");
+	new_envp[i + 1] = NULL;
+	return (new_envp);
+}
+
 int main(int argc, char **argv, const char **initial_envp)
 {
 	t_token	**token_list;
@@ -30,7 +51,7 @@ int main(int argc, char **argv, const char **initial_envp)
 	(void)argv;
 
 	token_list = NULL;
-	char **tmp = ft_strs_copy(initial_envp);
+	char **tmp = copy_envp(initial_envp);
 	envp = &tmp;
 	// set_exit_code(0);
 	while (1)
