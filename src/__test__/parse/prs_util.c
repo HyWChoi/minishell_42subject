@@ -8,6 +8,16 @@ t_bool	prs_is_pipe(char *c)
 	return (PRS_PIPE == *c);
 }
 
+t_bool	prs_is_end_of_str(char *str)
+{
+	return (*str == '\0');
+}
+
+t_bool	prs_is_equal(char *c)
+{
+	return ('=' == *c);
+}
+
 t_bool	prs_is_white_space(char *c)
 {
 	if (!*c)
