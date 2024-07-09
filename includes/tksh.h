@@ -2,12 +2,18 @@
 # define MS_H
 
 # include "libft.h"
+# define TK_HEREDOC_PATH "./."
+
 # define TK_HEREDOC_PATH "~/Library/Caches/"
 
 typedef unsigned char t_exit_code;
 
 enum e_exit_code {
+	ECODE_SUCCESS = 0,
+	ECODE_ERROR = 1,
+	ECODE_CMD_NOT_EXECUTABLE = 126,
 	ECODE_CMD_NOT_FOUND = 127,
+	ECODE_SIGNAL_SALT = 128
 };
 
 typedef enum	e_file_type

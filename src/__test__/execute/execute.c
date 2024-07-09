@@ -31,14 +31,16 @@ void ex_run_subprocess(t_token *token, t_pipe *pipes, int nth, int ps_len)
 }
 t_exit_code ex_return_exit_code(int status)
 {
-	if (WIFSIGNALED(status))
+	if (WIFSIGNALED(status)){
 		return (WTERMSIG(status) + 128);
-	if (WIFEXITED(status))
+	}
+	else if (WIFEXITED(status)){
 		return (WEXITSTATUS(status));
+	}
 	return (0);
 }
 
-int ex_run_singlecmd(t_token *token)
+t_exit_code ex_run_singlecmd(t_token *token)
 {
 	pid_t pid;
 	int status;
@@ -47,16 +49,13 @@ int ex_run_singlecmd(t_token *token)
 	if (token->cmd_path == NULL)
 		return (0);
   	if (is_builtin_cmd(token->cmd_path))
-    {
-        builtin_handler(token);
-        // TODO: signal 처리
-        return (0);
-    }
+        return (builtin_handler(token));
 	pid = fork();
-	if(pid == 0)
+	ex_fork_error_guard(pid, "fork error");
+	if (!ex_is_parent(pid))
 		run_cmd(token);
-    while(waitpid(pid, &status, 0) != pid) ;
-	return status;
+	waitpid(pid, &status, 0);
+	return (ex_return_exit_code(status));
 }
 
 void shutout_signal()
@@ -65,18 +64,29 @@ void shutout_signal()
 	signal(SIGQUIT, SIG_IGN);
 }
 
-
+void ex_wait_children_ended(int token_len, int last_pid, int *endstatus)
+{
+	int	ended_pid;
+	int	status;
+	while (token_len)
+	{
+		ended_pid = waitpid(-1, &status, 0);
+		if (ended_pid == -1)
+			continue;
+		if (ended_pid == last_pid)
+			*endstatus = status;
+		token_len--;
+	}
+}
 
 unsigned char execute(t_token **token_list)
 {
 	const io_fd_t	io_fd = io_store();
 	size_t			token_len;
-	int				endstatus;
 	size_t			i;
 	pid_t			last_pid;
-    pid_t           ended_pid;
 	t_pipe			pipes;
-
+	int				endstatus;
 
 	i = 0;
 	shutout_signal();
@@ -88,7 +98,7 @@ unsigned char execute(t_token **token_list)
 	{
 		endstatus = ex_run_singlecmd(*token_list);
 		io_restore(io_fd);
-		return (ex_return_exit_code(endstatus));
+		return (endstatus);
 	}
 	while (i < token_len)
 	{
@@ -103,15 +113,7 @@ unsigned char execute(t_token **token_list)
 		i++;
 	}
 	io_restore(io_fd);
-	while (token_len)
-	{
-		ended_pid = waitpid(-1, &endstatus, WNOHANG);
-		if (ended_pid == -1)
-			continue;
-		if (last_pid == ended_pid)
-			break ;
-		token_len--;
-	}
+	ex_wait_children_ended(token_len, last_pid, &endstatus);
 	return (ex_return_exit_code(endstatus));
 	(void)last_pid;
 }

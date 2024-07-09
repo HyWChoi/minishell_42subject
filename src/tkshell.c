@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/09 18:46:30 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:45:57 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,34 @@ static char	**copy_envp(const char **envp)
 	if (!ft_calloc_guard((void **)&new_envp, i + 2, sizeof(char *)))
 		return (NULL);
 	i = 0;
+	new_envp[i] = ft_strdup("?=0");
+	i++;
 	while (envp[i])
 	{
 		new_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	new_envp[i] = ft_strdup("?=0");
 	new_envp[i + 1] = NULL;
 	return (new_envp);
 }
+void ex_unlike_heredoc_hook(t_token **token_list)
+{
+	t_file_list *temp;
+
+	while (*token_list)
+	{
+		temp = *(*token_list)->file;
+		while(temp)
+		{
+			if(temp->type == HEREDOC)
+				unlink(temp->file_name);
+			temp = temp->next;
+		}
+		token_list++;
+	}
+}
+
+
 
 int main(int argc, char **argv, const char **initial_envp)
 {
@@ -60,10 +79,9 @@ int main(int argc, char **argv, const char **initial_envp)
 		token_list = prs_parse(origin_str, envp);
 		// dbg_print_token(token_list);
 		exit_code = execute(token_list);
+		ex_unlike_heredoc_hook(token_list);
 		if (token_list)
-		{
 			tksh_free_token_list(token_list);
-		}
 		// rl_on_new_line();
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 17:17:38 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:32:33 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void heredoc_signal_hook()
 	signal(SIGINT, heredoc_stop_readline);
 	// signal(SIGQUIT, SIG_IGN);
 }
-
-
 
 void heredoc(char *filename, char *limiter)
 {
