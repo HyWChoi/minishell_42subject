@@ -2,7 +2,7 @@
 # define MS_H
 
 # include "libft.h"
-# define TK_HEREDOC_PATH "~/Library/Caches"
+# define TK_HEREDOC_PATH "~/Library/Caches/"
 
 typedef unsigned char t_exit_code;
 

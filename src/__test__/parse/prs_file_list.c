@@ -44,11 +44,18 @@ void	prs_file_list_add_node(t_file_list *new, t_file_list **head)
 	}
 }
 
-char	*prs_make_heredoc_file(char *str, int count)
+char	*prs_make_heredoc_file(int count)
 {
-	char *result;
+	char				*result;
+	const char *const	tty = ttyname(STDIN_FILENO);
+	char				**splited_strs;
+	char				*tty_name;
 
-	result = ft_strjoin_and_free(str, "-", FREE_S1);
+	splited_strs = ft_split(tty, '/');
+	tty_name = splited_strs[ft_strs_len((const char **)splited_strs) - 1];
+	result = ft_strjoin(tty_name, "_");
+	result = ft_strjoin_and_free(TK_HEREDOC_PATH, result, FREE_S2);
+	ft_free_strs(splited_strs);
 	return (ft_strjoin_and_free(result, ft_itoa(count), FREE_BOTH));
 }
 
