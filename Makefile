@@ -2,7 +2,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test" | grep -v "builtins")
+srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test")
 # test_main = $(shell find . -name "*test.c")
 test_main = src/__test__/shell/main.c
 OBJS := $(srcs:.c=.o)

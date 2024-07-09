@@ -108,6 +108,6 @@ size_t	prs_argv_list_count(t_argv_list **start)
 		tmp = tmp->next;
 		i++;
 	}
-	printf("list count: %zu\n", i);
+	// printf("list count: %zu\n", i);
 	return (i);
 }
