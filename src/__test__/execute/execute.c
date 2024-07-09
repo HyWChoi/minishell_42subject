@@ -25,34 +25,10 @@ void ex_run_subprocess(t_token *token, t_pipe *pipes, int nth, int ps_len)
 {
 	pipe_connect(token, pipes, nth, ps_len);
 	io_redirection(token);
+	if(token->cmd_path == NULL)
+		exit(0);
 	run_cmd(token);
 }
-
-void ex_run_singlecmd(t_token *token)
-{
-	pid_t pid;
-	io_redirection(token);
-
-	if (token->cmd_path == NULL)
-		return ;
-  	if (is_builtin_cmd(token->cmd_path))
-    {
-        builtin_handler(token);
-        // TODO: signal 처리
-        return ;
-    }
-	pid = fork();
-	if(pid == 0)
-		run_cmd(token);
-    waitpid(pid, NULL, 0);
-}
-
-void shutout_signal()
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 t_exit_code ex_return_exit_code(int status)
 {
 	if (WIFSIGNALED(status))
@@ -61,6 +37,35 @@ t_exit_code ex_return_exit_code(int status)
 		return (WEXITSTATUS(status));
 	return (0);
 }
+
+int ex_run_singlecmd(t_token *token)
+{
+	pid_t pid;
+	int status;
+	io_redirection(token);
+
+	if (token->cmd_path == NULL)
+		return (0);
+  	if (is_builtin_cmd(token->cmd_path))
+    {
+        builtin_handler(token);
+        // TODO: signal 처리
+        return (0);
+    }
+	pid = fork();
+	if(pid == 0)
+		run_cmd(token);
+    while(waitpid(pid, &status, 0) != pid) ;
+	return status;
+}
+
+void shutout_signal()
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+
 
 unsigned char execute(t_token **token_list)
 {
@@ -81,9 +86,9 @@ unsigned char execute(t_token **token_list)
 	heredoc_hook(token_list);
 	if (token_len == 1)
 	{
-		ex_run_singlecmd(*token_list);
+		endstatus = ex_run_singlecmd(*token_list);
 		io_restore(io_fd);
-		return (0);
+		return (ex_return_exit_code(endstatus));
 	}
 	while (i < token_len)
 	{
@@ -102,7 +107,7 @@ unsigned char execute(t_token **token_list)
 	{
 		ended_pid = waitpid(-1, &endstatus, WNOHANG);
 		if (ended_pid == -1)
-			break;
+			continue;
 		if (last_pid == ended_pid)
 			break ;
 		token_len--;

@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # TODO: 제출하기 전에 shell find 명령어를 사용하지 않도록 수정해야 함
-SRCS := $(shell find . -name ft_\*.c | grep -v bonus) 
+SRCS := $(shell find . -name ft_\*.c | grep -v bonus)  get_next_line/get_next_line.c
 
 OBJS := $(SRCS:.c=.o)
 

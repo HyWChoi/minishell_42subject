@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 23:51:37 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/08 17:17:38 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,44 @@
 #include "tksh_parse.h"
 #include <stdio.h>
 #include <readline/readline.h>
+#include <signal.h>
+#include <termios.h>
+#include "get_next_line.h"
+
+static int heredoc_rl_event_hook_placeholder(void)
+{
+	return (0);
+}
+
+static void heredoc_stop_readline(int sig)
+{
+	struct termios term;
+
+	(void)sig;
+	rl_done = 1;
+	rl_replace_line("", 0);
+	rl_redisplay();
+	tcgetattr(0, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+}
+
+
+void heredoc_signal_hook()
+{
+	rl_event_hook = heredoc_rl_event_hook_placeholder;
+	signal(SIGINT, heredoc_stop_readline);
+	// signal(SIGQUIT, SIG_IGN);
+}
+
+
 
 void heredoc(char *filename, char *limiter)
 {
 	int fd;
 	char *line;
 
+	printf("filename: %s\n", filename);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -31,7 +63,8 @@ void heredoc(char *filename, char *limiter)
 	}
 	while (1)
 	{
-		line = readline(HERE_DOC_HEADER);
+		// tksh_sig_hook();
+		line = readline(STDIN_FILENO);
 		if (line == NULL)
 			break;
 		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
@@ -63,4 +96,3 @@ void heredoc_hook(t_token **token_list)
 		token_list++;
 	}
 }
-
