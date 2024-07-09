@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 16:07:25 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:47:48 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ void    run_cmd(t_token *token)
         exit(exit_code);
     }
     cmd_abs_path = get_cmd_path_from_env(token->cmd_path, *token->envp);
+    if (cmd_abs_path == NULL)
+    {
+        printf("tksh: %s: command not found\n", token->cmd_path);
+        exit(127);
+    }
     if (execve(cmd_abs_path, token->argv, *token->envp) == -1)
     {
-        printf("%s\n\n", cmd_abs_path); // TODO: signal error 처리
-        perror("error in run cmd");
+        perror(cmd_abs_path);
         exit(EXIT_FAILURE);
     }
 }

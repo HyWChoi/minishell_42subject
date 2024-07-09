@@ -21,6 +21,7 @@
 #include <readline/readline.h>
 #include <unistd.h>
 
+int g_sig_flag=0;
 static char	**copy_envp(const char **envp)
 {
 	int		i;
@@ -42,6 +43,16 @@ static char	**copy_envp(const char **envp)
 	new_envp[i + 1] = NULL;
 	return (new_envp);
 }
+
+
+
+static void set_exit_code(t_exit_code exit_code, char ***envp)
+{
+	free(*envp[0]);
+	**envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
+}
+
+
 void ex_unlike_heredoc_hook(t_token **token_list)
 {
 	t_file_list *temp;
@@ -76,10 +87,17 @@ int main(int argc, char **argv, const char **initial_envp)
 	while (1)
 	{
 		char *origin_str = tksh_prompt(**envp);
+		if(ft_strlen(origin_str) == 0 && g_sig_flag == SIGINT_FLAG_ON)
+		{
+			set_exit_code(1, envp);
+			g_sig_flag = SIGINT_FLAG_OFF;
+			continue;
+		}
 		token_list = prs_parse(origin_str, envp);
 		// dbg_print_token(token_list);
 		exit_code = execute(token_list);
 		ex_unlike_heredoc_hook(token_list);
+		set_exit_code(exit_code, envp);
 		if (token_list)
 			tksh_free_token_list(token_list);
 		// rl_on_new_line();

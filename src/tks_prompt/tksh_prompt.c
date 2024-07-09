@@ -6,10 +6,11 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/24 22:00:22 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:41:20 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "tksh.h"
 #include "tksh_prompt.h"
 #include "libft.h"
 #include <stdio.h>
@@ -28,7 +29,9 @@ static void	tks_stop_readline(int sig)
 	struct termios	term;
 
 	(void)sig;
+		
 	rl_done = 1;
+	g_sig_flag = SIGINT_FLAG_ON;
 	rl_replace_line("", 0);
 	rl_redisplay();
 	tcgetattr(0, &term);

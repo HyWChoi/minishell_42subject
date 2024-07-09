@@ -4,7 +4,13 @@
 # include "libft.h"
 # define TK_HEREDOC_PATH "./."
 
-# define TK_HEREDOC_PATH "~/Library/Caches/"
+enum e_flag_status {
+	SIGINT_FLAG_OFF = 0,
+	SIGINT_FLAG_ON = 1,
+};
+
+extern int g_sig_flag;
+
 
 typedef unsigned char t_exit_code;
 

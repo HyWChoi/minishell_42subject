@@ -6,12 +6,27 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 15:45:44 by yechakim          #+#    #+#             */
-/*   Updated: 2024/06/30 17:17:58 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/09 18:42:17 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
 #include "libft.h"
+#include <dirent.h>
+#include <stdio.h>
+
+static int isdir(char *path)
+{
+	DIR *dir;
+
+	dir = opendir(path);
+	if (dir == NULL)
+		return (ACCESS_ERROR);
+	closedir(dir);
+	return (ACCESS_SUCESS);
+}
+
+
 
 char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 {
@@ -22,11 +37,23 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	i = 0;
 	if (cmd == NULL)
 		return (NULL);
+	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
+	{
+		if(isdir(cmd) != ACCESS_SUCESS)
+			return (ft_strdup(cmd));
+		else {
+			printf("tksh: %s: is a directory\n", cmd);
+			exit(ECODE_CMD_NOT_EXECUTABLE);
+		}
+	}
+	if (ft_strchr(cmd, '/') != NULL)
+		return (ft_strdup(cmd));
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
 		ret = ft_strjoin(temp, cmd);
-		if (access(ret, F_OK) == 0)
+		if (access(ret, F_OK | X_OK) == ACCESS_SUCESS
+			&& isdir(ret) != ACCESS_SUCESS)
 		{
 			free(temp);
 			return (ret);
@@ -37,7 +64,10 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	}
 	temp = ft_strjoin("./", cmd);
 	if (access(temp, F_OK | X_OK) == 0)
-		return (temp);
+	{
+		if(isdir(temp) != 0)
+			return (temp);
+	}
 	free(temp);
 	return (ft_strdup(cmd));
 }
@@ -75,11 +105,11 @@ char        *get_cmd_path_from_env(char *cmd, char **envp)
 	if (ft_strchr(cmd, '/') == cmd)
 		return (ft_strdup(cmd));
 	paths = get_paths_from_env(envp);
-	if (!paths) // TODO: signal error 처리
+	if (!paths)
 		return (NULL);
 	ret = ex_get_abs_path_of_cmd(cmd, paths);
 	ft_free_strs(paths);
-	if (!ret) // TODO: signal error 처리
+	if (!ret)
 		return (NULL);
 	return (ret);
 }
