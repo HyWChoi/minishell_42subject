@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 17:58:56 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:04:26 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	display_declare(char **envp)
 		if (ft_strncmp(key_name, "?", 1) != 0)
 		{
 			if (key_name[len_key_name - 1] == '=')
-				printf("declare -x %s\"%s\"\n", key_name, key_value);
+				printf("%s\"%s\"\n", key_name, key_value);
 			else
-				printf("declare -x %s\n", key_name);
+				printf("%s\n", key_name);
 		}
 		free(key_name);
 		free(key_value);
