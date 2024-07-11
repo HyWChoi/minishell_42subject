@@ -36,18 +36,20 @@ static t_bool	is_option(char **str)
 t_exit_code	dto_echo(t_token *token)
 {
 	char	*option;
+	char	**argv;
 
 	option = "";
+	argv = token-> argv + 1;
 	printf("-----token pass through the dto echo-----\n");
-	while (*(token->argv)) // NOTE: echo -n -n -n -n -n 같이 -n이 여러개 들어오는 경우 argv를 돌면서 option이 유효한지 판단하여 option을 설정
+	while (argv) // NOTE: echo -n -n -n -n -n 같이 -n이 여러개 들어오는 경우 argv를 돌면서 option이 유효한지 판단하여 option을 설정
 	{
-		if (is_option(token->argv))
+		if (is_option(argv))
 		{
-			option = *(token->argv);
-			token->argv = token->argv + 1;
+			option = *(argv);
+			argv = argv + 1;
 		}
 		else
 			break ;
-	}	
-	return (echo(token->argv, option));
+	}
+	return (echo(argv, option));
 }

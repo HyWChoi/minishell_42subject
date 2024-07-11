@@ -23,7 +23,10 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 		i++;
 	result = ft_strndup((const char *)stack->ori_str, i);
 	if (ft_strchr(result, '$'))
+	{
 		result = prs_parse_variable(result, stack->envp);
+		stack->var_flag = TRUE;
+	}
 	stack->ori_str += i;
 	return (result);
 }

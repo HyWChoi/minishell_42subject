@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_and_free.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 21:05:57 by yechakim          #+#    #+#             */
-/*   Updated: 2024/04/17 15:46:57 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:34:32 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /**
  * @brief Join two strings and free the target string.
- * 
+ *
  * @param s1 The first string that must be valid.
  * @param s2 The second string that must be valid.
  * @param free_target The target string to free.

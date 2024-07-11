@@ -41,7 +41,7 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 			prs_set_file_path_in_token(token, stack);
 			if (*result)
 			{
-				prs_argv_list_add_node(result, &argv_list);
+				prs_argv_list_add_node(result, &argv_list, stack);
 				result = ft_strdup("");
 			}
 			continue ;
@@ -54,7 +54,7 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 			if (tmp)
 			{
 				result = ft_strjoin_and_free(result, tmp, FREE_BOTH);
-				prs_argv_list_add_node(result, &argv_list);
+				prs_argv_list_add_node(result, &argv_list, stack);
 				result = ft_strdup("");
 				tmp = NULL;
 			}
@@ -66,7 +66,7 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 			// break ;
 		}
 		if (!*stack->ori_str)
-			prs_argv_list_add_node(result, &argv_list);
+			prs_argv_list_add_node(result, &argv_list, stack);
 	}
 	prs_set_argv_into_token(token, &argv_list, stack);
 	stack->ori_str = start;

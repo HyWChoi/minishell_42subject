@@ -31,6 +31,7 @@ typedef struct	s_prs_stack
 	size_t	size;
 	t_bool	is_double_quote;
 	t_bool	is_single_quote;
+	t_bool	var_flag;
 	t_bool	err_flag;
 }	t_prs_stack;
 
@@ -54,7 +55,7 @@ void		prs_init_token(t_token **token, char	***envp);
 
 // description: func about linked list for making 2d array for argv
 t_argv_list	*prs_argv_list_new_node(char *str);
-void		prs_argv_list_add_node(char *str, t_argv_list	**head);
+void		prs_argv_list_add_node(char *str, t_argv_list **head, t_prs_stack *stack);
 char		*prs_argv_list_get_str(t_argv_list *argv_list);
 t_argv_list	*prs_argv_list_find_last(t_argv_list **start);
 size_t		prs_argv_list_count(t_argv_list **start);

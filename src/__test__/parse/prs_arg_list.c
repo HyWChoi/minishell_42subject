@@ -36,12 +36,18 @@ t_argv_list	*prs_argv_list_new_node(char *str)
  * @param char* str - The string to be added to the list.
  * @param t_argv_list** head - Pointer to the head of the argv list.
  */
-void	prs_argv_list_add_node(char *str, t_argv_list	**head)
+void	prs_argv_list_add_node(char *str, t_argv_list	**head, t_prs_stack *stack)
 {
 	t_argv_list	*last;
 
 	if (!str)
 		return ;
+	if (!*str && stack->var_flag)
+	{
+		stack->var_flag = FALSE;
+		free(str);
+		return ;
+	}
 	if (!*head)
 		*head = prs_argv_list_new_node(str);
 	else
