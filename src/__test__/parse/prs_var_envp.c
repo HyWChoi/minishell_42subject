@@ -82,11 +82,14 @@ char	*prs_parse_variable(char *str, char ***envp)
 				parsed_var = prs_find_value_in_envp(str + 1, envp);
 				result = ft_strjoin_and_free(result, parsed_var, FREE_BOTH);
 				str += 1;
+				start = str;
 			}
 			else
 			{
-				result = ft_strjoin_and_free(result, "", FREE_S1);
+				result = ft_strjoin_and_free(result, "$", FREE_S1);
 				str += 1;
+				start = str;
+				continue ;
 			}
 			if (*str)
 				start = str + 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/09 19:45:57 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:35:20 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void ex_unlike_heredoc_hook(t_token **token_list)
 		token_list++;
 	}
 }
-
-
 
 int main(int argc, char **argv, const char **initial_envp)
 {
