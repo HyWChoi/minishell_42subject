@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:39:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 17:10:27 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:22:59 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ void ex_move_2_fd(int from, int to)
 	close(from);
 }
 
-t_bool ex_file_has_next(t_file_list *file)
-{
-    return (file->next != NULL);
-}
-
-void throw_open_error(int fd)
+void throw_open_error(char *filename, int fd)
 {
     if (fd == -1)
-        perror("open");
+    {
+        perror(filename);
+        exit(1);
+    }
+    
 }
 
 void infile_open(t_file_list *file, t_file_list **last_infile_node){
@@ -44,7 +43,7 @@ void infile_open(t_file_list *file, t_file_list **last_infile_node){
         *last_infile_node = file;
         file->fd = open(file->file_name, O_RDONLY);
         if (file->fd == -1)
-            throw_open_error(file->fd);
+            throw_open_error(file->file_name, file->fd);
     }
 }
 
@@ -63,7 +62,7 @@ void outfile_open(t_file_list *file, t_file_list **last_infile_node)
         else if (file->type == APPEND)
             file->fd = open(file->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
         if (file->fd == -1)
-            throw_open_error(file->fd);
+            throw_open_error(file->file_name, file->fd);
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 19:32:33 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:15:12 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void heredoc_stop_readline(int sig)
 
 	(void)sig;
 	rl_done = 1;
+	g_sig_flag = SIGINT_FLAG_ON;
 	rl_replace_line("", 0);
 	rl_redisplay();
 	tcgetattr(0, &term);
@@ -43,8 +44,8 @@ static void heredoc_stop_readline(int sig)
 void heredoc_signal_hook()
 {
 	rl_event_hook = heredoc_rl_event_hook_placeholder;
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, heredoc_stop_readline);
-	// signal(SIGQUIT, SIG_IGN);
 }
 
 void heredoc(char *filename, char *limiter)
@@ -61,20 +62,26 @@ void heredoc(char *filename, char *limiter)
 	}
 	while (1)
 	{
-		// tksh_sig_hook();
+		heredoc_signal_hook();
 		line = readline(STDIN_FILENO);
 		if (line == NULL)
 			break;
-		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
+		if (g_sig_flag == SIGINT_FLAG_ON)
 		{
 			free(line);
 			break;
 		}
+		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
+		{
+			free(line);
+			printf("heredoc end\n");
+			break;
+		}
 		write(fd, line, ft_strlen(line));
+		free(line);
 	}
 	close(fd);
 }
-
 
 void heredoc_hook(t_token **token_list)
 {
