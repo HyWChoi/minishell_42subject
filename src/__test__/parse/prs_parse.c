@@ -66,7 +66,10 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 			// break ;
 		}
 		if (!*stack->ori_str)
+		{
 			prs_argv_list_add_node(result, &argv_list, stack);
+			result = ft_strdup("");
+		}
 	}
 	if (!(*result))
 		free(result);
