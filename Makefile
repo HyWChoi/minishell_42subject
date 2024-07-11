@@ -1,6 +1,6 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test")
 # test_main = $(shell find . -name "*test.c")
