@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 17:52:25 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:53:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ void	replace_value(t_token *token, char *key, char *new_key)
 	free(key);
 }
 
-static t_bool invalid_char(char *str)
-{
-	if(ft_strchr(" \t\n\r\v\f=$*?\\\"\'", *str) != NULL)
-		return (TRUE);
-	return (FALSE);
-}
 
 
 int	is_exist_env(t_token *token, char *key_name)
@@ -84,11 +78,21 @@ int	is_exist_env(t_token *token, char *key_name)
 	return (FALSE);
 }
 
-t_bool	is_valid_key(char *key)
+
+static t_bool invalid_char(char *str)
 {
-	if (ft_isdigit(*key) == TRUE || ft_strchr(key, ' ') != NULL || ft_strchr(key, '\t') != NULL || *key == '=' || invalid_char(key))
-		return (FALSE);
-	return (TRUE);
+	while (*str)
+	{
+		if (!(ft_isalnum(*str) != FALSE || *str == '_'))
+			return (TRUE);
+		str++;
+	}
+	return (FALSE);
+}
+
+t_bool	is_valid_key(char *key)
+{	
+	return (!(ft_isdigit(*key) == TRUE || invalid_char(key)));
 }
 
 /**
@@ -112,18 +116,22 @@ t_exit_code	export(t_token *token)
 	ret = EXIT_SUCCESS;
 	while (i < argv_len)
 	{
-		if (!is_valid_key(token->argv[i]))
+		key_name = ft_strndup(token->argv[i], prs_count_str_using_func(token->argv[i], prs_is_equal, FALSE));
+		if (!is_valid_key(key_name))
 		{
 			printf("export: '%s': not a valid identifier\n", token->argv[i]);
+			free(key_name);
 			ret = EXIT_FAILURE;
 			i++;
 			continue ;
 		}
-		key_name = ft_strndup(token->argv[i], prs_count_str_using_func(token->argv[i], prs_is_equal, FALSE));
 		if (is_exist_env(token, key_name))
 			replace_value(token, key_name, token->argv[i]);
 		else
+		{
 			add_env(token, token->argv[i]); //TODO: if key is exist, update value
+			free(key_name);
+		}
 		i++;
 	}
 	return (ret);

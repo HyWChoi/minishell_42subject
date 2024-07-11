@@ -15,13 +15,6 @@
 #include <dirent.h>
 #include <stdio.h>
 
-
-/* 
-1. /가 포함되어있다 아니다  -> 포함 -> 상대 혹은 절대경로-> path안붙힘
-2. 포함되어있지 않다. ->무조건 path를 붙힌다.
- */
-
-
 static int isdir(char *path)
 {
 	DIR *dir;
@@ -49,11 +42,11 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 			if(isdir(cmd) != ACCESS_SUCESS) 
 				return (ft_strdup(cmd)); //  commnad found
 			else {
-				ex_err_msg(cmd, "is a directory\n");
+				put_err_msg(cmd, "is a directory\n");
 				exit(ECODE_CMD_NOT_EXECUTABLE);
 			}
 		}
-		ex_err_msg(cmd, "command not found\n");
+		put_err_msg(cmd, "command not found\n");
 		exit(ECODE_CMD_NOT_FOUND);
 	}
 	while (paths[i])
@@ -70,9 +63,10 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 		free(ret);
 		i++;
 	}
-	ex_err_msg(cmd, "command not found\n");
+	put_err_msg(cmd, "command not found\n");
 	exit(ECODE_CMD_NOT_FOUND);
 }
+
 
 static char **get_paths_from_env(char **envp)
 {

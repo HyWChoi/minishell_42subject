@@ -26,7 +26,7 @@ t_exit_code	dto_cd(t_token *token)
 		if (!*result_home)
 		{
 			free(result_home);
-			printf("tksh: cd: HOME not set\n");
+			put_err_msg("cd","HOME not set\n");
 			return (1);
 		}
 		code = cd(result_home);

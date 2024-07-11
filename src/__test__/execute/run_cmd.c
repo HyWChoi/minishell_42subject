@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/11 16:36:44 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:28:50 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void    run_cmd(t_token *token)
         exit(exit_code);
     }
     cmd_abs_path = get_cmd_path_from_env(token->cmd_path, *token->envp);
-    printf("cmd_abs_path: %s\n", cmd_abs_path);
     if (cmd_abs_path == NULL)
         exit(127);
     if (execve(cmd_abs_path, token->argv, *token->envp) == -1)

@@ -17,6 +17,7 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 {
 	int	i;
 	char	*result;
+	char	*temp;
 
 	i = 0;
 	while (prs_is_end_of_name(stack->ori_str + i))
@@ -24,7 +25,9 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 	result = ft_strndup((const char *)stack->ori_str, i);
 	if (ft_strchr(result, '$'))
 	{
+		temp = result;
 		result = prs_parse_variable(result, stack->envp);
+		free(temp);
 		stack->var_flag = TRUE;
 	}
 	stack->ori_str += i;

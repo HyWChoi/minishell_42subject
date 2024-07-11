@@ -1,12 +1,12 @@
 #ifndef TKSH_EXECUTE_H
 # define TKSH_EXECUTE_H
 
-# include "tksh.h"
+# include "tksh_types.h"
 # include "tksh_parse.h"
 
 
 t_exit_code		execute(t_token **token_list);
-size_t		get_token_len(t_token **token_list);
+size_t			get_token_len(t_token **token_list);
 
 /* UTILS */
 
@@ -41,7 +41,6 @@ void		ex_move_2_fd(int from, int to);
 void		ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes);
 void		destroy_pipe(t_pipe *pipe, int i, int cmd_cnt);
 void		pipe_connect(t_token *ps, t_pipe *pipes, int nth, int ps_len);
-void		ex_err_msg(char *cmd, char *err_msg);
 
 /* HERE_DOC */
 # define HERE_DOC_HEADER "heredoc> "

@@ -6,6 +6,5 @@
 
 t_exit_code	dto_env(t_token *token)
 {
-	printf("-----token pass through the dto env-----\n");
 	return (env((const char **)*(token->envp)));
 }

@@ -5,7 +5,6 @@
 
 t_exit_code	dto_pwd(t_token *token)
 {
-	printf("-----token pass through the dto pwd-----\n");
 	(void)token;
 	return(pwd());
 }
