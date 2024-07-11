@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_cmd_path_from_env.c                            :+:      :+:    :+:   */
+/*                                                        ::     :::::::  */
+/*   get_cmd_path_from_env.c                            :+     :+   :+  */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   Byyechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 15:45:44 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 18:42:17 by yechakim         ###   ########.fr       */
+/*   Created2024/06/24 15:45:44 by yechakim          #+#    #+#             */
+/*   Updated2024/07/11 16:56:57 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "libft.h"
 #include <dirent.h>
 #include <stdio.h>
+
+
+/* 
+1. /가 포함되어있다 아니다  -> 포함 -> 상대 혹은 절대경로-> path안붙힘
+2. 포함되어있지 않다. ->무조건 path를 붙힌다.
+ */
+
 
 static int isdir(char *path)
 {
@@ -26,9 +33,7 @@ static int isdir(char *path)
 	return (ACCESS_SUCESS);
 }
 
-
-
-char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
+char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 {
 	char	*ret;
 	char	*temp;
@@ -37,17 +42,20 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	i = 0;
 	if (cmd == NULL)
 		return (NULL);
-	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
-	{
-		if(isdir(cmd) != ACCESS_SUCESS)
-			return (ft_strdup(cmd));
-		else {
-			printf("tksh: %s: is a directory\n", cmd);
-			exit(ECODE_CMD_NOT_EXECUTABLE);
-		}
-	}
 	if (ft_strchr(cmd, '/') != NULL)
-		return (ft_strdup(cmd));
+	{
+	 	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
+		{
+			if(isdir(cmd) != ACCESS_SUCESS) 
+				return (ft_strdup(cmd)); //  commnad found
+			else {
+				ex_err_msg(cmd, "is a directory\n");
+				exit(ECODE_CMD_NOT_EXECUTABLE);
+			}
+		}
+		ex_err_msg(cmd, "command not found\n");
+		exit(ECODE_CMD_NOT_FOUND);
+	}
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
@@ -62,14 +70,8 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 		free(ret);
 		i++;
 	}
-	temp = ft_strjoin("./", cmd);
-	if (access(temp, F_OK | X_OK) == 0)
-	{
-		if(isdir(temp) != 0)
-			return (temp);
-	}
-	free(temp);
-	return (ft_strdup(cmd));
+	ex_err_msg(cmd, "command not found\n");
+	exit(ECODE_CMD_NOT_FOUND);
 }
 
 static char **get_paths_from_env(char **envp)
@@ -84,11 +86,11 @@ static char **get_paths_from_env(char **envp)
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = ft_strdup(envp[i] + 5);
-			if (!path) // TODO: signal error 처리
+			if (!path) // TODOsignal error 처리
 				return (NULL);
 			paths = ft_split(path, ':');
 			free(path);
-			if (!paths) // TODO: signal error 처리
+			if (!paths) // TODOsignal error 처리
 				return (NULL);
 			return (paths);
 		}

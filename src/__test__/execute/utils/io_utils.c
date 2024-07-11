@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 00:39:33 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 21:22:59 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:33:18 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void ex_move_2_fd(int from, int to)
 	close(from);
 }
 
-void throw_open_error(char *filename, int fd)
+ssize_t throw_open_error(char *filename, int fd)
 {
     if (fd == -1)
     {
         perror(filename);
-        exit(1);
+        return (-1);
     }
-    
+    return (0);
 }
 
-void infile_open(t_file_list *file, t_file_list **last_infile_node){
+ssize_t infile_open(t_file_list *file, t_file_list **last_infile_node){
     
     if (file->type == IN_FILE || file->type == HEREDOC)
     {
@@ -43,11 +43,13 @@ void infile_open(t_file_list *file, t_file_list **last_infile_node){
         *last_infile_node = file;
         file->fd = open(file->file_name, O_RDONLY);
         if (file->fd == -1)
-            throw_open_error(file->file_name, file->fd);
+            return (throw_open_error(file->file_name, file->fd));
+        return (0);
     }
+    return (0);
 }
 
-void outfile_open(t_file_list *file, t_file_list **last_infile_node)
+ssize_t outfile_open(t_file_list *file, t_file_list **last_infile_node)
 {
     if (file->type == OUT_FILE || file->type == APPEND)
     {
@@ -62,11 +64,13 @@ void outfile_open(t_file_list *file, t_file_list **last_infile_node)
         else if (file->type == APPEND)
             file->fd = open(file->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
         if (file->fd == -1)
-            throw_open_error(file->file_name, file->fd);
+            return (throw_open_error(file->file_name, file->fd));
+        return (0);
     }
+    return (0);
 }
 
-void redirect_2_file(t_file_list *file)
+ssize_t redirect_2_file(t_file_list *file)
 {
     t_file_list *last_infile_node;
     t_file_list *last_outfile_node;
@@ -75,24 +79,29 @@ void redirect_2_file(t_file_list *file)
     last_outfile_node = NULL;
     while(file)
     {
-        infile_open(file, &last_infile_node);
-        outfile_open(file, &last_outfile_node);
+        if(infile_open(file, &last_infile_node) == -1)
+            return (-1);
+        if (outfile_open(file, &last_outfile_node) == -1)
+            return (-1);
         file = file->next;
     }
 	if (last_infile_node)
 		ex_move_2_fd(last_infile_node->fd, STDIN_FILENO);
     if (last_outfile_node)
         ex_move_2_fd(last_outfile_node->fd, STDOUT_FILENO);
+    return (0);
 }
 
-void    io_redirection(t_token *token)
+ssize_t    io_redirection(t_token *token)
 {
     t_file_list	*file;
     
     if (!token->file)
-        return ;
+        return (0);
     file = *token->file;
-    redirect_2_file(file);
+    if(redirect_2_file(file) == -1)
+        return (-1);
+    return (0);
 }
 
 void destroy_pipe(t_pipe *pipe, int i, int cmd_cnt)
@@ -114,10 +123,10 @@ void destroy_pipe(t_pipe *pipe, int i, int cmd_cnt)
 
 void io_restore(io_fd_t io_fd)
 {
-    close(STDIN_FILENO);
-    close(STDOUT_FILENO);
     dup2(io_fd.stdin_fd, STDIN_FILENO);
     dup2(io_fd.stdout_fd, STDOUT_FILENO);
+    close(io_fd.stdin_fd);
+    close(io_fd.stdout_fd);
 }
 
 io_fd_t io_store(void)

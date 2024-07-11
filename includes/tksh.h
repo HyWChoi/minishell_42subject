@@ -4,12 +4,12 @@
 # include "libft.h"
 # define TK_HEREDOC_PATH "./."
 
-enum e_flag_status {
+enum e_sig_status {
 	SIGINT_FLAG_OFF = 0,
 	SIGINT_FLAG_ON = 1,
 };
 
-extern int g_sig_flag;
+extern sig_atomic_t g_sig_flag;
 
 
 typedef unsigned char t_exit_code;

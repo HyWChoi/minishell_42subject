@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 21:15:12 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:12:43 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@
 
 static int heredoc_rl_event_hook_placeholder(void)
 {
+	struct termios term;
+	
+	if(g_sig_flag == SIGINT_FLAG_ON)
+	{
+		rl_done = 1;
+		rl_replace_line("", 0);
+		rl_redisplay();
+		tcgetattr(0, &term);
+		term.c_lflag &= ~ECHOCTL;
+		tcsetattr(0, TCSANOW, &term);
+		return (0);
+	}
 	return (0);
 }
 
 static void heredoc_stop_readline(int sig)
 {
-	struct termios term;
-
 	(void)sig;
 	rl_done = 1;
 	g_sig_flag = SIGINT_FLAG_ON;
-	rl_replace_line("", 0);
-	rl_redisplay();
-	tcgetattr(0, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &term);
 }
 
 

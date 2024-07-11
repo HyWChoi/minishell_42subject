@@ -44,8 +44,8 @@ t_exit_code ex_run_singlecmd(t_token *token)
 {
 	pid_t pid;
 	int status;
-	io_redirection(token);
-
+	if (io_redirection(token) == -1)
+		return (1);
 	if (token->cmd_path == NULL)
 		return (0);
   	if (is_builtin_cmd(token->cmd_path))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/11 15:35:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:26:48 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <readline/readline.h>
 #include <unistd.h>
 
-int g_sig_flag=0;
+sig_atomic_t g_sig_flag=0;
 static char	**copy_envp(const char **envp)
 {
 	int		i;
@@ -84,11 +84,13 @@ int main(int argc, char **argv, const char **initial_envp)
 	// set_exit_code(0);
 	while (1)
 	{
+		// leak_check();
+		g_sig_flag = SIGINT_FLAG_OFF;
 		char *origin_str = tksh_prompt(**envp);
-		if(ft_strlen(origin_str) == 0 && g_sig_flag == SIGINT_FLAG_ON)
+		if(ft_strlen(origin_str) == 0)
 		{
-			set_exit_code(1, envp);
-			g_sig_flag = SIGINT_FLAG_OFF;
+			if(g_sig_flag == SIGINT_FLAG_ON)
+				set_exit_code(1, envp);
 			continue;
 		}
 		token_list = prs_parse(origin_str, envp);
