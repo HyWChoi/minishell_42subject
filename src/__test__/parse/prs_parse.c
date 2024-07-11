@@ -68,6 +68,8 @@ static void	*prs_set_token(t_prs_stack *stack, t_token *token)
 		if (!*stack->ori_str)
 			prs_argv_list_add_node(result, &argv_list, stack);
 	}
+	if (!(*result))
+		free(result);
 	prs_set_argv_into_token(token, &argv_list, stack);
 	stack->ori_str = start;
 	return (token);
