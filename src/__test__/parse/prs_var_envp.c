@@ -39,7 +39,6 @@ char	*prs_find_value_in_envp(char *str, char ***envp)
 	else
 		count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
 	envp_key = ft_strjoin_and_free(ft_strndup(str, count), "=", FREE_S1);
-	printf("envp_key: %s\n", envp_key);
 	while (*(*envp + i))
 	{
 		if (ft_strncmp(envp_key, *(*envp + i), count + 1) == 0)
@@ -89,7 +88,8 @@ char	*prs_parse_variable(char *str, char ***envp)
 				result = ft_strjoin_and_free(result, "", FREE_S1);
 				str += 1;
 			}
-			start = str + 1;
+			if (*str)
+				start = str + 1;
 		}
 		else
 			str++;
