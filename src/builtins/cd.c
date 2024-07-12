@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:27:24 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:02:33 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 #include <unistd.h>
 #include <stdio.h>
 
-/**
- * @brief change directory
- *
- * This function will change the current working directory
- * to the path specified by the argunment.
- *
- * @param path The path to change the current working directory to.
- * @return void
-*/
 t_exit_code	cd(char *path)
 {
 	if (ft_strlen(path) == 0)

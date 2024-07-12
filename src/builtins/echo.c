@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:03:49 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,11 @@ int	len_zero(size_t len, char *option)
 	return (-1);
 }
 
-/**
- * @brief echo
- *
- * This function repeats the input string that was entered.
- *
- * @param strings A list of strings that this function repeats on a single line.
- * @param option This option determines whether to add a newline character ('\n')
- * @return void
-*/
-
 t_exit_code	echo(char **strings, char *option)
 {
 	const size_t	len = ft_strs_len((const char **)strings);
 	size_t			i;
-	char 			*ret;
+	char			*ret;
 
 	if (!len_zero(len, option))
 		return (EXIT_SUCCESS);

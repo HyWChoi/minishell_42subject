@@ -8,7 +8,7 @@ static t_bool	is_option(char **str)
 {
 	char	*tmp;
 
-	*tmp = *str;
+	tmp = *str;
 	if (!*str)
 		return (FALSE);
 	if (ft_strncmp("-n", *str, 2) == 0)

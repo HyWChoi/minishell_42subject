@@ -5,9 +5,9 @@
 
 # define PWD_MAX_BUFF_SIZE 4096
 
-/** 
+/**
  * @brief Builtin Command Amount
- * 
+ *
 */
 # define BUITIN_CMD_AMOUNT 7 // export is not implemented yet
 # define CD "cd"
@@ -36,5 +36,11 @@ t_exit_code	exit_shell(unsigned char exit_code);
 t_exit_code	unset(char **argv, char **envp);
 t_exit_code	echo(char **strings, char *option);
 t_exit_code	export(t_token *token);
+
+//export
+t_bool	export_is_correct_key(size_t key_len, char *str, char *key);
+int		export_is_exist_env(t_token *token, char *key_name);
+t_bool	export_invalid_char(char *str);
+t_bool	export_is_valid_key(char *key);
 
 #endif
