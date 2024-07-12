@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 16:22:02 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:42:42 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <termios.h>
 #include "get_next_line.h"
 
-static int	heredoc_rl_event_hook_placeholder(void)
+static int	heredoc_rl_event_hook(void)
 {
 	struct termios	term;
 
@@ -45,46 +45,36 @@ static void	heredoc_stop_readline(int sig)
 	g_sig_flag = SIGINT_FLAG_ON;
 }
 
-void	heredoc_signal_hook(void)
+static void	heredoc_signal_hook(void)
 {
-	rl_event_hook = heredoc_rl_event_hook_placeholder;
+	rl_event_hook = heredoc_rl_event_hook;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, heredoc_stop_readline);
 }
 
-void	heredoc(char *filename, char *limiter)
+int 	heredoc(char *filename, char *limiter)
 {
 	int		fd;
 	char	*line;
 
-	printf("filename: %s\n", filename);
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		perror("heredoc open");
-		exit(1);
-	}
+	if (safety_open(filename,O_WRONLY | O_CREAT | O_TRUNC, 0644, &fd) == -1)
+		return (-1);
 	while (1)
 	{
 		heredoc_signal_hook();
 		line = readline(STDIN_FILENO);
-		if (line == NULL)
-			break ;
-		if (g_sig_flag == SIGINT_FLAG_ON)
+		if (line == NULL || g_sig_flag
+			|| ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
 		{
-			free(line);
-			break ;
-		}
-		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
-		{
-			free(line);
-			printf("heredoc end\n");
+			if (line)
+				free(line);
 			break ;
 		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
 	close(fd);
+	return (0);
 }
 
 void	heredoc_hook(t_token **token_list)
@@ -99,7 +89,10 @@ void	heredoc_hook(t_token **token_list)
 		while (file_list)
 		{
 			if (file_list->type == HEREDOC)
-				heredoc(file_list->file_name, file_list->limiter);
+			{
+				if (heredoc(file_list->file_name, file_list->limiter) == -1)
+					return ;
+			}
 			file_list = file_list->next;
 		}
 		token_list++;

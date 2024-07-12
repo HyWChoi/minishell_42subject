@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::     :::::::  */
-/*   get_cmd_path_from_env.c                            :+     :+   :+  */
-/*                                                    +:+ +:+         +:+     */
-/*   Byyechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created2024/06/24 15:45:44 by yechakim          #+#    #+#             */
-/*   Updated2024/07/11 16:56:57 by yechakim         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "tksh_execute.h"
 #include "libft.h"
 #include <dirent.h>
@@ -26,7 +14,7 @@ static int	isdir(char *path)
 	return (ACCESS_SUCESS);
 }
 
-char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
+char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 {
 	char	*ret;
 	char	*temp;
@@ -40,7 +28,7 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 		if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
 		{
 			if (isdir(cmd) != ACCESS_SUCESS)
-				return (ft_strdup(cmd)); //  commnad found
+				return (ft_strdup(cmd));
 			else
 			{
 				put_err_msg(cmd, "is a directory\n");
@@ -80,11 +68,11 @@ static char	**get_paths_from_env(char **envp)
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = ft_strdup(envp[i] + 5);
-			if (!path) // TODOsignal error 처리
+			if (!path)
 				return (NULL);
 			paths = ft_split(path, ':');
 			free(path);
-			if (!paths) // TODOsignal error 처리
+			if (!paths)
 				return (NULL);
 			return (paths);
 		}

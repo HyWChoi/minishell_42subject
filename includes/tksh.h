@@ -2,7 +2,7 @@
 # define MS_H
 
 # include "libft.h"
-# define TK_HEREDOC_PATH "./."
+# define TK_HEREDOC_PATH "./.asd/.asd"
 
 /*** CUSTOM IMPORT ***/
 # include "tksh_types.h"
@@ -17,9 +17,6 @@ enum e_sig_status {
 };
 
 extern sig_atomic_t g_sig_flag;
-
-
-
 
 void	tksh_free_token(t_token *token);
 void	tksh_free_token_list(t_token **token_list);

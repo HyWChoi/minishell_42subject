@@ -95,7 +95,7 @@ unsigned char	execute(t_token **token_list)
 		return (1); // TODO : parse error에 대한 exitcode정의 처리
 	token_len = get_token_len(token_list);
 	heredoc_hook(token_list);
-	if (g_sig_flag == SIGINT_FLAG_ON)
+	if (g_sig_flag)
 	{
 		g_sig_flag = SIGINT_FLAG_OFF;
 		io_restore(io_fd);
