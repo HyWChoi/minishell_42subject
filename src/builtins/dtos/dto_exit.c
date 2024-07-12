@@ -5,9 +5,9 @@
 
 t_exit_code	dto_exit(t_token *token)
 {
-	size_t argc;
-	char *exit_str;
-	
+	size_t	argc;
+	char	*exit_str;
+
 	if (token->argv[1] == NULL)
 		exit_shell(0);
 	exit_str = token->argv[1];
@@ -21,11 +21,10 @@ t_exit_code	dto_exit(t_token *token)
 		}
 		exit_str++;
 	}
-	if (2 < argc) 
+	if (2 < argc)
 	{
 		printf("exit: too many arguments\n");
 		return (EXIT_FAILURE);
 	}
 	return (exit_shell((unsigned char)ft_atoi(token->argv[1])));
 }
-

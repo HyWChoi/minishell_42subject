@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/11 15:27:59 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_exit_code	echo(char **strings, char *option)
 
 	if (!len_zero(len, option))
 		return (EXIT_SUCCESS);
-	if(ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
+	if (ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (i < len)

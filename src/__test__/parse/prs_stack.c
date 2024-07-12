@@ -44,7 +44,6 @@ void	dbg_prs_stack_print(t_prs_stack *stack)
 	ssize_t	i;
 
 	i = 0;
-	// printf("\n----current stack----\n");
 	while (i < stack->top)
 	{
 		printf("stack[%zu]: %c\n", i, stack->stack[i]);

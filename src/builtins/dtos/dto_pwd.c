@@ -6,5 +6,5 @@
 t_exit_code	dto_pwd(t_token *token)
 {
 	(void)token;
-	return(pwd());
+	return (pwd());
 }

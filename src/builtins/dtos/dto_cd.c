@@ -5,20 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * @brief change directory dto
- *
- * This function
- * to the path specified by the argunment.
- *
- * @param path The path to change the current working directory to.
- * @return void
-*/
-
 t_exit_code	dto_cd(t_token *token)
 {
-	char	*result_home;
+	char		*result_home;
 	t_exit_code	code;
+
 	if (ft_strs_len((const char **)token->argv) == 1)
 	{
 		result_home = NULL;
@@ -26,7 +17,7 @@ t_exit_code	dto_cd(t_token *token)
 		if (!*result_home)
 		{
 			free(result_home);
-			put_err_msg("cd","HOME not set\n");
+			put_err_msg("cd", "HOME not set\n");
 			return (1);
 		}
 		code = cd(result_home);
@@ -35,7 +26,8 @@ t_exit_code	dto_cd(t_token *token)
 	}
 	else if (ft_strs_len((const char **)token->argv) == 2)
 		return (cd(*(token->argv + 1)));
-	else {
+	else
+	{
 		write(2, "cd: too many arguments\n", 24);
 		return (1);
 	}

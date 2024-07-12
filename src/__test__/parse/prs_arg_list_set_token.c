@@ -3,19 +3,9 @@
 #include "libft.h"
 #include <stdio.h>
 
-/**
- * @brief prs_make_argv_str
- *
- * This function will make the argv string
- * stack->ori_str will be updated
- * stack->ori_str should be not qouted string
- *
- * @param t_prs_stack* stack
- * @return char*
-*/
 char	*prs_make_argv_str(t_prs_stack *stack)
 {
-	int	i;
+	int		i;
 	char	*result;
 	char	*temp;
 
@@ -34,21 +24,11 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 	return (result);
 }
 
-/**
- * @brief prs_set_argv_into_token
- *
- * This function will set the argv into token
- * stack->ori_str will be updated
- * stack->ori_str should be not qouted string
- *
- * @param t_token* token
- * @param t_argv_list** argv_list
- * @param t_prs_stack* stack
-*/
-void	prs_set_argv_into_token(t_token *token, t_argv_list **argv_list, t_prs_stack *stack)
+void	prs_set_argv_into_token(
+			t_token *token, t_argv_list **argv_list, t_prs_stack *stack)
 {
-	size_t	list_size;
-	size_t	i;
+	size_t		list_size;
+	size_t		i;
 	t_argv_list	*tmp;
 
 	i = 0;
@@ -56,7 +36,8 @@ void	prs_set_argv_into_token(t_token *token, t_argv_list **argv_list, t_prs_stac
 	tmp = *argv_list;
 	if (stack->err_flag || list_size == 0)
 		return (prs_free_arg_list(argv_list));
-	if(!ft_calloc_guard((void **)&(token->argv), list_size + 1, sizeof(char **)))
+	if (!ft_calloc_guard(
+			(void **)&(token->argv), list_size + 1, sizeof(char **)))
 		return ;
 	while (tmp)
 	{

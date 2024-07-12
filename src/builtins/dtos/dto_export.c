@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 19:04:26 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:23:00 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
-/**
- * @brief display declare
- *
- * This function
- * to dipslay declare.
- *
- * @param void
- * @return void
-*/
 void	display_declare(char **envp)
 {
 	char	*key_value;
@@ -35,11 +25,14 @@ void	display_declare(char **envp)
 	t_bool	flag;
 
 	flag = FALSE;
-	while(*envp)
+	while (*envp)
 	{
-		key_name = ft_strndup(*envp, prs_count_str_using_func(*envp, prs_is_equal, FALSE) + 1);
+		key_name = ft_strndup(*envp,
+				prs_count_str_using_func(*envp, prs_is_equal, FALSE) + 1);
 		len_key_name = ft_strlen(key_name);
-		key_value = ft_strndup(*envp + len_key_name, prs_count_str_using_func(*envp + len_key_name, prs_is_end_of_str, FALSE));
+		key_value = ft_strndup(*envp + len_key_name,
+				prs_count_str_using_func(*envp + len_key_name,
+					prs_is_end_of_str, FALSE));
 		if (ft_strncmp(key_name, "?", 1) != 0)
 		{
 			if (key_name[len_key_name - 1] == '=')
@@ -53,16 +46,6 @@ void	display_declare(char **envp)
 	}
 }
 
-/**
- * @brief export dto
- *
- * This function
- * to the path specified by the argument.
- *
- * @param path The path to change the current working directory to.
- * @return void
-*/
-
 t_exit_code	dto_export(t_token *token)
 {
 	if (token->argv[1] == NULL)
@@ -72,5 +55,4 @@ t_exit_code	dto_export(t_token *token)
 	}
 	else
 		return (export(token));
-
 }

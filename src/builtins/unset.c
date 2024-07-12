@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:45:55 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/08 15:30:54 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:25:42 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "libft.h"
 #include <stdio.h>
 
-static size_t *us_get_key_idx(char *name, char **envp)
+static size_t	*us_get_key_idx(char *name, char **envp)
 {
-	const size_t len = ft_strs_len((const char **)envp);
-	char 		*key;
-	size_t		idx;
-	size_t		*ret;
+	const size_t	len = ft_strs_len((const char **)envp);
+	char			*key;
+	size_t			idx;
+	size_t			*ret;
 
 	idx = 0;
 	while (idx < len)
@@ -41,19 +41,10 @@ static size_t *us_get_key_idx(char *name, char **envp)
 	return (NULL);
 }
 
-/**
- * @brief Unset the environment variables.
- *
- * @param argv The arguments.
- * @param envp The environment variables.
- * @return void
-*/
-// TODO: unset 유효하지 않은 변수명이 올 경우 1 리턴 - 하나라도 유효하지 않은 변수명이 있다면 1 리턴
-// 대신 동작은 다해야함
-t_exit_code unset(char **argv, char **envp)
+t_exit_code	unset(char **argv, char **envp)
 {
-	size_t env_len;
-	size_t *key_idx;
+	size_t	env_len;
+	size_t	*key_idx;
 
 	while (*argv)
 	{
@@ -61,11 +52,12 @@ t_exit_code unset(char **argv, char **envp)
 		if (ft_strlen(*argv) == 0 || us_get_key_idx(*argv, envp) == NULL)
 		{
 			argv++;
-			continue;
+			continue ;
 		}
 		key_idx = us_get_key_idx(*argv, envp);
 		free(envp[*key_idx]);
-		ft_memmove((envp + *key_idx), (envp + *key_idx + 1), (env_len - *key_idx) * sizeof(char *));
+		ft_memmove((envp + *key_idx), (envp + *key_idx + 1),
+			(env_len - *key_idx) * sizeof(char *));
 		envp[env_len] = NULL;
 		argv++;
 	}

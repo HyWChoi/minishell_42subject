@@ -15,9 +15,9 @@
 #include <dirent.h>
 #include <stdio.h>
 
-static int isdir(char *path)
+static int	isdir(char *path)
 {
-	DIR *dir;
+	DIR	*dir;
 
 	dir = opendir(path);
 	if (dir == NULL)
@@ -37,11 +37,12 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 		return (NULL);
 	if (ft_strchr(cmd, '/') != NULL)
 	{
-	 	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
+		if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
 		{
-			if(isdir(cmd) != ACCESS_SUCESS) 
+			if (isdir(cmd) != ACCESS_SUCESS)
 				return (ft_strdup(cmd)); //  commnad found
-			else {
+			else
+			{
 				put_err_msg(cmd, "is a directory\n");
 				exit(ECODE_CMD_NOT_EXECUTABLE);
 			}
@@ -67,8 +68,7 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths) // cmd == "a"
 	exit(ECODE_CMD_NOT_FOUND);
 }
 
-
-static char **get_paths_from_env(char **envp)
+static char	**get_paths_from_env(char **envp)
 {
 	char	**paths;
 	char	*path;
@@ -93,10 +93,10 @@ static char **get_paths_from_env(char **envp)
 	return (NULL);
 }
 
-char        *get_cmd_path_from_env(char *cmd, char **envp)
+char	*get_cmd_path_from_env(char *cmd, char **envp)
 {
-	char **paths;
-	char *ret;
+	char	**paths;
+	char	*ret;
 
 	if (ft_strchr(cmd, '/') == cmd)
 		return (ft_strdup(cmd));

@@ -4,21 +4,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/**
- * @brief echo
- *
- * This function repeats the input string that was entered.
- *
- * @param strings A list of strings that this function repeats on a single line.
- * @param option This option determines whether to add a newline character ('\n')
- * @return void
-*/
-
 static t_bool	is_option(char **str)
 {
-	char *tmp = *str;
+	char	*tmp;
+
+	*tmp = *str;
 	if (!*str)
-		return FALSE;
+		return (FALSE);
 	if (ft_strncmp("-n", *str, 2) == 0)
 	{
 		tmp++;
@@ -28,9 +20,9 @@ static t_bool	is_option(char **str)
 				return (FALSE);
 			tmp++;
 		}
-		return TRUE;
+		return (TRUE);
 	}
-	return FALSE;
+	return (FALSE);
 }
 
 t_exit_code	dto_echo(t_token *token)
@@ -40,7 +32,7 @@ t_exit_code	dto_echo(t_token *token)
 
 	option = "";
 	argv = token-> argv + 1;
-	while (argv) // NOTE: echo -n -n -n -n -n 같이 -n이 여러개 들어오는 경우 argv를 돌면서 option이 유효한지 판단하여 option을 설정
+	while (argv)
 	{
 		if (is_option(argv))
 		{

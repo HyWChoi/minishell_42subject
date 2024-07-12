@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/11 18:26:48 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void ex_unlike_heredoc_hook(t_token **token_list)
 		temp = *(*token_list)->file;
 		while(temp)
 		{
-			if(temp->type == HEREDOC)
+			if (temp->type == HEREDOC)
 				unlink(temp->file_name);
 			temp = temp->next;
 		}
@@ -87,9 +87,9 @@ int main(int argc, char **argv, const char **initial_envp)
 		// leak_check();
 		g_sig_flag = SIGINT_FLAG_OFF;
 		char *origin_str = tksh_prompt(**envp);
-		if(ft_strlen(origin_str) == 0)
+		if (ft_strlen(origin_str) == 0)
 		{
-			if(g_sig_flag == SIGINT_FLAG_ON)
+			if (g_sig_flag == SIGINT_FLAG_ON)
 				set_exit_code(1, envp);
 			continue;
 		}

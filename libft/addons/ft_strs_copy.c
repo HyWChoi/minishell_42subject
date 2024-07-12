@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strs_copy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:26:04 by yechakim          #+#    #+#             */
-/*   Updated: 2024/05/14 18:06:38 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char	**ft_strs_copy(const char **strs)
 	char 			**ret;
 	size_t			i;
 
-	if(!ft_calloc_guard((void **)&ret, len + 1, sizeof(char *)))
+	if (!ft_calloc_guard((void **)&ret, len + 1, sizeof(char *)))
 		return (NULL);
 	i = 0;
 	while(strs[i])
 	{
 		ret[i] = ft_strdup(strs[i]);
-		if(ret[i] == NULL)
+		if (ret[i] == NULL)
 		{
 			ft_free_strs(ret);
 			return (NULL);

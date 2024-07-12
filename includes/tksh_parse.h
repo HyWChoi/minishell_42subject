@@ -111,5 +111,6 @@ void		prs_free_file_list(t_file_list **file);
 t_file_list	*prs_file_list_find_last(t_file_list **start);
 void		prs_file_list_add_node(t_file_list *new, t_file_list **head);
 void		prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_type)(char *str), t_file_type type);
+void		*prs_set_token(t_prs_stack *stack, t_token *token);
 
 #endif

@@ -3,9 +3,10 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limiter)
+t_file_list	*prs_create_file_list(char *file_name, t_file_type type,
+				void *limiter)
 {
-	t_file_list *file;
+	t_file_list	*file;
 
 	file = (t_file_list *)malloc(sizeof(t_file_list));
 	if (!file)
@@ -21,7 +22,7 @@ t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limit
 t_file_list	*prs_file_list_find_last(t_file_list **start)
 {
 	if (start == NULL || *start == NULL)
-		return NULL;
+		return (NULL);
 	while ((*start)->next)
 	{
 		start = &(*start)->next;
@@ -59,15 +60,29 @@ char	*prs_make_heredoc_file(int count)
 	return (ft_strjoin_and_free(result, ft_itoa(count), FREE_BOTH));
 }
 
-void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack, t_file_type type)
+void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
+			t_file_type type)
 {
 	char	*limiter;
 
 	limiter = prs_find_file_name(stack);
-	prs_file_list_add_node(prs_create_file_list(NULL, type, limiter), token->file);
+	prs_file_list_add_node(
+		prs_create_file_list(NULL, type, limiter), token->file);
 }
 
-void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_type)(char *str), t_file_type type)
+void	prs_file_check_and_add_node(
+	char *file_name, t_prs_stack *stack, t_token *token, t_file_type type)
+{
+	if (!file_name)
+		stack->err_flag = TRUE;
+	if (!stack->err_flag)
+		prs_file_list_add_node(
+			prs_create_file_list(file_name, type, NULL), token->file);
+}
+
+void	prs_setting_file(
+	t_token *token, t_prs_stack *stack,
+	t_bool (*judge_file_type)(char *str), t_file_type type)
 {
 	char	*file_name;
 
@@ -92,8 +107,5 @@ void	prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_ty
 		if (prs_is_redir(stack->ori_str + 1))
 			stack->err_flag = TRUE;
 	file_name = prs_find_file_name(stack);
-	if (!file_name)
-		stack->err_flag = TRUE;
-	if (!stack->err_flag)
-		prs_file_list_add_node(prs_create_file_list(file_name, type, NULL), token->file);
+	prs_file_check_and_add_node(file_name, stack, token, type);
 }
