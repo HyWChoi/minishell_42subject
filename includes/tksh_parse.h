@@ -106,11 +106,25 @@ void		prs_free_arg_list(t_argv_list **start);
 void		dbg_prs_stack_print(t_prs_stack *stack);
 void		dbg_print_token(t_token **token_list);
 
-t_file_list *prs_create_file_list(char *file_name, t_file_type type, void *limiter);
+t_file_list	*prs_create_file_list(char *file_name, t_file_type type, void *limiter);
 void		prs_free_file_list(t_file_list **file);
 t_file_list	*prs_file_list_find_last(t_file_list **start);
 void		prs_file_list_add_node(t_file_list *new, t_file_list **head);
 void		prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_type)(char *str), t_file_type type);
 void		*prs_set_token(t_prs_stack *stack, t_token *token);
-
+void		prs_set_cmd_path_in_token(t_token *token);
+char		*prs_process_quote(t_prs_stack *stack);
+void		prs_process_redir(t_token *token,
+			t_argv_list **argv_list, t_prs_stack *stack, char **result);
+char		*prs_process_regular_char(t_prs_stack *stack);
+void		finalize_result(char *result,
+			t_argv_list **argv_list, t_prs_stack *stack);
+void		*handle_unbalanced_quote(char *result);
+char		*prs_handle_whitespace(t_prs_stack *stack,
+			char *tmp, char *result, t_argv_list **argv_list);
+t_bool		is_check_err_in_stack(t_prs_stack *stack);
+char		*prs_process_stack(t_prs_stack *stack,
+			t_token *token, char *result, t_argv_list **argv_list);
+void		prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
+			t_file_type type);
 #endif

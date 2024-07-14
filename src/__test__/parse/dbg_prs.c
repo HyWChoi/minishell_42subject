@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dbg_prs.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/14 13:49:00 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/14 14:13:29 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tksh.h"
 #include "tksh_parse.h"
 #include "libft.h"
@@ -41,38 +53,21 @@ void	dbg_print_file_list(t_file_list **argv)
 	printf("argv: [\n");
 	while (start)
 	{
+		printf("file path: `%s`, ", start->file_name);
+		printf("fd: %d, ", start->fd);
+		if (start->type == IN_FILE)
+			printf("type: IN_FILE\n");
+		else if (start->type == OUT_FILE)
+			printf("type: OUT_FILE\n");
+		else if (start->type == APPEND)
+			printf("type: APPEND\n");
+		else if (start->type == HEREDOC)
+		{
+			printf("type: HEREDOC\n");
+			printf("limiter: `%s`\n", start->limiter);
+		}
 		if (start->next)
-		{
-			printf("file path: `%s`, ", start->file_name);
-			printf("fd: %d, ", start->fd);
-			if (start->type == IN_FILE)
-				printf("type: IN_FILE\n");
-			else if (start->type == OUT_FILE)
-				printf("type: OUT_FILE\n");
-			else if (start->type == APPEND)
-				printf("type: APPEND\n");
-			else if (start->type == HEREDOC)
-			{
-				printf("type: HEREDOC\n");
-				printf("limiter: `%s`\n", start->limiter);
-			}
-		}
-		else
-		{
-			printf("file path: `%s`,", start->file_name);
-			printf("fd: %d, ", start->fd);
-			if (start->type == IN_FILE)
-				printf("type: IN_FILE\n");
-			else if (start->type == OUT_FILE)
-				printf("type: OUT_FILE\n");
-			else if (start->type == APPEND)
-				printf("type: APPEND\n");
-			else if (start->type == HEREDOC)
-			{
-				printf("type: HEREDOC\n");
-				printf("limiter: `%s`\n", start->limiter);
-			}
-		}
+			printf(", ");
 		start = start->next;
 	}
 	printf("]\n");
@@ -90,7 +85,8 @@ void	dbg_print_token(t_token **token_list)
 		printf("cmd_path: %s\n", (*token_list)->cmd_path);
 		dbg_print_argv((*token_list)->argv);
 		if ((*token_list)->envp)
-			printf("envp[0]: %p -> %s\n", *((*token_list)->envp), **(*token_list)->envp);
+			printf("envp[0]: %p -> %s\n", *((*token_list)->envp),
+				**(*token_list)->envp);
 		dbg_print_file_list((*token_list)->file);
 		printf("-----------------------------\n");
 		token_list++;
@@ -102,7 +98,22 @@ void	dbg_balanced_test(t_prs_stack **stack_list)
 	while (*stack_list)
 	{
 		printf("is_balanced_quotation? -> ");
-		prs_is_balanced_quote(*stack_list) ? printf("TRUE\n") : printf("FALSE\n");
+		if (prs_is_balanced_quote(*stack_list))
+			printf("TRUE\n");
+		else
+			printf("FALSE\n");
 		stack_list++;
+	}
+}
+
+void	dbg_prs_stack_print(t_prs_stack *stack)
+{
+	ssize_t	i;
+
+	i = 0;
+	while (i < stack->top)
+	{
+		printf("stack[%zu]: %c\n", i, stack->stack[i]);
+		i++;
 	}
 }

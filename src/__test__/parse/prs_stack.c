@@ -38,15 +38,3 @@ char	prs_stack_pick(t_prs_stack *stack)
 		return (0);
 	return (stack->stack[stack->top]);
 }
-
-void	dbg_prs_stack_print(t_prs_stack *stack)
-{
-	ssize_t	i;
-
-	i = 0;
-	while (i < stack->top)
-	{
-		printf("stack[%zu]: %c\n", i, stack->stack[i]);
-		i++;
-	}
-}
