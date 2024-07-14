@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:49:54 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:14:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include "libft.h"
 #include <stdio.h>
 
-t_bool	prs_is_balanced_quote(t_prs_stack *stack)
+t_bool	prs_is_balanced_quote(char *start)
 {
-	char	*start;
+	t_prs_stack	*stack;
 
-	start = stack->ori_str;
+	prs_stack_init(&stack, start, NULL);
 	while (*start)
 	{
 		if (!stack->is_double_quote && prs_is_single_quote(start))
@@ -40,8 +40,24 @@ t_bool	prs_is_balanced_quote(t_prs_stack *stack)
 		}
 		start++;
 	}
-	dbg_prs_stack_print(stack);
+	prs_free_stack(stack);
 	return (prs_stack_is_empty(stack));
+}
+
+void	prs_skip_qoute(char **ori_str)
+{
+	if (**ori_str == '\"')
+	{
+		(*ori_str)++;
+		*ori_str += prs_count_str_using_func(*ori_str,
+				prs_is_double_quote, FALSE);
+	}
+	else if (**ori_str == '\'')
+	{
+		(*ori_str)++;
+		*ori_str += prs_count_str_using_func(*ori_str,
+				prs_is_single_quote, FALSE);
+	}
 }
 
 void	prs_process_single_qoute(t_prs_stack *stack, char **result)
@@ -52,6 +68,7 @@ void	prs_process_single_qoute(t_prs_stack *stack, char **result)
 	while (*(stack->ori_str + i) && !prs_is_single_quote(stack->ori_str + i))
 			i++;
 	*result = ft_strndup(stack->ori_str, i);
+	stack->ori_str += i + 1;
 }
 
 void	prs_process_double_qoute(t_prs_stack *stack, char **result)
@@ -69,6 +86,7 @@ void	prs_process_double_qoute(t_prs_stack *stack, char **result)
 		*result = prs_parse_variable(*result, stack->envp);
 		free(tmp);
 	}
+	stack->ori_str += i + 1;
 }
 
 char	*prs_remove_quote(t_prs_stack *stack)
@@ -83,6 +101,5 @@ char	*prs_remove_quote(t_prs_stack *stack)
 		prs_process_single_qoute(stack, &result);
 	else
 		prs_process_double_qoute(stack, &result);
-	stack->ori_str += i + 1;
 	return (result);
 }

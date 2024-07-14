@@ -68,7 +68,7 @@ void		prs_set_argv_into_token(t_token *token,
 
 // description:
 // func for judging that quote is balanced, if it is TRUE, remove quote
-t_bool		prs_is_balanced_quote(t_prs_stack *stack);
+t_bool		prs_is_balanced_quote(char *start);
 char		*prs_remove_quote(t_prs_stack *stack);
 
 // description: func for setting file path in token
@@ -133,4 +133,7 @@ char		*prs_process_stack(t_prs_stack *stack,
 				t_token *token, char *result, t_argv_list **argv_list);
 void		prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
 				t_file_type type);
+void		prs_free_stack(t_prs_stack *stack);
+void		prs_skip_qoute(char **ori_str);
+int			prs_count_pipe(char *ori_str);
 #endif

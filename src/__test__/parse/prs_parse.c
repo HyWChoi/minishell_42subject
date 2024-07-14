@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:08:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:08:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:12:04 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	*prs_set_token(t_prs_stack *stack, t_token *token)
 	argv_list = NULL;
 	result = ft_strdup("");
 	start = stack->ori_str;
-	if (!prs_is_balanced_quote(stack))
-		return (handle_unbalanced_quote(result));
 	while (!stack->err_flag && *stack->ori_str)
 		result = prs_process_stack(stack, token, result, &argv_list);
 	finalize_result(result, &argv_list, stack);
@@ -65,16 +63,24 @@ void	*prs_err_free_all(char *usr_input,
 	return (NULL);
 }
 
+static void	prs_init_stack_token_lists(t_prs_stack ***stack_list,
+		t_token ***token_list, char *usr_input, char ***envp)
+{
+	*stack_list = prs_init_stack_list(usr_input, envp);
+	*token_list = prs_init_token_list(ft_strs_len((const char **)*stack_list),
+			envp);
+}
+
 t_token	**prs_parse(char *usr_input, char ***envp)
 {
-	int			i;
-	t_token		**token_list;
 	t_prs_stack	**stack_list;
+	t_token		**token_list;
+	int			i;
 
 	i = 0;
-	stack_list = prs_init_stack_list(usr_input, envp);
-	token_list = prs_init_token_list(ft_strs_len((const char **)stack_list),
-			envp);
+	if (!prs_is_balanced_quote(usr_input))
+		return (handle_unbalanced_quote(usr_input));
+	prs_init_stack_token_lists(&stack_list, &token_list, usr_input, envp);
 	while (stack_list && stack_list[i])
 	{
 		if (!prs_set_token(stack_list[i], token_list[i]))

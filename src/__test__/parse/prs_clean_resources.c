@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:50:41 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:43:12 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+void	prs_free_stack(t_prs_stack *stack)
+{
+	free(stack->stack);
+	free(stack->ori_str);
+	free(stack);
+}
 
 void	prs_free_stack_list(t_prs_stack **stack_list)
 {

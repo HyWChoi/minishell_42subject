@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:00 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:13:29 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:50:48 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	dbg_balanced_test(t_prs_stack **stack_list)
 	while (*stack_list)
 	{
 		printf("is_balanced_quotation? -> ");
-		if (prs_is_balanced_quote(*stack_list))
+		if (prs_is_balanced_quote((*stack_list)->ori_str))
 			printf("TRUE\n");
 		else
 			printf("FALSE\n");

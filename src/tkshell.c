@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:43:51 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:18:01 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, const char **initial_envp)
 			continue ;
 		}
 		token_list = prs_parse(origin_str, envp);
-		// dbg_print_token(token_list);
+		// dbg_print_token(token_list); ",'등의 따옴표가 불완성일 때 오류 처리 필요
 		exit_code = execute(token_list);
 		ex_unlike_heredoc_hook(token_list);
 		set_exit_code(exit_code, envp);

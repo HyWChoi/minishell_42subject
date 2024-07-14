@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:10:52 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:11:52 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:15:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ t_bool	prs_is_end_of_name(char *str)
 		&& !prs_is_redir(str) && !prs_is_quote(str))
 		return (TRUE);
 	return (FALSE);
+}
+
+int	prs_count_pipe(char *ori_str)
+{
+	int	count;
+
+	count = 0;
+	while (*ori_str)
+	{
+		prs_skip_qoute(&ori_str);
+		if (*ori_str == '|')
+			count++;
+		ori_str++;
+	}
+	return (count);
 }

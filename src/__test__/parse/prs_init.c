@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:08 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:50:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:15:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,38 @@ void	prs_init_token(t_token **token, char	***envp)
 		return ;
 }
 
+static void	init_free(t_prs_stack **stack, char *ori_str, char ***envp)
+{
+	prs_stack_init(stack, ori_str, envp);
+	free(ori_str);
+}
+
 t_prs_stack	**prs_init_stack_list(char *ori_str, char ***envp)
 {
-	char		**splited_strs;
-	size_t		splited_num;
-	size_t		i;
+	char		*start;
+	int			i;
+	int			count;
 	t_prs_stack	**parse_list;
 
 	i = 0;
-	parse_list = NULL;
-	splited_strs = ft_split((const char *)ori_str, PRS_PIPE);
-	splited_num = ft_strs_len((const char **)splited_strs);
-	if (!ft_calloc_guard((void **)&parse_list, splited_num + 1,
-			sizeof(t_prs_stack *)))
+	count = 1 + prs_count_pipe(ori_str);
+	start = ori_str;
+	if (!ft_calloc_guard((void **)&parse_list,
+			count + 1, sizeof(t_prs_stack *)))
 		return (NULL);
-	while (i < splited_num)
+	while (*ori_str)
 	{
-		prs_stack_init(&parse_list[i], splited_strs[i], envp);
-		i++;
+		prs_skip_qoute(&ori_str);
+		if (*ori_str == '|')
+		{
+			init_free(&parse_list[i], ft_strndup(start, ori_str - start), envp);
+			start = ori_str + 1;
+			i++;
+		}
+		ori_str++;
 	}
-	ft_free_strs(splited_strs);
+	if (i < count)
+		init_free(&parse_list[i], ft_strndup(start, ori_str - start), envp);
 	return (parse_list);
 }
 
