@@ -1,5 +1,5 @@
-#ifndef TKSHELL_BUILTINS_H
-# define TKSHELL_BUILTINS_H
+#ifndef TKSH_BUILTINS_H
+# define TKSH_BUILTINS_H
 
 # include "tksh.h"
 
@@ -38,9 +38,9 @@ t_exit_code	echo(char **strings, char *option);
 t_exit_code	export(t_token *token);
 
 //export
-t_bool	export_is_correct_key(size_t key_len, char *str, char *key);
-int		export_is_exist_env(t_token *token, char *key_name);
-t_bool	export_invalid_char(char *str);
-t_bool	export_is_valid_key(char *key);
+t_bool		export_is_correct_key(size_t key_len, char *str, char *key);
+int			export_is_exist_env(t_token *token, char *key_name);
+t_bool		export_invalid_char(char *str);
+t_bool		export_is_valid_key(char *key);
 
 #endif

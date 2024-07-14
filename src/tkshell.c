@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:43:51 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #include <readline/readline.h>
 #include <unistd.h>
 
-sig_atomic_t g_sig_flag=0;
+sig_atomic_t	g_sig_flag = 0;
+
 static char	**copy_envp(const char **envp)
 {
 	int		i;
@@ -44,23 +45,20 @@ static char	**copy_envp(const char **envp)
 	return (new_envp);
 }
 
-
-
-static void set_exit_code(t_exit_code exit_code, char ***envp)
+static void	set_exit_code(t_exit_code exit_code, char ***envp)
 {
 	free(*envp[0]);
 	**envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
 }
 
-
-void ex_unlike_heredoc_hook(t_token **token_list)
+void	ex_unlike_heredoc_hook(t_token **token_list)
 {
-	t_file_list *temp;
+	t_file_list	*temp;
 
 	while (*token_list)
 	{
 		temp = *(*token_list)->file;
-		while(temp)
+		while (temp)
 		{
 			if (temp->type == HEREDOC)
 				unlink(temp->file_name);
@@ -70,28 +68,30 @@ void ex_unlike_heredoc_hook(t_token **token_list)
 	}
 }
 
-int main(int argc, char **argv, const char **initial_envp)
+int	main(int argc, char **argv, const char **initial_envp)
 {
-	t_token	**token_list;
-	char	***envp;
-	t_exit_code exit_code = 0;
+	t_token		**token_list;
+	char		***envp;
+	t_exit_code	exit_code;
+	char		**tmp;
+	char		*origin_str;
+
 	(void)argc;
 	(void)argv;
-
 	token_list = NULL;
-	char **tmp = copy_envp(initial_envp);
+	tmp = copy_envp(initial_envp);
 	envp = &tmp;
+	exit_code = 0;
 	// set_exit_code(0);
 	while (1)
 	{
-		// leak_check();
 		g_sig_flag = SIGINT_FLAG_OFF;
-		char *origin_str = tksh_prompt(**envp);
+		origin_str = tksh_prompt(**envp);
 		if (ft_strlen(origin_str) == 0)
 		{
 			if (g_sig_flag == SIGINT_FLAG_ON)
 				set_exit_code(1, envp);
-			continue;
+			continue ;
 		}
 		token_list = prs_parse(origin_str, envp);
 		// dbg_print_token(token_list);

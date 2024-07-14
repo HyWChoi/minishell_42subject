@@ -1,8 +1,7 @@
 #ifndef TKSH_TYPES_H
 # define TKSH_TYPES_H
 
-
-typedef enum	e_file_type
+typedef enum e_file_type
 {
 	APPEND,
 	HEREDOC,
@@ -10,7 +9,7 @@ typedef enum	e_file_type
 	OUT_FILE
 }	t_file_type;
 
-typedef struct	s_file_list
+typedef struct s_file_list
 {
 	char				*file_name;
 	char				*limiter;
@@ -19,7 +18,7 @@ typedef struct	s_file_list
 	struct s_file_list	*next;
 }	t_file_list;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char		*cmd;
 	char		*cmd_path;
@@ -28,8 +27,7 @@ typedef struct	s_token
 	t_file_list	**file;
 }	t_token;
 
-
-typedef unsigned char t_exit_code;
+typedef unsigned char	t_exit_code;
 
 enum e_exit_code {
 	ECODE_SUCCESS = 0,

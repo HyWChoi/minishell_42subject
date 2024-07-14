@@ -1,5 +1,5 @@
-#ifndef TKSHELL_prs_H
-# define TKSHELL_prs_H
+#ifndef TKSH_PARSE_H
+# define TKSH_PARSE_H
 # include "tksh.h"
 
 # define PRS_WHITE_SPACE " \t\n\r\v\f"
@@ -20,9 +20,9 @@ typedef struct s_argv_list
 {
 	char		*argv;
 	t_argv_list	*next;
-} t_argv_list;
+}	t_argv_list;
 
-typedef struct	s_prs_stack
+typedef struct s_prs_stack
 {
 	char	*stack;
 	char	*ori_str;
@@ -55,25 +55,29 @@ void		prs_init_token(t_token **token, char	***envp);
 
 // description: func about linked list for making 2d array for argv
 t_argv_list	*prs_argv_list_new_node(char *str);
-void		prs_argv_list_add_node(char *str, t_argv_list **head, t_prs_stack *stack);
+void		prs_argv_list_add_node(char *str, t_argv_list **head,
+				t_prs_stack *stack);
 char		*prs_argv_list_get_str(t_argv_list *argv_list);
 t_argv_list	*prs_argv_list_find_last(t_argv_list **start);
 size_t		prs_argv_list_count(t_argv_list **start);
 
 // description: func for setting parsed string into token
 char		*prs_make_argv_str(t_prs_stack *stack);
-void		prs_set_argv_into_token(t_token *token, t_argv_list **argv_list, t_prs_stack *stack);
+void		prs_set_argv_into_token(t_token *token,
+				t_argv_list **argv_list, t_prs_stack *stack);
 
-// description: func for judging that quote is balanced, if it is TRUE, remove quote
+// description:
+// func for judging that quote is balanced, if it is TRUE, remove quote
 t_bool		prs_is_balanced_quote(t_prs_stack *stack);
 char		*prs_remove_quote(t_prs_stack *stack);
-t_bool	is_end_of_str(char *str);
+
 // description: func for setting file path in token
 void		prs_set_file_path_in_token(t_token *token, t_prs_stack *stack);
 char		*prs_find_file_name(t_prs_stack *stack);
 char		*prs_make_heredoc_file(int count);
 
-// description: func for find value in envp and judging that it is valid variable name
+// description:
+// func for find value in envp and judging that it is valid variable name
 char		*prs_find_value_in_envp(char *str, char ***envp);
 char		*prs_parse_variable(char *str, char ***envp);
 
@@ -93,10 +97,10 @@ t_bool		prs_is_underbar(char *c);
 t_bool		prs_is_possible_var_space(char *c);
 t_bool		prs_is_possible_var_name(char *c);
 t_bool		prs_is_end_of_name(char *str);
-size_t		prs_count_str_using_func(char *str, t_bool (*f)(char *), t_bool count_if_true);
+size_t		prs_count_str_using_func(char *str,
+				t_bool (*f)(char *), t_bool count_if_true);
 t_bool		prs_is_equal(char *c);
 t_bool		prs_is_end_of_str(char *str);
-
 
 // description: func for cleaning up
 void		prs_free_stack_list(t_prs_stack **stack_list);
@@ -106,25 +110,27 @@ void		prs_free_arg_list(t_argv_list **start);
 void		dbg_prs_stack_print(t_prs_stack *stack);
 void		dbg_print_token(t_token **token_list);
 
-t_file_list	*prs_create_file_list(char *file_name, t_file_type type, void *limiter);
+t_file_list	*prs_create_file_list(char *file_name,
+				t_file_type type, void *limiter);
 void		prs_free_file_list(t_file_list **file);
 t_file_list	*prs_file_list_find_last(t_file_list **start);
 void		prs_file_list_add_node(t_file_list *new, t_file_list **head);
-void		prs_setting_file(t_token *token, t_prs_stack *stack, t_bool (*judge_file_type)(char *str), t_file_type type);
+void		prs_setting_file(t_token *token, t_prs_stack *stack,
+				t_bool (*judge_file_type)(char *str), t_file_type type);
 void		*prs_set_token(t_prs_stack *stack, t_token *token);
 void		prs_set_cmd_path_in_token(t_token *token);
 char		*prs_process_quote(t_prs_stack *stack);
 void		prs_process_redir(t_token *token,
-			t_argv_list **argv_list, t_prs_stack *stack, char **result);
+				t_argv_list **argv_list, t_prs_stack *stack, char **result);
 char		*prs_process_regular_char(t_prs_stack *stack);
 void		finalize_result(char *result,
-			t_argv_list **argv_list, t_prs_stack *stack);
+				t_argv_list **argv_list, t_prs_stack *stack);
 void		*handle_unbalanced_quote(char *result);
 char		*prs_handle_whitespace(t_prs_stack *stack,
-			char *tmp, char *result, t_argv_list **argv_list);
+				char *tmp, char *result, t_argv_list **argv_list);
 t_bool		is_check_err_in_stack(t_prs_stack *stack);
 char		*prs_process_stack(t_prs_stack *stack,
-			t_token *token, char *result, t_argv_list **argv_list);
+				t_token *token, char *result, t_argv_list **argv_list);
 void		prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
-			t_file_type type);
+				t_file_type type);
 #endif

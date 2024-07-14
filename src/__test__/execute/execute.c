@@ -82,7 +82,7 @@ void	ex_wait_children_ended(int token_len, int last_pid, int *endstatus)
 
 unsigned char	execute(t_token **token_list)
 {
-	const io_fd_t	io_fd = io_store();
+	const t_io_fd	io_fd = io_store();
 	size_t			token_len;
 	size_t			i;
 	pid_t			last_pid;
