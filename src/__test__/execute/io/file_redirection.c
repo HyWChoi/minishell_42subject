@@ -38,10 +38,10 @@ ssize_t	outfile_open(t_file_list *file, t_file_list **last_infile_node)
 		*last_infile_node = file;
 		if (file->type == OUT_FILE)
 			return (safety_open(file->file_name,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644, &file->fd));
+					O_WRONLY | O_CREAT | O_TRUNC, 0644, &file->fd));
 		else if (file->type == APPEND)
 			return (safety_open(file->file_name,
-				O_WRONLY | O_CREAT | O_APPEND, 0644, &file->fd));
+					O_WRONLY | O_CREAT | O_APPEND, 0644, &file->fd));
 	}
 	return (0);
 }

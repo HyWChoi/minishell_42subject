@@ -14,6 +14,22 @@ static int	isdir(char *path)
 	return (ACCESS_SUCESS);
 }
 
+char	*ex_handle_cmd_with_slash(char *cmd)
+{
+	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
+	{
+		if (isdir(cmd) != ACCESS_SUCESS)
+			return (ft_strdup(cmd));
+		else
+		{
+			put_err_msg(cmd, "is a directory\n");
+			exit(ECODE_CMD_NOT_EXECUTABLE);
+		}
+	}
+	put_err_msg(cmd, "command not found\n");
+	exit(ECODE_CMD_NOT_FOUND);
+}
+
 char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 {
 	char	*ret;
@@ -24,20 +40,7 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	if (cmd == NULL)
 		return (NULL);
 	if (ft_strchr(cmd, '/') != NULL)
-	{
-		if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
-		{
-			if (isdir(cmd) != ACCESS_SUCESS)
-				return (ft_strdup(cmd));
-			else
-			{
-				put_err_msg(cmd, "is a directory\n");
-				exit(ECODE_CMD_NOT_EXECUTABLE);
-			}
-		}
-		put_err_msg(cmd, "command not found\n");
-		exit(ECODE_CMD_NOT_FOUND);
-	}
+		return (ex_handle_cmd_with_slash(cmd));
 	while (paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");

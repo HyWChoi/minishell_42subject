@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 20:42:42 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:34:54 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static void	heredoc_signal_hook(void)
 	signal(SIGINT, heredoc_stop_readline);
 }
 
-int 	heredoc(char *filename, char *limiter)
+int	heredoc(char *filename, char *limiter)
 {
 	int		fd;
 	char	*line;
 
-	if (safety_open(filename,O_WRONLY | O_CREAT | O_TRUNC, 0644, &fd) == -1)
+	if (safety_open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644, &fd) == -1)
 		return (-1);
 	while (1)
 	{

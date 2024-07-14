@@ -16,6 +16,7 @@ void	destroy_pipe(t_pipe *pipe, int i, int cmd_cnt)
 		close(pipe->curr[FD_IN]);
 	}
 }
+
 void	ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes)
 {
 	(void)ps_len;
