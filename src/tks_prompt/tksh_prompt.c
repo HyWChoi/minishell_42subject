@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/09 19:41:20 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/14 15:22:56 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	tks_stop_readline(int sig)
 	struct termios	term;
 
 	(void)sig;
-		
+
 	rl_done = 1;
 	g_sig_flag = SIGINT_FLAG_ON;
 	rl_replace_line("", 0);
@@ -55,7 +55,9 @@ char	*tksh_prompt(char *envp)
 	input = readline(PROMPT);
 	if (!input)
 		exit(0); // TODO: 상세한 에러처리 필요
-	if (*input)
+	else if (*input)
 		add_history(input);
+	else
+		free(input);
 	return (input);
 }
