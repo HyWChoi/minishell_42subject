@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:26:04 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 16:24:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:57:51 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 char	**ft_strs_copy(const char **strs)
 {
 	const size_t	len = ft_strs_len(strs);
-	char 			**ret;
+	char			**ret;
 	size_t			i;
 
 	if (!ft_calloc_guard((void **)&ret, len + 1, sizeof(char *)))
 		return (NULL);
 	i = 0;
-	while(strs[i])
+	while (strs[i])
 	{
 		ret[i] = ft_strdup(strs[i]);
 		if (ret[i] == NULL)

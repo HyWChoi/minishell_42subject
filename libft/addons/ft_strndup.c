@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:23:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 16:24:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:59:02 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  *
  * @param s1 The null-terminated input string to duplicate.
  * @param n The maximum number of characters to duplicate.
- * @return A pointer to the newly allocated string, or NULL if the allocation fails.
+ * @return A pointer to the newly allocated str, or NULL if the allocation fail
  */
 char	*ft_strndup(const char *s1, size_t n)
 {
