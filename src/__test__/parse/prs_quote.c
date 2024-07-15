@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 12:24:06 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:40:53 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include "tksh_parse.h"
 #include "libft.h"
 #include <stdio.h>
-
-void	prs_qoute_judge_process(t_bool (*f)(char *), t_prs_stack *stack, char *str)
-{
-	if (!stack->is_double_quote && f(str))
-	{
-		if (stack->is_single_quote)
-			prs_stack_pop(stack);
-		else
-			prs_stack_push(stack, *str);
-		stack->is_single_quote = !stack->is_single_quote;
-	}
-	else if (!stack->is_single_quote && f(str))
-	{
-		if (stack->is_double_quote)
-			prs_stack_pop(stack);
-		else
-			prs_stack_push(stack, *str);
-		stack->is_double_quote = !stack->is_double_quote;
-	}
-}
 
 static void	prs_process_judge_qoute(t_prs_stack *stack, char *start)
 {
