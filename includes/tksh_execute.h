@@ -5,10 +5,18 @@
 # include "tksh_io_utils.h"
 # define HERE_DOC_HEADER "heredoc> "
 
+/* EXECUTE API*/
 t_exit_code	execute(t_token **token_list);
-size_t		get_token_len(t_token **token_list);
+
+
+/* INTERNAL API*/
+t_exit_code	ex_return_exit_code(int status);
+t_exit_code	ex_run_singlecmd(t_token *token);
+void		ex_run_child(t_token *token, t_pipe *pipes, int nth, int ps_len);
 
 /* UTILS */
+t_bool		ex_is_child(pid_t pid);
+size_t		get_token_len(t_token **token_list);
 t_bool		is_builtin_cmd(const char *cmd_path);
 void		run_cmd(t_token *token);
 char		*get_cmd_path_from_env(char *cmd, char **envp);

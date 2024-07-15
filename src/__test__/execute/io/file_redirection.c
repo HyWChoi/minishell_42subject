@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_redirection.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/15 12:13:19 by yechakim          #+#    #+#             */
+/*   Updated: 2024/07/15 12:13:20 by yechakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tksh_io_utils.h"
 
 ssize_t	safety_open(char *filename, int option, int mode, int *fd)
