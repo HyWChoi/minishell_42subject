@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:08 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 17:15:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:29:25 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 	(*stack)->is_single_quote = FALSE;
 	(*stack)->var_flag = FALSE;
 	(*stack)->err_flag = FALSE;
+	if (!*(*stack)->ori_str)
+		(*stack)->err_flag = TRUE;
 }

@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:08:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 17:12:04 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:29:34 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,21 @@ void	*prs_err_free_all(char *usr_input,
 static void	prs_init_stack_token_lists(t_prs_stack ***stack_list,
 		t_token ***token_list, char *usr_input, char ***envp)
 {
-	*stack_list = prs_init_stack_list(usr_input, envp);
+	char	*trimed_input;
+
+	trimed_input = ft_strtrim(usr_input, PRS_WHITE_SPACE);
+	if (*trimed_input == '\0' || *trimed_input == '|'
+			|| *(trimed_input + ft_strlen(trimed_input) - 1) == '|')
+	{
+		free(trimed_input);
+		*stack_list = NULL;
+		*token_list = NULL;
+		return ;
+	}
+	*stack_list = prs_init_stack_list(trimed_input, envp);
 	*token_list = prs_init_token_list(ft_strs_len((const char **)*stack_list),
 			envp);
+	free(trimed_input);
 }
 
 t_token	**prs_parse(char *usr_input, char ***envp)

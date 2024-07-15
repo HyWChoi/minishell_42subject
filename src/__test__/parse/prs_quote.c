@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 17:14:30 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:24:06 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,60 @@
 #include "libft.h"
 #include <stdio.h>
 
+void	prs_qoute_judge_process(t_bool (*f)(char *), t_prs_stack *stack, char *str)
+{
+	if (!stack->is_double_quote && f(str))
+	{
+		if (stack->is_single_quote)
+			prs_stack_pop(stack);
+		else
+			prs_stack_push(stack, *str);
+		stack->is_single_quote = !stack->is_single_quote;
+	}
+	else if (!stack->is_single_quote && f(str))
+	{
+		if (stack->is_double_quote)
+			prs_stack_pop(stack);
+		else
+			prs_stack_push(stack, *str);
+		stack->is_double_quote = !stack->is_double_quote;
+	}
+}
+
+static void	prs_process_judge_qoute(t_prs_stack *stack, char *start)
+{
+	if (!stack->is_double_quote && prs_is_single_quote(start))
+	{
+		if (stack->is_single_quote)
+			prs_stack_pop(stack);
+		else
+			prs_stack_push(stack, *start);
+		stack->is_single_quote = !stack->is_single_quote;
+	}
+	else if (!stack->is_single_quote && prs_is_double_quote(start))
+	{
+		if (stack->is_double_quote)
+			prs_stack_pop(stack);
+		else
+			prs_stack_push(stack, *start);
+		stack->is_double_quote = !stack->is_double_quote;
+	}
+}
+
 t_bool	prs_is_balanced_quote(char *start)
 {
 	t_prs_stack	*stack;
+	t_bool		result;
 
 	prs_stack_init(&stack, start, NULL);
 	while (*start)
 	{
-		if (!stack->is_double_quote && prs_is_single_quote(start))
-		{
-			if (stack->is_single_quote)
-				prs_stack_pop(stack);
-			else
-				prs_stack_push(stack, *start);
-			stack->is_single_quote = !stack->is_single_quote;
-		}
-		else if (!stack->is_single_quote && prs_is_double_quote(start))
-		{
-			if (stack->is_double_quote)
-				prs_stack_pop(stack);
-			else
-				prs_stack_push(stack, *start);
-			stack->is_double_quote = !stack->is_double_quote;
-		}
+		prs_process_judge_qoute(stack, start);
 		start++;
 	}
+	result = prs_stack_is_empty(stack);
 	prs_free_stack(stack);
-	return (prs_stack_is_empty(stack));
-}
-
-void	prs_skip_qoute(char **ori_str)
-{
-	if (**ori_str == '\"')
-	{
-		(*ori_str)++;
-		*ori_str += prs_count_str_using_func(*ori_str,
-				prs_is_double_quote, FALSE);
-	}
-	else if (**ori_str == '\'')
-	{
-		(*ori_str)++;
-		*ori_str += prs_count_str_using_func(*ori_str,
-				prs_is_single_quote, FALSE);
-	}
+	return (result);
 }
 
 void	prs_process_single_qoute(t_prs_stack *stack, char **result)

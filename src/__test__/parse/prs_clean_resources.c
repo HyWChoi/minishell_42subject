@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 16:43:12 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:07:19 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	prs_free_stack_list(t_prs_stack **stack_list)
 	int	i;
 
 	i = 0;
-	while (stack_list[i])
+	while (stack_list && stack_list[i])
 	{
 		free((stack_list[i])->stack);
 		free((stack_list[i])->ori_str);

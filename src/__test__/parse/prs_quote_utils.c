@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:56 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:49:57 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:23:51 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,20 @@ t_bool	prs_is_single_quote(char *c)
 t_bool	prs_is_quote(char *c)
 {
 	return (prs_is_double_quote(c) || prs_is_single_quote(c));
+}
+
+void	prs_skip_qoute(char **ori_str)
+{
+	if (**ori_str == '\"')
+	{
+		(*ori_str)++;
+		*ori_str += prs_count_str_using_func(*ori_str,
+				prs_is_double_quote, FALSE);
+	}
+	else if (**ori_str == '\'')
+	{
+		(*ori_str)++;
+		*ori_str += prs_count_str_using_func(*ori_str,
+				prs_is_single_quote, FALSE);
+	}
 }
