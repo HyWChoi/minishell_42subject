@@ -6,16 +6,17 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:05:58 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:06:13 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:33:38 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
 
-void	ex_wait_children_ended(int token_len, int last_pid, int *endstatus)
+t_exit_code	ex_wait_children_ended(int token_len, int last_pid)
 {
 	int	ended_pid;
 	int	status;
+	int endstatus;
 
 	while (token_len)
 	{
@@ -23,7 +24,8 @@ void	ex_wait_children_ended(int token_len, int last_pid, int *endstatus)
 		if (ended_pid == -1)
 			continue ;
 		if (ended_pid == last_pid)
-			*endstatus = status;
+			endstatus = status;
 		token_len--;
 	}
+	return (ex_return_exit_code(endstatus));
 }

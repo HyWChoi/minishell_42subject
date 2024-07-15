@@ -21,26 +21,17 @@ unsigned char	execute(t_token **token_list)
 	size_t			i;
 	pid_t			last_pid;
 	t_pipe			pipes;
-	int				endstatus;
 
 	i = 0;
-	shutout_signal();
 	if (!token_list)
 		return (2);
+	shutout_signal();
 	token_len = get_token_len(token_list);
 	heredoc_hook(token_list);
-	if (g_sig_flag)
-	{
-		g_sig_flag = SIGINT_FLAG_OFF;
-		io_restore(io_fd);
+	if(ex_sig_catched(io_fd))
 		return (1);
-	}
 	if (token_len == 1)
-	{
-		endstatus = ex_run_singlecmd(*token_list);
-		io_restore(io_fd);
-		return (endstatus);
-	}
+		return (ex_run_singlecmd(*token_list, io_fd));
 	while (i < token_len)
 	{
 		ex_prepare_pipe(token_len, i, &pipes);
@@ -54,6 +45,5 @@ unsigned char	execute(t_token **token_list)
 		i++;
 	}
 	io_restore(io_fd);
-	ex_wait_children_ended(token_len, last_pid, &endstatus);
-	return (ex_return_exit_code(endstatus));
+	return (ex_wait_children_ended(token_len, last_pid));
 }

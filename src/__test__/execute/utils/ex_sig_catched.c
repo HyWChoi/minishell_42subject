@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex_fork_err_guard.c                                :+:      :+:    :+:   */
+/*   ex_sig_catched.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 15:35:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 13:21:40 by yechakim         ###   ########.fr       */
+/*   Created: 2024/07/15 12:30:14 by yechakim          #+#    #+#             */
+/*   Updated: 2024/07/15 12:31:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "tksh_signal.h"
 #include "tksh_execute.h"
-#include "libft.h"
-#include <stdio.h>
 
-t_bool	ex_fork_error_guard(int pid, char *msg)
+t_bool ex_sig_catched(t_io_fd io_fd)
 {
-	if (pid >= 0)
-		return (FALSE);
-	perror(msg);
-	exit(ECODE_FORK_FAILED);
+	if (g_sig_flag)
+	{
+		g_sig_flag = SIGINT_FLAG_OFF;
+		io_restore(io_fd);
+		return (TRUE);
+	}
+	return (FALSE);
 }

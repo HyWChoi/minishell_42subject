@@ -6,13 +6,14 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:04:58 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:13:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:33:17 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
+#include "tksh_builtins.h"
 
-t_exit_code	ex_run_singlecmd(t_token *token)
+t_exit_code	ex_run_singlecmd(t_token *token, t_io_fd io_fd)
 {
 	pid_t	pid;
 	int		status;
@@ -28,5 +29,6 @@ t_exit_code	ex_run_singlecmd(t_token *token)
 	if (ex_is_child(pid))
 		run_cmd(token);
 	waitpid(pid, &status, 0);
+	io_restore(io_fd);
 	return (ex_return_exit_code(status));
 }
