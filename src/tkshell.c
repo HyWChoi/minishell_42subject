@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 11:40:34 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:08:38 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	set_exit_code(t_exit_code exit_code, char ***envp)
 	**envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
 }
 
-void	ex_unlike_heredoc_hook(t_token **token_list)
+void	ex_unlink_heredoc_hook(t_token **token_list)
 {
 	t_file_list	*temp;
 
@@ -94,14 +94,15 @@ int	main(int argc, char **argv, const char **initial_envp)
 			continue ;
 		}
 		token_list = prs_parse(origin_str, envp);
-		// dbg_print_token(token_list); ",'등의 따옴표가 불완성일 때 오류 처리 필요
+		// dbg_print_token(token_list);
 		exit_code = execute(token_list);
 		if (token_list)
-			ex_unlike_heredoc_hook(token_list);
+			ex_unlink_heredoc_hook(token_list);
 		set_exit_code(exit_code, envp);
 		if (token_list)
 			tksh_free_token_list(token_list);
 		// rl_on_new_line();
+		// break;
 	}
 	return (0);
 }

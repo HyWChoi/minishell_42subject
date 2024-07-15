@@ -14,6 +14,15 @@
 #include "tksh_execute.h"
 #include "tksh_builtins.h"
 
+void init_pipe(t_pipe *pipes)
+{
+	pipes->prev[FD_IN] = 0;
+	pipes->prev[FD_OUT] = 0;
+	pipes->curr[FD_IN] = 0;
+	pipes->curr[FD_OUT] = 0;
+}
+
+
 unsigned char	execute(t_token **token_list)
 {
 	const t_io_fd	io_fd = io_store();
@@ -23,9 +32,10 @@ unsigned char	execute(t_token **token_list)
 	t_pipe			pipes;
 
 	i = 0;
+	shutout_signal();
+	init_pipe(&pipes);
 	if (!token_list)
 		return (2);
-	shutout_signal();
 	token_len = get_token_len(token_list);
 	heredoc_hook(token_list);
 	if(ex_sig_catched(io_fd))

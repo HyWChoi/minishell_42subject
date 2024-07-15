@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:13:19 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:13:20 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:07:37 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ ssize_t	safety_open(char *filename, int option, int mode, int *fd)
 	*fd = open(filename, option, mode);
 	if (*fd == -1)
 	{
-		perror("heredoc");
+		perror(filename);
 		return (-1);
 	}
 	return (0);

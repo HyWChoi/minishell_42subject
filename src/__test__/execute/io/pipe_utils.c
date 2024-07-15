@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:13:15 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:13:16 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:12:08 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	pipe_connect(t_token *ps, t_pipe *pipes, int nth, int ps_len)
 	(void)ps_len;
 	(void)ps;
 	if (nth == 0)
+	{
+		close(pipes->curr[FD_IN]);
 		ex_move_2_fd(pipes->curr[FD_OUT], STDOUT_FILENO);
+	}
 	else if (nth == (ps_len - 1))
 		ex_move_2_fd(pipes->prev[FD_IN], STDIN_FILENO);
 	else

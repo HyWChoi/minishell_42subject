@@ -62,7 +62,7 @@ int	heredoc(char *filename, char *limiter)
 	while (1)
 	{
 		heredoc_signal_hook();
-		line = readline(STDIN_FILENO);
+		line = readline("heredoc> ");
 		if (line == NULL || g_sig_flag
 			|| ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
 		{
