@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 18:22:59 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 05:28:59 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_exit_code	process_export_argument(t_token *token,
 
 	key_name = ft_strndup(token->argv[i], prs_count_str_using_func(
 				token->argv[i], prs_is_equal, FALSE));
-	if (!export_is_valid_key(key_name))
+	if (!*key_name || !export_is_valid_key(key_name))
 	{
 		printf("export: '%s': not a valid identifier\n", token->argv[i]);
 		free(key_name);
