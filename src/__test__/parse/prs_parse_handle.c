@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:08:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 15:57:01 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 06:57:33 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*handle_unbalanced_quote(char *result)
 }
 
 char	*prs_handle_whitespace(t_prs_stack *stack,
-		char *tmp, char *result, t_argv_list **argv_list)
+		char *tmp, char *result)
 {
 	if (prs_is_white_space(stack->ori_str))
 	{
@@ -30,7 +30,7 @@ char	*prs_handle_whitespace(t_prs_stack *stack,
 		if (tmp)
 		{
 			result = ft_strjoin_and_free(result, tmp, FREE_BOTH);
-			prs_argv_list_add_node(result, argv_list, stack);
+			prs_argv_list_add_node(result, stack);
 			result = ft_strdup("");
 		}
 	}
@@ -38,7 +38,7 @@ char	*prs_handle_whitespace(t_prs_stack *stack,
 		result = ft_strjoin_and_free(result, tmp, FREE_BOTH);
 	if (!*stack->ori_str)
 	{
-		prs_argv_list_add_node(result, argv_list, stack);
+		prs_argv_list_add_node(result, stack);
 		result = ft_strdup("");
 	}
 	return (result);
@@ -52,7 +52,7 @@ t_bool	is_check_err_in_stack(t_prs_stack *stack)
 }
 
 char	*prs_process_stack(t_prs_stack *stack,
-		t_token *token, char *result, t_argv_list **argv_list)
+		t_token *token, char *result)
 {
 	char	*tmp;
 
@@ -61,11 +61,11 @@ char	*prs_process_stack(t_prs_stack *stack,
 		tmp = prs_process_quote(stack);
 	else if (prs_is_redir(stack->ori_str))
 	{
-		prs_process_redir(token, argv_list, stack, &result);
+		prs_process_redir(token, stack, &result);
 		return (result);
 	}
 	else if (!prs_is_white_space(stack->ori_str))
 		tmp = prs_process_regular_char(stack);
-	result = prs_handle_whitespace(stack, tmp, result, argv_list);
+	result = prs_handle_whitespace(stack, tmp, result);
 	return (result);
 }

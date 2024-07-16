@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:08:20 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:09:12 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 06:57:26 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	*prs_process_quote(t_prs_stack *stack)
 }
 
 void	prs_process_redir(t_token *token,
-		t_argv_list **argv_list, t_prs_stack *stack, char **result)
+		t_prs_stack *stack, char **result)
 {
 	prs_set_file_path_in_token(token, stack);
 	if (**result)
 	{
-		prs_argv_list_add_node(*result, argv_list, stack);
+		prs_argv_list_add_node(*result, stack);
 		*result = ft_strdup("");
 	}
 }
@@ -43,13 +43,13 @@ char	*prs_process_regular_char(t_prs_stack *stack)
 }
 
 void	finalize_result(char *result,
-		t_argv_list **argv_list, t_prs_stack *stack)
+		t_prs_stack *stack)
 {
 	if (!(*result))
 		free(result);
 	else
 	{
-		prs_argv_list_add_node(result, argv_list, stack);
+		prs_argv_list_add_node(result, stack);
 		free(result);
 	}
 }

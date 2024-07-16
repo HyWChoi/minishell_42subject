@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:45 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:50:46 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 06:29:58 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ t_argv_list	*prs_argv_list_new_node(char *str)
 }
 
 void	prs_argv_list_add_node(
-			char *str, t_argv_list **head, t_prs_stack *stack)
+			char *str, t_prs_stack *stack)
 {
 	t_argv_list	*last;
+	t_argv_list **head;
 
+	head = stack->argv_list;
 	if (!str)
 		return ;
 	if (!*str && stack->var_flag)

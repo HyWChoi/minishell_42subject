@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 12:07:19 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 06:32:18 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ void	prs_free_stack(t_prs_stack *stack)
 	free(stack);
 }
 
-void	prs_free_stack_list(t_prs_stack **stack_list)
-{
-	int	i;
-
-	i = 0;
-	while (stack_list && stack_list[i])
-	{
-		free((stack_list[i])->stack);
-		free((stack_list[i])->ori_str);
-		free(stack_list[i]);
-		i++;
-	}
-	free(stack_list);
-}
-
 void	prs_free_arg_list(t_argv_list **start)
 {
 	t_argv_list	*tmp;
@@ -50,4 +35,21 @@ void	prs_free_arg_list(t_argv_list **start)
 			free(tmp->argv);
 		free(tmp);
 	}
+}
+
+void	prs_free_stack_list(t_prs_stack **stack_list)
+{
+	int	i;
+
+	i = 0;
+	while (stack_list && stack_list[i])
+	{
+		free((stack_list[i])->stack);
+		free((stack_list[i])->ori_str);
+		free(stack_list[i]);
+		prs_free_arg_list(stack_list[i]->argv_list);
+		free(stack_list[i]->argv_list);
+		i++;
+	}
+	free(stack_list);
 }

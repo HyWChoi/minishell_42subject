@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_var_envp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:26 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 02:50:49 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/17 06:57:23 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
