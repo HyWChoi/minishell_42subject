@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:54:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 01:23:49 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 05:11:08 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*prs_find_heredoc_limiter(t_prs_stack *stack, t_bool *flag)
 	char	*limiter;
 	char	*start;
 	char	*tmp;
-	
+
 	limiter = ft_strdup("");
 	start = stack->ori_str;
 	stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_redir, TRUE);
@@ -83,6 +83,12 @@ void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
 
 	flag = TRUE;
 	limiter = prs_find_heredoc_limiter(stack, &flag);
+	if (!*limiter)
+	{
+		stack->err_flag = TRUE;
+		free(limiter);
+		return ;
+	}
 	prs_file_list_add_node(
 		prs_create_file_list(NULL, type, limiter, flag), token->file);
 }
