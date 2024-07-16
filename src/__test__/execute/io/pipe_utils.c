@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:13:15 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 16:12:08 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:54:35 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ void	destroy_pipe(t_pipe *pipe, int i, int cmd_cnt)
 		close(pipe->curr[FD_OUT]);
 	}
 	else
-	{
 		close(pipe->prev[FD_IN]);
-		close(pipe->curr[FD_OUT]);
-		close(pipe->curr[FD_IN]);
-	}
 }
 
 void	ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes)
@@ -38,7 +34,8 @@ void	ex_prepare_pipe(int ps_len, int nth, t_pipe *pipes)
 	{
 		pipes->prev[FD_IN] = pipes->curr[FD_IN];
 		pipes->prev[FD_OUT] = pipes->curr[FD_OUT];
-		pipe(pipes->curr);
+		if(nth != (ps_len - 1))
+			pipe(pipes->curr);
 	}
 }
 
