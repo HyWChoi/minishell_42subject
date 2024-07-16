@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 17:44:12 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:27:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(int argc, char **argv, const char **initial_envp)
 			continue ;
 		}
 		token_list = prs_parse(origin_str, envp);
-		// dbg_print_token(token_list);
+		dbg_print_token(token_list);
 		exit_code = missing_operand_check(&token_list);
 		if (exit_code != 0)
 		{

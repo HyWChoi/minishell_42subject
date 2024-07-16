@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:19 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 18:09:07 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:53:52 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,23 @@ size_t	prs_skip_redir_and_whitespace(t_prs_stack *stack)
 	return (i);
 }
 
+char	*prs_parse_variable_in_file(char *str, char ***envp)
+{
+	char	*start;
+	char	*result;
+
+	start = str;
+	result = ft_strdup("");
+	while (*str)
+	{
+		if (prs_is_variable(str))
+			result = prs_process_variable(&str, &start, envp, result);
+		else
+			str++;
+	}
+	return (result);
+}
+
 char	*prs_process_quote_or_variable(
 	t_prs_stack *stack, char *result, char **start)
 {
@@ -61,7 +78,7 @@ char	*prs_process_quote_or_variable(
 	{
 		result = ft_strjoin_and_free(result,
 				ft_strndup(*start, stack->ori_str - *start), FREE_BOTH);
-		temp = prs_parse_variable(stack->ori_str, stack->envp);
+		temp = prs_parse_variable_in_file(stack->ori_str, stack->envp);
 		if (temp)
 			result = ft_strjoin_and_free(result, temp, FREE_BOTH);
 		stack->ori_str += prs_count_str_using_func(
@@ -100,9 +117,13 @@ char	*prs_find_file_name(t_prs_stack *stack)
 		&& *stack->ori_str
 		&& !prs_is_white_space(stack->ori_str))
 	{
+		// printf("ori_str: %s\n", stack->ori_str);
+		// printf("start: %s\n", start);
 		result = prs_process_quote_or_variable(stack, result, &start);
-		if (!prs_is_quote(stack->ori_str) && !prs_is_variable(stack->ori_str))
+		if (*stack->ori_str && !prs_is_quote(stack->ori_str) && !prs_is_variable(stack->ori_str))
 			stack->ori_str++;
+		// printf("result: %s\n", result);
+		// printf("debug\n");
 	}
 	result = prs_finalize_result(stack, result, start);
 	return (result);

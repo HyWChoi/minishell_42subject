@@ -136,4 +136,6 @@ void		prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
 void		prs_free_stack(t_prs_stack *stack);
 void		prs_skip_qoute(char **ori_str);
 int			prs_count_pipe(char *ori_str);
+char		*prs_process_variable(char **str,
+				char **start, char ***envp, char *result);
 #endif
