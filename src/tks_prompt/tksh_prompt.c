@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/14 15:26:54 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:59:58 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ char	*tksh_prompt(char *envp)
 		exit(0); // TODO: 상세한 에러처리 필요
 	else if (*input)
 		add_history(input);
-	else
+	else{
 		free(input);
+		return (NULL);
+	}
 	return (input);
 }

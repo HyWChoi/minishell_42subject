@@ -22,7 +22,6 @@ void init_pipe(t_pipe *pipes)
 	pipes->curr[FD_OUT] = 0;
 }
 
-
 unsigned char	execute(t_token **token_list)
 {
 	const t_io_fd	io_fd = io_store();
@@ -30,18 +29,22 @@ unsigned char	execute(t_token **token_list)
 	size_t			i;
 	pid_t			last_pid;
 	t_pipe			pipes;
+	t_exit_code		exitcode;
 
 	i = 0;
 	shutout_signal();
 	init_pipe(&pipes);
-	if (!token_list)
-		return (2);
 	token_len = get_token_len(token_list);
 	heredoc_hook(token_list);
 	if(ex_sig_catched(io_fd))
 		return (1);
+	syntax_error_check(token_list);
 	if (token_len == 1)
-		return (ex_run_singlecmd(*token_list, io_fd));
+	{
+		exitcode = ex_run_singlecmd(*token_list);
+		io_restore(io_fd);
+		return (exitcode);
+	}
 	while (i < token_len)
 	{
 		ex_prepare_pipe(token_len, i, &pipes);

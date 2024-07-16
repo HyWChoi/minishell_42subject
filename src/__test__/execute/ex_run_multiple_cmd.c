@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex_run_child.c                                     :+:      :+:    :+:   */
+/*   ex_run_multiple_cmd.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:09:12 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:09:43 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:41:16 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	ex_run_child(t_token *token, t_pipe *pipes, int nth, int ps_len)
 {
 	pipe_connect(token, pipes, nth, ps_len);
-	io_redirection(token);
+	if (io_redirection(token) == -1)
+		exit(1);
 	if (token->cmd_path == NULL)
 		exit(0);
 	run_cmd(token);

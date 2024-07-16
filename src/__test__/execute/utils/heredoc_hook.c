@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/14 14:34:54 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:02:19 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	heredoc(char *filename, char *limiter)
 	while (1)
 	{
 		heredoc_signal_hook();
+		if (g_sig_flag)
+			break ;
 		line = readline("heredoc> ");
 		if (line == NULL || g_sig_flag
 			|| ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)

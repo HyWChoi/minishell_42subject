@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 16:08:38 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:38:00 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int argc, char **argv, const char **initial_envp)
 	{
 		g_sig_flag = SIGINT_FLAG_OFF;
 		origin_str = tksh_prompt(**envp);
+		if(!origin_str)
+			exit(0);
 		if (ft_strlen(origin_str) == 0)
 		{
 			if (g_sig_flag == SIGINT_FLAG_ON)
@@ -101,8 +103,6 @@ int	main(int argc, char **argv, const char **initial_envp)
 		set_exit_code(exit_code, envp);
 		if (token_list)
 			tksh_free_token_list(token_list);
-		// rl_on_new_line();
-		// break;
 	}
 	return (0);
 }

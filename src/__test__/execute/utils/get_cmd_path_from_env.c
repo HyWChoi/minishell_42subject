@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 12:12:37 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:18:08 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 		return (NULL);
 	if (ft_strchr(cmd, '/') != NULL)
 		return (ex_handle_cmd_with_slash(cmd));
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
 		ret = ft_strjoin(temp, cmd);
@@ -104,10 +104,9 @@ char	*get_cmd_path_from_env(char *cmd, char **envp)
 	if (ft_strchr(cmd, '/') == cmd)
 		return (ft_strdup(cmd));
 	paths = get_paths_from_env(envp);
-	if (!paths)
-		return (NULL);
 	ret = ex_get_abs_path_of_cmd(cmd, paths);
-	ft_free_strs(paths);
+	if (paths)
+		ft_free_strs(paths);
 	if (!ret)
 		return (NULL);
 	return (ret);

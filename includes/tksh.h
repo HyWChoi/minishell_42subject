@@ -2,7 +2,7 @@
 # define TKSH_H
 
 # include "libft.h"
-# define TK_HEREDOC_PATH "./.asd/.asd"
+# define TK_HEREDOC_PATH "./."
 
 /*** CUSTOM IMPORT ***/
 # include "tksh_types.h"

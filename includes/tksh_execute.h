@@ -13,7 +13,7 @@ t_exit_code	execute(t_token **token_list);
 
 /* INTERNAL API*/
 t_exit_code	ex_return_exit_code(int status);
-t_exit_code	ex_run_singlecmd(t_token *token, t_io_fd io_fd);
+t_exit_code	ex_run_singlecmd(t_token *token);
 void		ex_run_child(t_token *token, t_pipe *pipes, int nth, int ps_len);
 
 /* UTILS */
