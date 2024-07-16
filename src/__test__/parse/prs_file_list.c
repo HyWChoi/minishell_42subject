@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:54:00 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 01:23:29 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 t_file_list	*prs_create_file_list(char *file_name, t_file_type type,
-				void *limiter)
+				void *limiter, t_bool expand)
 {
 	t_file_list	*file;
 
@@ -27,6 +27,7 @@ t_file_list	*prs_create_file_list(char *file_name, t_file_type type,
 	file->type = type;
 	file->limiter = (char *)limiter;
 	file->fd = -1;
+	file->expand = expand;
 	file->next = NULL;
 	return (file);
 }
@@ -64,7 +65,7 @@ void	prs_file_check_and_add_node(
 		stack->err_flag = TRUE;
 	if (!stack->err_flag)
 		prs_file_list_add_node(
-			prs_create_file_list(file_name, type, NULL), token->file);
+			prs_create_file_list(file_name, type, NULL, TRUE), token->file);
 }
 
 void	prs_setting_file(

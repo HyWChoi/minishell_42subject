@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:00 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 16:50:48 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 01:22:36 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ void	dbg_print_file_list(t_file_list **argv)
 			printf("type: HEREDOC\n");
 			printf("limiter: `%s`\n", start->limiter);
 		}
+		if (start->expand)
+			printf("expand: TRUE\n");
+		else
+			printf("expand: FALSE\n");
 		if (start->next)
 			printf(", ");
 		start = start->next;

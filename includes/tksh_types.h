@@ -1,6 +1,8 @@
 #ifndef TKSH_TYPES_H
 # define TKSH_TYPES_H
 
+#include "libft.h"
+
 typedef enum e_file_type
 {
 	APPEND,
@@ -15,6 +17,7 @@ typedef struct s_file_list
 	char				*limiter;
 	t_file_type			type;
 	int					fd;
+	t_bool				expand;
 	struct s_file_list	*next;
 }	t_file_list;
 

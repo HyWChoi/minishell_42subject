@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:19 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 18:09:07 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 23:30:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,11 @@ char	*prs_finalize_result(t_prs_stack *stack, char *result, char *start)
 
 char	*prs_find_file_name(t_prs_stack *stack)
 {
-	size_t	i;
 	char	*start;
 	char	*result;
 
 	result = ft_strdup("");
-	i = prs_skip_redir_and_whitespace(stack);
+	prs_skip_redir_and_whitespace(stack);
 	start = stack->ori_str;
 	while (!stack->err_flag
 		&& *stack->ori_str

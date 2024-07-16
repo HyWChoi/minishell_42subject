@@ -111,7 +111,7 @@ void		dbg_prs_stack_print(t_prs_stack *stack);
 void		dbg_print_token(t_token **token_list);
 
 t_file_list	*prs_create_file_list(char *file_name,
-				t_file_type type, void *limiter);
+				t_file_type type, void *limiter, t_bool flag);
 void		prs_free_file_list(t_file_list **file);
 t_file_list	*prs_file_list_find_last(t_file_list **start);
 void		prs_file_list_add_node(t_file_list *new, t_file_list **head);

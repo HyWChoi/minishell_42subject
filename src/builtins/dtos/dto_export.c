@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 17:23:00 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 23:29:27 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	display_declare(char **envp)
 	char	*key_value;
 	char	*key_name;
 	int		len_key_name;
-	t_bool	flag;
 
-	flag = FALSE;
 	while (*envp)
 	{
 		key_name = ft_strndup(*envp,

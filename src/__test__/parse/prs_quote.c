@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 12:40:53 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 23:29:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ void	prs_process_double_qoute(t_prs_stack *stack, char **result)
 
 char	*prs_remove_quote(t_prs_stack *stack)
 {
-	size_t	i;
 	char	*result;
 
-	i = 0;
 	result = NULL;
 	stack->ori_str++;
 	if (prs_is_single_quote(stack->ori_str - 1))
