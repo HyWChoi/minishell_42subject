@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:19 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:50:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:52:05 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ char	*prs_finalize_result(t_prs_stack *stack, char *result, char *start)
 				result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
 	stack->ori_str += prs_count_str_using_func(
 			stack->ori_str, prs_is_white_space, TRUE);
-	if (*result && (
-			ft_strncmp(result, "<", ft_strlen(result)) == 0
-			|| ft_strncmp(result, ">", ft_strlen(result)) == 0
-			|| ft_strncmp(result, ">>", ft_strlen(result)) == 0
-			|| ft_strncmp(result, "<<", ft_strlen(result)) == 0))
+	if (*result && (*result != '<' || *result != '>' || *result != '|'))
 		stack->err_flag = TRUE;
 	return (result);
 }
