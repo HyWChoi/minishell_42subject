@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_var_envp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:26 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 02:12:41 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:50:49 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*prs_process_variable(char **str,
 		temp = prs_find_value_in_envp(*str + 1, envp);
 		result = ft_strjoin_and_free(result, temp, FREE_BOTH);
 		(*str)++;
-		*start = *str;
+		*start = *str + 1;
 	}
 	else
 	{

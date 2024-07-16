@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 00:51:32 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:57:44 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ static t_exit_code missing_operand_check(t_token ***token_list_ptr)
 	t_file_list *file_list;
 
 	if(!*token_list_ptr)
+	{
+		ft_putstr_fd("tksh: Syntax Error precheck\n", 2);
 		return (2);
+	}
 	token_list = *token_list_ptr;
 	while (*token_list)
 	{
@@ -82,6 +85,15 @@ static t_exit_code missing_operand_check(t_token ***token_list_ptr)
 		while(file_list)
 		{
 			if (ft_strncmp(file_list->file_name, "", 1) == 0)
+			{
+				ft_putstr_fd("tksh: Syntax Error\n", 2);
+				return (2);
+			}
+			if(file_list->type == HEREDOC)
+			{
+				printf("limiter: %s\n", file_list->limiter);
+			}
+			if(file_list->type == HEREDOC && ft_strncmp(file_list->limiter, "", 1) == 0)
 			{
 				ft_putstr_fd("tksh: Syntax Error\n", 2);
 				return (2);

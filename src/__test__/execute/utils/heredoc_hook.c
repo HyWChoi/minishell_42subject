@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/16 13:02:19 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:24:20 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,16 @@ static void	heredoc_signal_hook(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, heredoc_stop_readline);
 }
+char *expand_line(char *line, char ***envp)
+{
+	char	*ret;
+	
+	ret = prs_parse_variable(line, envp);
+	free(line); 
+	return (ret);
+}
 
-int	heredoc(char *filename, char *limiter)
+int	heredoc(char *filename, char *limiter, char ***envp, t_bool expand)
 {
 	int		fd;
 	char	*line;
@@ -72,7 +80,10 @@ int	heredoc(char *filename, char *limiter)
 				free(line);
 			break ;
 		}
+		if (expand)
+			line = expand_line(line, envp);
 		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
 		free(line);
 	}
 	close(fd);
@@ -92,7 +103,7 @@ void	heredoc_hook(t_token **token_list)
 		{
 			if (file_list->type == HEREDOC)
 			{
-				if (heredoc(file_list->file_name, file_list->limiter) == -1)
+				if (heredoc(file_list->file_name, file_list->limiter, (*token_list)->envp, file_list->expand) == -1)
 					return ;
 			}
 			file_list = file_list->next;
