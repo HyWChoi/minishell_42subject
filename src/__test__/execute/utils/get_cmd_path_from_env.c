@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 17:18:08 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/17 03:45:07 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,22 @@ static int	isdir(char *path)
 
 char	*ex_handle_cmd_with_slash(char *cmd)
 {
-	if (access(cmd, F_OK | X_OK) == ACCESS_SUCESS)
+	if (access(cmd, F_OK) == ACCESS_ERROR)
 	{
-		if (isdir(cmd) != ACCESS_SUCESS)
-			return (ft_strdup(cmd));
-		else
-		{
-			put_err_msg(cmd, "is a directory\n");
-			exit(ECODE_CMD_NOT_EXECUTABLE);
-		}
+		put_err_msg(cmd, "No such file or directory\n");
+		exit(ECODE_NO_SEARCH_FILE_OR_DIR);
 	}
-	put_err_msg(cmd, "command not found\n");
-	exit(ECODE_CMD_NOT_FOUND);
+	if (isdir(cmd) == ACCESS_SUCESS)
+	{
+		put_err_msg(cmd, "is a directory\n");
+		exit(ECODE_CMD_IS_DIR);
+	}
+	if (access(cmd, X_OK) == ACCESS_ERROR)
+	{
+		put_err_msg(cmd, "Permission denied\n");
+		exit(ECODE_PERMISSION_DENIED);
+	}
+	return (ft_strdup(cmd));
 }
 
 char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)

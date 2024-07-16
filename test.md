@@ -6,10 +6,11 @@ simple command
  touch tmpfile
  ./nofile : bash: ./nofile: No such file or directory, 127
  ./tmpfile: bash: ./tmpfile: Permission denied, 126
- /bin/ls/nofile : bash: /bin/ls/nofile: Not a directory, 126
- /bin/nofile : bash: /bin/nofile: No such file or directory 127
+ /bin/ls/nofile : bash: /bin/ls/nofile: Not a directory, 126 //TODO execve errno 관련
+ /bin/nofile : bash: /bin/nofile: No such file or directory 127 // TODO execve errno 관련
 
- /bin : Permission denied, 126 -> zsh 기반으로 명령이 동작하기 때문에 배쉬랑 다를 수 밖에 없음
+ /bin : Permission denied, 126 -> zsh 기반으로 명령이 동작하기 때문에 배쉬랑 다를 수 밖에 없음 // TODO execve errno 관련
+
  << eof nocmd
  nocmd
  ---
@@ -18,13 +19,13 @@ simple command
  /bin/echo Hello
  /bin/cat main.c
  Syntax error
- <<<<<<<<
- >>>>>>>>
+ <<<<<<<< // TODO leak heredoc file name with space "<<< "
+ >>>>>>>> // TODO leak heredoc file name with space "<<< "
  <<
  < <
  ||
  <>
- ><
+ >< // TODO leak heredoc file name with space "<<< "
  Heredoc
  << out | cat
  << eof | nocmd | nocmd | nocmd
@@ -42,14 +43,16 @@ simple command
  export
  export
  export test
- export test=
+ export test= //TODO export test = -> leak + '='등록되면 안됨! 
  export test=ls
- export test="ls -l"
- export test='ls -al'
- export 1=100
- export test1=100
+ 
+ export test="ls -l" //TODO export "ls -l"이 커맨드로 들어감
+ export test='ls -al'  //TODO same
+ 
+ export 1=100 
+ export test1=100 
  export test1='200'
- export TEST="ls -l - a"
+ export TEST="ls -l - a" // TODO same
  export a=100 a -> error 처리.
  env
  unset PATH
@@ -65,7 +68,7 @@ simple command
  exit a1 asdf
  cat
  cat | cat | ls
- Cat | cat | ls
+ Cat | cat | ls // TODO->sig pipe
  echo
  echo
  echo -n hi
@@ -113,7 +116,7 @@ simple command
  cd test
  rm -rf ../test
  pwd
- cd ..
+ cd .. // TODO OLDPWD, PWD를 이용한 경로갱신 사용할지 결정 필요
  ETC
  ls | sleep 3
  ls -l | grep d > tmp5

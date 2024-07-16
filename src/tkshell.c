@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 02:57:44 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/17 03:59:26 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,6 @@ static t_exit_code missing_operand_check(t_token ***token_list_ptr)
 				ft_putstr_fd("tksh: Syntax Error\n", 2);
 				return (2);
 			}
-			if(file_list->type == HEREDOC)
-			{
-				printf("limiter: %s\n", file_list->limiter);
-			}
 			if(file_list->type == HEREDOC && ft_strncmp(file_list->limiter, "", 1) == 0)
 			{
 				ft_putstr_fd("tksh: Syntax Error\n", 2);
@@ -133,7 +129,7 @@ int	main(int argc, char **argv, const char **initial_envp)
 			continue ;
 		}
 		token_list = prs_parse(origin_str, envp);
-		dbg_print_token(token_list);
+		// dbg_print_token(token_list);
 		exit_code = missing_operand_check(&token_list);
 		if (exit_code != 0)
 		{
