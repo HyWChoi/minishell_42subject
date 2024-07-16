@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 01:23:29 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 05:19:57 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,10 @@ void	prs_setting_file(
 		if (prs_is_redir(stack->ori_str + 1))
 			stack->err_flag = TRUE;
 	file_name = prs_find_file_name(stack);
+	if (!*file_name)
+	{
+		free(file_name);
+		stack->err_flag = TRUE;
+	}
 	prs_file_check_and_add_node(file_name, stack, token, type);
 }
