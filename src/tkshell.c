@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 16:38:00 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:44:12 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,31 @@ void	ex_unlink_heredoc_hook(t_token **token_list)
 	}
 }
 
+static t_exit_code missing_operand_check(t_token ***token_list_ptr)
+{
+	t_token 	**token_list;
+	t_file_list *file_list;
+
+	if(!*token_list_ptr)
+		return (2);
+	token_list = *token_list_ptr;
+	while (*token_list)
+	{
+		file_list = *(*token_list)->file;
+		while(file_list)
+		{
+			if (ft_strncmp(file_list->file_name, "", 1) == 0)
+			{
+				ft_putstr_fd("tksh: Syntax Error\n", 2);
+				return (2);
+			}
+			file_list = file_list->next;
+		}
+		token_list++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv, const char **initial_envp)
 {
 	t_token		**token_list;
@@ -88,7 +113,8 @@ int	main(int argc, char **argv, const char **initial_envp)
 		g_sig_flag = SIGINT_FLAG_OFF;
 		origin_str = tksh_prompt(**envp);
 		if(!origin_str)
-			exit(0);
+			exit(0); // TODO need to decide whether to exit or not
+			// continue ;
 		if (ft_strlen(origin_str) == 0)
 		{
 			if (g_sig_flag == SIGINT_FLAG_ON)
@@ -97,6 +123,12 @@ int	main(int argc, char **argv, const char **initial_envp)
 		}
 		token_list = prs_parse(origin_str, envp);
 		// dbg_print_token(token_list);
+		exit_code = missing_operand_check(&token_list);
+		if (exit_code != 0)
+		{
+			set_exit_code(exit_code, envp);
+			continue ;
+		}
 		exit_code = execute(token_list);
 		if (token_list)
 			ex_unlink_heredoc_hook(token_list);

@@ -38,7 +38,6 @@ unsigned char	execute(t_token **token_list)
 	heredoc_hook(token_list);
 	if(ex_sig_catched(io_fd))
 		return (1);
-	syntax_error_check(token_list);
 	if (token_len == 1)
 	{
 		exitcode = ex_run_singlecmd(*token_list);
