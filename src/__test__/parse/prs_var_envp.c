@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:26 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:49:29 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/17 02:12:41 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ char	*prs_process_variable(char **str,
 	result = ft_strjoin_and_free(result,
 			ft_strndup(*start, count), FREE_BOTH);
 	if (prs_is_possible_var_space(*str + 1))
+	{
 		result = prs_handle_possible_var_space(str, envp, result);
+		*start = *str + 1;
+	}
 	else if (*(*str + 1) == '?')
 	{
 		temp = prs_find_value_in_envp(*str + 1, envp);
@@ -102,8 +105,6 @@ char	*prs_process_variable(char **str,
 		(*str)++;
 		*start = *str;
 	}
-	if (**str)
-		*start = *str + 1;
 	return (result);
 }
 
