@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 17:44:12 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:51:41 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ int	main(int argc, char **argv, const char **initial_envp)
 		g_sig_flag = SIGINT_FLAG_OFF;
 		origin_str = tksh_prompt(**envp);
 		if(!origin_str)
-			exit(0); // TODO need to decide whether to exit or not
-			// continue ;
+			continue ;
 		if (ft_strlen(origin_str) == 0)
 		{
 			if (g_sig_flag == SIGINT_FLAG_ON)
