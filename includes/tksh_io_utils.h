@@ -2,6 +2,7 @@
 # define TKSH_IO_UTILS_H
 
 # include "tksh_types.h"
+# include "tksh_error.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/fcntl.h>
@@ -24,7 +25,7 @@ typedef enum e_pipe
 	FD_OUT = 1
 }	t_pipe_fd;
 
-void	ex_move_2_fd(int from, int to);
+ssize_t	ex_move_2_fd(int from, int to, t_error_behavior error_behavior);
 ssize_t	safety_open(char *filename, int option, int mode, int *fd);
 ssize_t	infile_open(t_file_list *file, t_file_list **last_infile_node);
 ssize_t	outfile_open(t_file_list *file, t_file_list **last_infile_node);
