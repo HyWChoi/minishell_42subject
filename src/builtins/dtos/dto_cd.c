@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:51 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:30:51 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:42:12 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_exit_code	dto_cd(t_token *token)
 		{
 			free(result_home);
 			put_err_msg("cd", "HOME not set\n");
-			return (1);
+			return (EXIT_FAILURE);
 		}
 		code = cd(result_home);
 		free(result_home);
@@ -41,6 +41,6 @@ t_exit_code	dto_cd(t_token *token)
 	else
 	{
 		write(2, "cd: too many arguments\n", 24);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 }

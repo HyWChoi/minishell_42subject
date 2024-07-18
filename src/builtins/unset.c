@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:45:55 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 17:25:42 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 22:09:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ t_exit_code	unset(char **argv, char **envp)
 {
 	size_t	env_len;
 	size_t	*key_idx;
+	t_exit_code	exit_code;
 
+	exit_code = EXIT_SUCCESS;
 	while (*argv)
 	{
 		env_len = ft_strs_len((const char **)envp);
 		if (ft_strlen(*argv) == 0 || us_get_key_idx(*argv, envp) == NULL)
 		{
+			if (export_is_valid_key(*argv) == FALSE)
+				printf("unset: `%s': not a valid identifier\n");
+			exit_code = EXIT_FAILURE;
 			argv++;
 			continue ;
 		}
@@ -61,5 +66,5 @@ t_exit_code	unset(char **argv, char **envp)
 		envp[env_len] = NULL;
 		argv++;
 	}
-	return (0);
+	return (exit_code);
 }
