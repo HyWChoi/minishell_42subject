@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tksh_types.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/18 20:39:29 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TKSH_TYPES_H
 # define TKSH_TYPES_H
 
-#include "libft.h"
+# include "libft.h"
 
 typedef enum e_file_type
 {

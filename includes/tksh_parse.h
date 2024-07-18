@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tksh_parse.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 20:39:59 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/18 20:40:47 by hyeonwch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TKSH_PARSE_H
 # define TKSH_PARSE_H
 # include "tksh.h"
@@ -24,16 +36,16 @@ typedef struct s_argv_list
 
 typedef struct s_prs_stack
 {
-	char	*stack;
-	char	*ori_str;
-	char	***envp;
+	char		*stack;
+	char		*ori_str;
+	char		***envp;
 	t_argv_list	**argv_list;
-	ssize_t	top;
-	size_t	size;
-	t_bool	is_double_quote;
-	t_bool	is_single_quote;
-	t_bool	var_flag;
-	t_bool	err_flag;
+	ssize_t		top;
+	size_t		size;
+	t_bool		is_double_quote;
+	t_bool		is_single_quote;
+	t_bool		var_flag;
+	t_bool		err_flag;
 }	t_prs_stack;
 
 // description: main func for parsing user input
@@ -108,6 +120,7 @@ void		prs_free_arg_list(t_argv_list **start);
 // description: func for debugging
 void		dbg_prs_stack_print(t_prs_stack *stack);
 void		dbg_print_token(t_token **token_list);
+void		dbg_print_argv(char **argv);
 
 t_file_list	*prs_create_file_list(char *file_name,
 				t_file_type type, void *limiter, t_bool flag);
@@ -119,7 +132,8 @@ void		prs_setting_file(t_token *token, t_prs_stack *stack,
 void		*prs_set_token(t_prs_stack *stack, t_token *token);
 void		prs_set_cmd_path_in_token(t_token *token);
 char		*prs_process_quote(t_prs_stack *stack);
-void		prs_process_redir(t_token *token, t_prs_stack *stack, char **result);
+void		prs_process_redir(
+				t_token *token, t_prs_stack *stack, char **result);
 char		*prs_process_regular_char(t_prs_stack *stack);
 void		finalize_result(char *result, t_prs_stack *stack);
 void		*handle_unbalanced_quote(char *result);
