@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/18 19:13:20 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:09:14 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ void	replace_value(t_token *token, char *key, char *new_key)
 	key_value = ft_strndup(new_key + key_len,
 			prs_count_str_using_func(new_key, prs_is_end_of_str, FALSE));
 	if (!*key_value)
-	{
-		free(key);
-		free(key_value);
-		return ;
-	}
+		return (free_keys(key, key_value));
 	while (i < env_len)
 	{
 		if (export_is_correct_key(key_len, (*(token->envp))[i], key))
@@ -64,8 +60,7 @@ void	replace_value(t_token *token, char *key, char *new_key)
 		}
 		i++;
 	}
-	free(key_value);
-	free(key);
+	free_keys(key, key_value);
 }
 
 static void	handle_export_key(t_token *token, char *key_name, char *arg)

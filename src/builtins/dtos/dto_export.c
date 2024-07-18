@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/16 23:29:27 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:09:37 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include "tksh_parse.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+void	free_keys(char *key, char *value)
+{
+	free(key);
+	free(value);
+}
 
 void	display_declare(char **envp)
 {

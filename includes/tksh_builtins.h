@@ -42,5 +42,6 @@ t_bool		export_is_correct_key(size_t key_len, char *str, char *key);
 int			export_is_exist_env(t_token *token, char *key_name);
 t_bool		export_invalid_char(char *str);
 t_bool		export_is_valid_key(char *key);
+void		free_keys(char *key, char *value);
 
 #endif

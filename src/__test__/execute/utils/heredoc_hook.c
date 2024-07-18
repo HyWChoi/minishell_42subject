@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 18:04:35 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/17 02:24:20 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/18 20:29:50 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,31 @@ static void	heredoc_signal_hook(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, heredoc_stop_readline);
 }
-char *expand_line(char *line, char ***envp)
+
+char	*expand_line(char *line, char ***envp)
 {
 	char	*ret;
-	
+
 	ret = prs_parse_variable(line, envp);
-	free(line); 
+	free(line);
 	return (ret);
+}
+
+static t_bool	heredoc_need_stop(char *line, char *limiter)
+{
+	if (!line)
+		return (TRUE);
+	if (g_sig_flag == SIGINT_FLAG_ON)
+	{
+		free(line);
+		return (TRUE);
+	}
+	if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
+	{
+		free(line);
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 int	heredoc(char *filename, char *limiter, char ***envp, t_bool expand)
@@ -73,13 +91,8 @@ int	heredoc(char *filename, char *limiter, char ***envp, t_bool expand)
 		if (g_sig_flag)
 			break ;
 		line = readline("heredoc> ");
-		if (line == NULL || g_sig_flag
-			|| ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == 0)
-		{
-			if (line)
-				free(line);
+		if (heredoc_need_stop(line, limiter))
 			break ;
-		}
 		if (expand)
 			line = expand_line(line, envp);
 		write(fd, line, ft_strlen(line));
@@ -103,7 +116,8 @@ void	heredoc_hook(t_token **token_list)
 		{
 			if (file_list->type == HEREDOC)
 			{
-				if (heredoc(file_list->file_name, file_list->limiter, (*token_list)->envp, file_list->expand) == -1)
+				if (heredoc(file_list->file_name, file_list->limiter,
+						(*token_list)->envp, file_list->expand) == -1)
 					return ;
 			}
 			file_list = file_list->next;

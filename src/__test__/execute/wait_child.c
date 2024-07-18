@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:05:58 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/15 13:33:38 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:12:57 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_exit_code	ex_wait_children_ended(int token_len, int last_pid)
 {
 	int	ended_pid;
 	int	status;
-	int endstatus;
+	int	endstatus;
 
 	while (token_len)
 	{

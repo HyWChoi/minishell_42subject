@@ -41,7 +41,7 @@ t_bool	export_invalid_char(char *str)
 t_bool	export_is_valid_key(char *key)
 {
 	return (!(ft_isdigit(*key) == TRUE || export_invalid_char(key)
-				|| ft_strchr(key, ' ') || ft_strchr(key, '\t')
-				|| ft_strchr(key, '\n') || ft_strchr(key, '\v')
-				|| ft_strchr(key, '\f') || ft_strchr(key, '\r')));
+			|| ft_strchr(key, ' ') || ft_strchr(key, '\t')
+			|| ft_strchr(key, '\n') || ft_strchr(key, '\v')
+			|| ft_strchr(key, '\f') || ft_strchr(key, '\r')));
 }

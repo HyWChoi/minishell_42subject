@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:13:19 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/17 10:22:10 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:11:46 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ ssize_t	redirect_2_file(t_file_list *file)
 		file = file->next;
 	}
 	if (last_infile_node)
-		if (ex_move_2_fd(last_infile_node->fd, STDIN_FILENO, CONTINUE_ON_ERROR) == -1)
+		if (ex_move_2_fd(last_infile_node->fd,
+				STDIN_FILENO, CONTINUE_ON_ERROR) == -1)
 			return (-1);
 	if (last_outfile_node)
-		if (ex_move_2_fd(last_outfile_node->fd, STDOUT_FILENO, CONTINUE_ON_ERROR) == -1)
+		if (ex_move_2_fd(last_outfile_node->fd,
+				STDOUT_FILENO, CONTINUE_ON_ERROR) == -1)
 			return (-1);
 	return (0);
 }
