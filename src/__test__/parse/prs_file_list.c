@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:34 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 05:19:57 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:49:29 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ void	prs_setting_file(
 	char	*file_name;
 
 	file_name = NULL;
-	if ((ft_strlen(stack->ori_str) > 1) && prs_is_redir(stack->ori_str + 2))
-	{
-		stack->err_flag = TRUE;
-		return ;
-	}
+	prs_redir_err(stack);
 	if (judge_file_type(stack->ori_str + 1))
 	{
 		if (type == OUT_FILE)

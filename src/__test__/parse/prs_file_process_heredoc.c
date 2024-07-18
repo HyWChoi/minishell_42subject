@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:54:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 16:30:42 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:44:56 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,23 @@ char	*prs_remove_quote_in_heredoc(t_prs_stack *stack)
 	result = NULL;
 	printf("ori_str: %s\n", stack->ori_str);
 	if (prs_is_double_quote(stack->ori_str++))
-		result = ft_strndup(stack->ori_str, prs_count_str_using_func(stack->ori_str, prs_is_double_quote, FALSE));
+		result = ft_strndup(stack->ori_str, prs_count_str_using_func
+				(stack->ori_str, prs_is_double_quote, FALSE));
 	else
-		result = ft_strndup(stack->ori_str, prs_count_str_using_func(stack->ori_str, prs_is_single_quote, FALSE));
+		result = ft_strndup(stack->ori_str, prs_count_str_using_func
+				(stack->ori_str, prs_is_single_quote, FALSE));
 	stack->ori_str += ft_strlen(result) + 1;
 	printf("result: %s\n", result);
 	return (result);
+}
+
+void	prs_skip_for_heredoc_limiter(t_prs_stack *stack, char **start)
+{
+	stack->ori_str += prs_count_str_using_func(stack->ori_str,
+			prs_is_redir, TRUE);
+	stack->ori_str += prs_count_str_using_func(stack->ori_str,
+			prs_is_white_space, TRUE);
+	*start = stack->ori_str;
 }
 
 char	*prs_find_heredoc_limiter(t_prs_stack *stack, t_bool *flag)
@@ -53,9 +64,7 @@ char	*prs_find_heredoc_limiter(t_prs_stack *stack, t_bool *flag)
 
 	limiter = ft_strdup("");
 	start = stack->ori_str;
-	stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_redir, TRUE);
-	stack->ori_str += prs_count_str_using_func(stack->ori_str, prs_is_white_space, TRUE);
-	start = stack->ori_str;
+	prs_skip_for_heredoc_limiter(stack, &start);
 	while (*stack->ori_str && !prs_is_white_space(stack->ori_str))
 	{
 		if (*stack->ori_str && prs_is_quote(stack->ori_str))
@@ -71,7 +80,8 @@ char	*prs_find_heredoc_limiter(t_prs_stack *stack, t_bool *flag)
 			stack->ori_str++;
 	}
 	if (start != stack->ori_str)
-		limiter = ft_strjoin_and_free(limiter, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
+		limiter = ft_strjoin_and_free(limiter,
+				ft_strndup(start, stack->ori_str - start), FREE_BOTH);
 	return (limiter);
 }
 

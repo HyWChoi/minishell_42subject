@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:57 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 16:08:52 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:02:25 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include "tksh_parse.h"
 #include "libft.h"
 #include <stdio.h>
+
+char	*prs_extract_var_by_split(char **result, t_prs_stack *stack)
+{
+	char	**splited_str;
+	size_t	j;
+	size_t	len;
+
+	j = 0;
+	splited_str = ft_split(*result, ' ');
+	len = ft_strs_len((const char **)splited_str);
+	while (j < len - 1)
+		if (splited_str[j])
+			prs_argv_list_add_node(ft_strdup(splited_str[j++]), stack);
+	free(*result);
+	*result = ft_strdup(splited_str[j]);
+	ft_free_strs(splited_str);
+	return (*result);
+}
 
 char	*prs_make_argv_str(t_prs_stack *stack)
 {
@@ -36,32 +54,9 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 			stack->var_flag = TRUE;
 			return (result);
 		}
-		char	**splited_str;
-		size_t	j;
-		size_t	len;
-		splited_str = ft_split(result, ' ');
-		j = 0;
-		len = ft_strs_len((const char **)splited_str);
-		if (!len)
-		{
-			free(result);
-			result = ft_strdup(splited_str[j]);
-			ft_free_strs(splited_str);
-			free(temp);
-			stack->var_flag = TRUE;
-			return (result);
-		}
-		while (j < len - 1)
-		{
-			if (splited_str[j])
-				prs_argv_list_add_node(ft_strdup(splited_str[j]), stack);
-			j++;
-		}
-		free(result);
-		result = ft_strdup(splited_str[j]);
-		ft_free_strs(splited_str);
-		free(temp);
+		prs_extract_var_by_split(&result, stack);
 		stack->var_flag = TRUE;
+		free(temp);
 	}
 	stack->ori_str += i;
 	return (result);

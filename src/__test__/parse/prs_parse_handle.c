@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:08:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 16:34:26 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:49:39 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ char	*prs_handle_whitespace(t_prs_stack *stack,
 		result = ft_strdup("");
 	}
 	return (result);
+}
+
+void	prs_redir_err(t_prs_stack *stack)
+{
+	if ((ft_strlen(stack->ori_str) > 1) && prs_is_redir(stack->ori_str + 2))
+	{
+		stack->err_flag = TRUE;
+		return ;
+	}
 }
 
 t_bool	is_check_err_in_stack(t_prs_stack *stack)

@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:08 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 16:54:13 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:40:39 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 	size = ft_strlen((const char *)(*stack)->ori_str);
 	if (!ft_calloc_guard((void **)&((*stack)->stack), size + 1, sizeof(char *)))
 		return ;
-	if (!ft_calloc_guard((void **)&((*stack)->argv_list), 1, sizeof(t_argv_list *)))
+	if (!ft_calloc_guard(
+			(void **)&((*stack)->argv_list), 1, sizeof(t_argv_list *)))
 		return ;
 	(*stack)->envp = envp;
 	(*stack)->top = -1;
