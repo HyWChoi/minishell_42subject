@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 07:03:37 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:09:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ void	prs_process_double_qoute(t_prs_stack *stack, char **result)
 	if (ft_strchr(*result, '$'))
 	{
 		*result = prs_parse_variable(*result, stack->envp);
+		if (!*result)
+		{
+			free(tmp);
+			free(*result);
+			stack->ori_str += i;
+			return ;
+		}
 		char	**splited_str;
 		size_t	j;
 		size_t	len;

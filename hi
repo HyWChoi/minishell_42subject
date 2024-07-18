@@ -1,2 +1,180 @@
 hi
 hi
+total 424
+drwxr-xr-x  24 hyeonwch  2023_seoul    816  7 18 16:38 .
+drwxr-xr-x  12 hyeonwch  2023_seoul    408  7  8 11:31 ..
+-rw-r--r--   1 hyeonwch  2023_seoul   6148  7 11 20:06 .DS_Store
+drwxr-xr-x  15 hyeonwch  2023_seoul    510  7 18 16:02 .git
+drwxr-xr-x   4 hyeonwch  2023_seoul    136  5  3 15:01 .github
+-rw-r--r--   1 hyeonwch  2023_seoul    480  5  3 15:07 .gitignore
+drwxr-xr-x   3 hyeonwch  2023_seoul    102  5  3 15:29 .vscode
+-rw-r--r--   1 hyeonwch  2023_seoul   2146  7 17 05:38 Makefile
+-rw-r--r--   1 hyeonwch  2023_seoul    223  7 17 05:12 a
+drwxr-xr-x   3 hyeonwch  2023_seoul    102  7  8 11:35 a.out.dSYM
+-rw-r--r--   1 hyeonwch  2023_seoul      6  7 17 05:09 alks
+-rw-r--r--   1 hyeonwch  2023_seoul      6  7 17 05:09 hi
+drwxr-xr-x  12 hyeonwch  2023_seoul    408  7 18 16:02 includes
+-rwxr-xr-x   1 hyeonwch  2023_seoul     58  7 11 19:15 leakchk.sh
+drwxr-xr-x  75 hyeonwch  2023_seoul   2550  7 18 16:37 libft
+drwxr-xr-x   3 hyeonwch  2023_seoul    102  7 18 16:37 libs
+-rw-r--r--   1 hyeonwch  2023_seoul     54  5 29 02:41 readme.md
+-rw-r--r--   1 hyeonwch  2023_seoul    822  5  3 12:27 requirement.md
+drwxr-xr-x   8 hyeonwch  2023_seoul    272  7 18 16:37 src
+drwxr-xr-x   2 hyeonwch  2023_seoul     68  7 11 13:06 test
+-rw-r--r--@  1 hyeonwch  2023_seoul  68219  7 14 15:03 test.html
+-rw-r--r--   1 hyeonwch  2023_seoul   3332  7 17 05:23 test.md
+-rwxr-xr-x   1 hyeonwch  2023_seoul  99512  7 18 16:38 tksh
+drwxr-xr-x   3 hyeonwch  2023_seoul    102  7  8 17:57 ~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~
+Makefile
+a
+a.out.dSYM
+alks
+hi
+includes
+leakchk.sh
+libft
+libs
+readme.md
+requirement.md
+src
+test
+test.html
+test.md
+tksh
+~

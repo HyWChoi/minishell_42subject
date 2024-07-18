@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:32 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/15 12:21:04 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:44:50 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	prs_free_file_list(t_file_list **file)
 			free(tmp->limiter);
 		free(tmp);
 	}
-	free(file);
 }
 
 void	tksh_free_token(t_token *token)
@@ -37,7 +36,10 @@ void	tksh_free_token(t_token *token)
 	if (token->argv)
 		ft_free_strs(token->argv);
 	if (token->file)
+	{
 		prs_free_file_list(token->file);
+		free(token->file);
+	}
 	free(token);
 }
 

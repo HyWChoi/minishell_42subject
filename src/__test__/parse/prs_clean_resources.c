@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:40 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 06:32:18 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:59:03 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	prs_free_stack(t_prs_stack *stack)
 {
 	free(stack->stack);
 	free(stack->ori_str);
+	prs_free_arg_list(stack->argv_list);
+	free(stack->argv_list);
 	free(stack);
 }
 

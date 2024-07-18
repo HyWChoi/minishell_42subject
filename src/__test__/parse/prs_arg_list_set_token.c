@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:57 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 06:49:14 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:08:52 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,28 @@ char	*prs_make_argv_str(t_prs_stack *stack)
 	{
 		temp = result;
 		result = prs_parse_variable(result, stack->envp);
+		if (!*result)
+		{
+			free(temp);
+			stack->ori_str += i;
+			stack->var_flag = TRUE;
+			return (result);
+		}
 		char	**splited_str;
 		size_t	j;
 		size_t	len;
 		splited_str = ft_split(result, ' ');
-		len = ft_strs_len((const char **)splited_str);
 		j = 0;
+		len = ft_strs_len((const char **)splited_str);
+		if (!len)
+		{
+			free(result);
+			result = ft_strdup(splited_str[j]);
+			ft_free_strs(splited_str);
+			free(temp);
+			stack->var_flag = TRUE;
+			return (result);
+		}
 		while (j < len - 1)
 		{
 			if (splited_str[j])
