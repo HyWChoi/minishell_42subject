@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/17 03:45:07 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:42:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ char	*get_cmd_path_from_env(char *cmd, char **envp)
 	char	**paths;
 	char	*ret;
 
-	if (ft_strchr(cmd, '/') == cmd)
-		return (ft_strdup(cmd));
+	// if (ft_strchr(cmd, '/') == cmd)
+	// 	return (ft_strdup(cmd));
 	paths = get_paths_from_env(envp);
 	ret = ex_get_abs_path_of_cmd(cmd, paths);
 	if (paths)

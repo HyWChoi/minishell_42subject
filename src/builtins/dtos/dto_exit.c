@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 10:26:30 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:34:48 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ t_exit_code	dto_exit(t_token *token)
 	}
 	if (2 < argc)
 	{
-		printf("exit: too many arguments\n");
+		ft_putstr_fd(SHELL_NAME "exit: ", STDERR_FILENO);
+		ft_putstr_fd(token->argv[1], STDERR_FILENO);
+		ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	return (exit_shell((unsigned char)ft_atoi(token->argv[1])));
