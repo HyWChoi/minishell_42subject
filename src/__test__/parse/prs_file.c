@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:50:19 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/16 23:30:28 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:15:43 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*prs_find_file_name(t_prs_stack *stack)
 		&& !prs_is_white_space(stack->ori_str))
 	{
 		result = prs_process_quote_or_variable(stack, result, &start);
-		if (!prs_is_quote(stack->ori_str) && !prs_is_variable(stack->ori_str))
+		if (prs_is_end_of_name(stack->ori_str))
 			stack->ori_str++;
 	}
 	result = prs_finalize_result(stack, result, start);
