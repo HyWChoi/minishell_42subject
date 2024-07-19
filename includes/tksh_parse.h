@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:40:47 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:35:53 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void		prs_set_cmd_path_in_token(t_token *token);
 char		*prs_process_quote(t_prs_stack *stack);
 void		prs_process_redir(
 				t_token *token, t_prs_stack *stack, char **result);
-char		*prs_process_regular_char(t_prs_stack *stack);
 void		finalize_result(char *result, t_prs_stack *stack);
 void		*handle_unbalanced_quote(char *result);
 char		*prs_handle_whitespace(t_prs_stack *stack,

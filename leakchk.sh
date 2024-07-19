@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while true; do
-	leaks -q tksh
+	leaks -q minishell
 	sleep 1;
 done
 

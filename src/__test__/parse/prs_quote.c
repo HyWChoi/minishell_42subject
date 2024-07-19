@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:02:39 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:36:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	prs_process_double_qoute(t_prs_stack *stack, char **result)
 		if (!*result)
 		{
 			free(tmp);
-			free(*result);
-			*result = ft_strdup("");
 			stack->ori_str += i;
 			return ;
 		}
