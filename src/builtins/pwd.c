@@ -18,7 +18,7 @@ t_exit_code	pwd(void)
 {
 	char	buff[PWD_MAX_BUFF_SIZE];
 
-	memset(buff, 0, PWD_MAX_BUFF_SIZE);
+	ft_memset(buff, 0, PWD_MAX_BUFF_SIZE);
 	if (!getcwd(buff, PWD_MAX_BUFF_SIZE))
 	{
 		perror("pwd");
