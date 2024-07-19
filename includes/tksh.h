@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:43:06 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:43:06 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:23:26 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "libft.h"
 # define TK_HEREDOC_PATH "./."
+
+# define SHELL_NAME "tekkensh "
+# define PROMPT "tekkensh $ "
 
 /*** CUSTOM IMPORT ***/
 # include "tksh_types.h"

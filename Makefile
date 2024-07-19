@@ -1,12 +1,12 @@
 # CC = Clang
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 srcs = $(shell find . -name "*.c" | grep -v "libft" | grep -v "src/tkshell.c" | grep -v "test")
 # test_main = $(shell find . -name "*test.c")
 test_main = src/__test__/shell/main.c
 OBJS := $(srcs:.c=.o)
-NAME = tksh
+NAME = minishell
 TEST = test
 TEST_EXEC = test_tksh
 
@@ -49,7 +49,6 @@ else
 		else
 			srcs += src/tkshell.c $(execute_test_srcs) $(prs_srcs)
 			OBJS := $(srcs:.c=.o)
-			NAME = tksh
 		endif
 	endif
 endif

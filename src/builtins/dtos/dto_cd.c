@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:51 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 21:42:12 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:04:23 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ t_exit_code	dto_cd(t_token *token)
 		free(result_home);
 		return (code);
 	}
-	else if (ft_strs_len((const char **)token->argv) == 2)
-		return (cd(*(token->argv + 1)));
-	else
-	{
-		write(2, "cd: too many arguments\n", 24);
-		return (EXIT_FAILURE);
-	}
+	// else if (ft_strs_len((const char **)token->argv)  2)
+	return (cd(*(token->argv + 1)));
+	// else
+	// {
+	// 	write(2, "cd: too many arguments\n", 24);
+	// 	return (EXIT_FAILURE);
+	// }
 }

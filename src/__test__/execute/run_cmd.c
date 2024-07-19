@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/18 20:19:07 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:25:03 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_execute.h"
 #include <stdio.h>
 #include "tksh_builtins.h"
+#include <errno.h>
 
 void	run_cmd(t_token *token)
 {
@@ -27,10 +28,10 @@ void	run_cmd(t_token *token)
 	}
 	cmd_abs_path = get_cmd_path_from_env(token->cmd_path, *token->envp);
 	if (cmd_abs_path == NULL)
-		exit(127);
+		exit(ECODE_CMD_NOT_FOUND);
 	if (execve(cmd_abs_path, token->argv, *token->envp) == -1)
 	{
 		perror(cmd_abs_path);
-		exit(EXIT_FAILURE); //TODO errno맞출것인가
+		exit(EXIT_FAILURE);
 	}
 }

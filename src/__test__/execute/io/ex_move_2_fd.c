@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_move_2_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:59:47 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/18 20:12:43 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:11:23 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ ssize_t	ex_move_2_fd(int from, int to, t_error_behavior error_behavior)
 	{
 		perror("dup2");
 		if (error_behavior == EXIT_ON_ERROR)
-			exit(1);
+			exit(ECODE_BAD_FILE_DESCRIPTOR);
 		else if (error_behavior == CONTINUE_ON_ERROR)
 			return (-1);
 	}

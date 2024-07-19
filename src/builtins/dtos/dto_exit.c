@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:30:37 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:26:30 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ t_exit_code	dto_exit(t_token *token)
 	argc = ft_strs_len((const char **)token->argv);
 	while (*exit_str)
 	{
-		if (!ft_isdigit(*exit_str))
+		if (!ft_isdigit(*exit_str) && *exit_str != '-' && *exit_str != '+')
 		{
-			printf("exit: %s: numeric argument required\n", *(token->argv));
+			ft_putstr_fd(SHELL_NAME "exit: ", STDERR_FILENO);
+			ft_putstr_fd(token->argv[1], STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			exit_shell(255);
 		}
 		exit_str++;

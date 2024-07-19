@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_types.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:39:29 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:11:14 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef unsigned char	t_exit_code;
 enum e_exit_code {
 	ECODE_SUCCESS = 0,
 	ECODE_ERROR = 1,
+	ECODE_BAD_FILE_DESCRIPTOR = 9,
 	ECODE_CMD_NOT_EXECUTABLE = 126,
 	ECODE_CMD_IS_DIR = 126,
 	ECODE_PERMISSION_DENIED = 126,

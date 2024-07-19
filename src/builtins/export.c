@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/18 21:25:13 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:27:01 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ static t_exit_code	process_export_argument(t_token *token,
 				token->argv[i], prs_is_equal, FALSE));
 	if (!key_name || !*key_name || !export_is_valid_key(key_name))
 	{
-		printf("export: '%s': not a valid identifier\n", token->argv[i]);
+		ft_putstr_fd(SHELL_NAME"export: `", STDERR_FILENO);
+		ft_putstr_fd(token->argv[i], STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		if (key_name)
 			free(key_name);
 		return (EXIT_FAILURE);
