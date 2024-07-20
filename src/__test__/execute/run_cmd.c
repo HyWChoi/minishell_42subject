@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/19 10:40:37 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:48:44 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	run_cmd(t_token *token)
 	if (execve(cmd_abs_path, token->argv, *token->envp) == -1)
 	{
 		perror(cmd_abs_path);
-		if(errno == EACCES || errno == EISDIR)
+		if (errno == EACCES || errno == EISDIR)
 			exit(ECODE_PERMISSION_DENIED);
 		else
 			exit(ECODE_CMD_NOT_FOUND);

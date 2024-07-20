@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 10:34:48 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:53:50 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include "tksh_builtins.h"
 #include "libft.h"
 #include <stdio.h>
+
+static t_exit_code	exit_print_err(t_token *token)
+{
+	ft_putstr_fd(SHELL_NAME "exit: ", STDERR_FILENO);
+	ft_putstr_fd(token->argv[1], STDERR_FILENO);
+	ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
+	return (EXIT_FAILURE);
+}
 
 t_exit_code	dto_exit(t_token *token)
 {
@@ -36,11 +44,6 @@ t_exit_code	dto_exit(t_token *token)
 		exit_str++;
 	}
 	if (2 < argc)
-	{
-		ft_putstr_fd(SHELL_NAME "exit: ", STDERR_FILENO);
-		ft_putstr_fd(token->argv[1], STDERR_FILENO);
-		ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
+		return (exit_print_err(token));
 	return (exit_shell((unsigned char)ft_atoi(token->argv[1])));
 }
