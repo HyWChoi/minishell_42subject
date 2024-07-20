@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_quote.c                                        :+:      :+:    :+:   */
+/*   prs_process_qoute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:49:54 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 10:36:40 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:41:59 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:42:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
-#include <stdio.h>
 
-static void	prs_process_judge_qoute(t_prs_stack *stack, char *start)
+void	prs_process_judge_qoute(t_prs_stack *stack, char *start)
 {
 	if (!stack->is_double_quote && prs_is_single_quote(start))
 	{
@@ -33,22 +31,6 @@ static void	prs_process_judge_qoute(t_prs_stack *stack, char *start)
 			prs_stack_push(stack, *start);
 		stack->is_double_quote = !stack->is_double_quote;
 	}
-}
-
-t_bool	prs_is_balanced_quote(char *start)
-{
-	t_prs_stack	*stack;
-	t_bool		result;
-
-	prs_stack_init(&stack, start, NULL);
-	while (*start)
-	{
-		prs_process_judge_qoute(stack, start);
-		start++;
-	}
-	result = prs_stack_is_empty(stack);
-	prs_free_stack(stack);
-	return (result);
 }
 
 void	prs_process_single_qoute(t_prs_stack *stack, char **result)

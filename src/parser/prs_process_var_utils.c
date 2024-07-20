@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   prs_process_var_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 16:45:49 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:49:39 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:50:15 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh_builtins.h"
-#include <unistd.h>
-#include <stdio.h>
+#include "tksh.h"
+#include "tksh_parse.h"
 
-t_exit_code	pwd(void)
+t_bool	prs_is_variable(char *c)
 {
-	char	buff[PWD_MAX_BUFF_SIZE];
+	return (*c == PRS_VARIABLE);
+}
 
-	ft_memset(buff, 0, PWD_MAX_BUFF_SIZE);
-	if (!getcwd(buff, PWD_MAX_BUFF_SIZE))
-	{
-		perror("pwd");
-		return (EXIT_FAILURE);
-	}
-	printf("%s\n", buff);
-	return (EXIT_SUCCESS);
+t_bool	prs_is_underbar(char *c)
+{
+	return (*c == PRS_UNDERBAR);
+}
+
+t_bool	prs_is_possible_var_space(char *c)
+{
+	return (ft_isalpha(*c) || prs_is_underbar(c));
+}
+
+t_bool	prs_is_possible_var_name(char *c)
+{
+	return (ft_isalnum(*c) || prs_is_underbar(c));
 }

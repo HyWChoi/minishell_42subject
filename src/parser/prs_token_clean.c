@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tksh_free_token.c                                  :+:      :+:    :+:   */
+/*   prs_token_clean.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:49:32 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 16:44:50 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:54:36 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:54:38 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
-#include <stdlib.h>
 
-void	prs_free_file_list(t_file_list **file)
+void	tksh_free_token_list(t_token **token_list)
 {
-	t_file_list	*tmp;
+	int	i;
 
-	while (*file)
-	{
-		tmp = *file;
-		*file = (*file)->next;
-		if (tmp->file_name)
-			free(tmp->file_name);
-		if (tmp->limiter)
-			free(tmp->limiter);
-		free(tmp);
-	}
+	i = 0;
+	while (token_list[i])
+		tksh_free_token(token_list[i++]);
+	free(token_list);
 }
 
 void	tksh_free_token(t_token *token)
@@ -43,12 +36,18 @@ void	tksh_free_token(t_token *token)
 	free(token);
 }
 
-void	tksh_free_token_list(t_token **token_list)
+void	prs_free_file_list(t_file_list **file)
 {
-	int	i;
+	t_file_list	*tmp;
 
-	i = 0;
-	while (token_list[i])
-		tksh_free_token(token_list[i++]);
-	free(token_list);
+	while (*file)
+	{
+		tmp = *file;
+		*file = (*file)->next;
+		if (tmp->file_name)
+			free(tmp->file_name);
+		if (tmp->limiter)
+			free(tmp->limiter);
+		free(tmp);
+	}
 }

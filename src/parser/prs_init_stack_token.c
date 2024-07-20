@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_init.c                                         :+:      :+:    :+:   */
+/*   prs_stack_token_init.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:50:08 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 19:40:39 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 16:41:44 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 16:41:45 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
 
 t_token	**prs_init_token_list(size_t size, char ***envp)
 {
@@ -43,8 +42,12 @@ void	prs_init_token(t_token **token, char	***envp)
 		return ;
 }
 
-static void	init_free(t_prs_stack **stack, char *ori_str, char ***envp)
+static void	handle_stack_init(t_prs_stack **stack,
+				char *start, char *len, char ***envp)
 {
+	char	*ori_str;
+
+	ori_str = ft_strndup(start, len);
 	prs_stack_init(stack, ori_str, envp);
 	free(ori_str);
 }
@@ -54,28 +57,27 @@ t_prs_stack	**prs_init_stack_list(char *ori_str, char ***envp)
 	char		*start;
 	int			i;
 	int			count;
-	t_prs_stack	**parse_list;
+	t_prs_stack	**stack_lst;
 
 	i = 0;
 	count = 1 + prs_count_pipe(ori_str);
 	start = ori_str;
-	if (!ft_calloc_guard((void **)&parse_list,
-			count + 1, sizeof(t_prs_stack *)))
+	if (!ft_calloc_guard((void **)&stack_lst, count + 1, sizeof(t_prs_stack *)))
 		return (NULL);
 	while (*ori_str)
 	{
 		prs_skip_qoute(&ori_str);
 		if (*ori_str == '|')
 		{
-			init_free(&parse_list[i], ft_strndup(start, ori_str - start), envp);
+			handle_stack_init(&stack_lst[i], start, ori_str - start, envp);
 			start = ori_str + 1;
 			i++;
 		}
 		ori_str++;
 	}
 	if (i < count)
-		init_free(&parse_list[i], ft_strndup(start, ori_str - start), envp);
-	return (parse_list);
+		handle_stack_init(&stack_lst[i], start, ori_str - start, envp);
+	return (stack_lst);
 }
 
 void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)

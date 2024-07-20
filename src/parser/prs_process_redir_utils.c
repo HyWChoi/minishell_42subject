@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_util.c                                         :+:      :+:    :+:   */
+/*   prs_process_redir_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 14:10:52 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:11:41 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:42:33 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:42:39 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
-#include <stdio.h>
 
-t_bool	prs_is_pipe(char *c)
+t_bool	prs_is_redir(char *c)
 {
-	return (PRS_PIPE == *c);
+	return (prs_is_in_file(c) || prs_is_out_file(c));
 }
 
-t_bool	prs_is_end_of_str(char *str)
+t_bool	prs_is_in_file(char *c)
 {
-	return (*str == '\0');
+	return (*c == PRS_IN_FILE);
 }
 
-t_bool	prs_is_equal(char *c)
+t_bool	prs_is_out_file(char *c)
 {
-	return ('=' == *c);
+	return (*c == PRS_OUT_FILE);
 }
 
-t_bool	prs_is_white_space(char *c)
+t_bool	prs_is_append(char *c)
 {
-	if (!*c)
-		return (FALSE);
-	return (ft_strchr(PRS_WHITE_SPACE, *c) != NULL);
+	if (prs_is_out_file(c) && prs_is_out_file(c + 1))
+		return (TRUE);
+	return (FALSE);
 }
 
-t_bool	prs_is_variable(char *c)
+t_bool	prs_is_heredoc(char *c)
 {
-	return (*c == PRS_VARIABLE);
+	if (prs_is_in_file(c) && prs_is_in_file(c + 1))
+		return (TRUE);
+	return (FALSE);
 }

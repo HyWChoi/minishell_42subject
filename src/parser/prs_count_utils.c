@@ -1,42 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_util2.c                                        :+:      :+:    :+:   */
+/*   prs_count_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 14:10:52 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 17:15:40 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:35:17 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:35:19 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
 #include "tksh_parse.h"
 #include "libft.h"
-#include <stdio.h>
-
-t_bool	prs_is_underbar(char *c)
-{
-	return (*c == PRS_UNDERBAR);
-}
-
-t_bool	prs_is_possible_var_space(char *c)
-{
-	return (ft_isalpha(*c) || prs_is_underbar(c));
-}
-
-t_bool	prs_is_possible_var_name(char *c)
-{
-	return (ft_isalnum(*c) || prs_is_underbar(c));
-}
-
-t_bool	prs_is_end_of_name(char *str)
-{
-	if (*str && !prs_is_white_space(str)
-		&& !prs_is_redir(str) && !prs_is_quote(str))
-		return (TRUE);
-	return (FALSE);
-}
 
 int	prs_count_pipe(char *ori_str)
 {
@@ -49,6 +24,31 @@ int	prs_count_pipe(char *ori_str)
 		if (*ori_str == '|')
 			count++;
 		ori_str++;
+	}
+	return (count);
+}
+
+size_t	prs_count_str_using_func(char *str,
+		t_bool (*f)(char *), t_bool count_if_true)
+{
+	size_t	count;
+
+	count = 0;
+	if (count_if_true)
+	{
+		while (*str && f(str))
+		{
+			count++;
+			str++;
+		}
+	}
+	else
+	{
+		while (*str && !f(str))
+		{
+			count++;
+			str++;
+		}
 	}
 	return (count);
 }

@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_stack.c                                        :+:      :+:    :+:   */
+/*   prs_stack_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 14:33:35 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 14:33:36 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:53:55 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:53:55 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_parse.h"
 #include "libft.h"
-#include <stdio.h>
 
 t_bool	prs_stack_is_empty(t_prs_stack *stack)
 {

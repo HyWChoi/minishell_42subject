@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_file_process_heredoc.c                         :+:      :+:    :+:   */
+/*   prs_process_heredoc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:54:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 19:44:56 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:39:52 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:39:52 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
-#include <stdio.h>
+
+void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
+			t_file_type type)
+{
+	char	*limiter;
+	t_bool	flag;
+
+	flag = TRUE;
+	limiter = prs_find_heredoc_limiter(stack, &flag);
+	if (!*limiter)
+	{
+		stack->err_flag = TRUE;
+		free(limiter);
+		return ;
+	}
+	prs_file_list_add_node(
+		prs_create_file_list(NULL, type, limiter, flag), token->file);
+}
 
 char	*prs_make_heredoc_file(int count)
 {
@@ -83,22 +99,4 @@ char	*prs_find_heredoc_limiter(t_prs_stack *stack, t_bool *flag)
 		limiter = ft_strjoin_and_free(limiter,
 				ft_strndup(start, stack->ori_str - start), FREE_BOTH);
 	return (limiter);
-}
-
-void	prs_set_heredoc_file(t_token *token, t_prs_stack *stack,
-			t_file_type type)
-{
-	char	*limiter;
-	t_bool	flag;
-
-	flag = TRUE;
-	limiter = prs_find_heredoc_limiter(stack, &flag);
-	if (!*limiter)
-	{
-		stack->err_flag = TRUE;
-		free(limiter);
-		return ;
-	}
-	prs_file_list_add_node(
-		prs_create_file_list(NULL, type, limiter, flag), token->file);
 }
