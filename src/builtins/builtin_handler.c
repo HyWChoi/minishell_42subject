@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 16:32:39 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:02:09 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static ssize_t	builtin_handler_helper_get_cmd(char *cmd)
 {
 	ssize_t		cmd_idx;
 	const char	*builtin_cmds[BUITIN_CMD_AMOUNT]
-		= {CD, ECHO, ENV, EXIT, PWD, UNSET, EXPORT};
+		= {CD, ECHO_STR, ENV, EXIT, PWD, UNSET, EXPORT};
 
 	cmd_idx = 0;
 	while (cmd_idx < BUITIN_CMD_AMOUNT)

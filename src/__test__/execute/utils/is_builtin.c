@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:47:10 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/12 16:16:31 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:02:06 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_bool	is_builtin_cmd(const char *cmd_path)
 {
 	const char	*builtin_cmds[BUITIN_CMD_AMOUNT] = {
-		CD, ECHO, ENV, EXIT, PWD, UNSET, EXPORT};
+		CD, ECHO_STR, ENV, EXIT, PWD, UNSET, EXPORT};
 	size_t		idx;
 
 	idx = 0;

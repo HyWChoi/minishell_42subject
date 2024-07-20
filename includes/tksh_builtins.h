@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_builtins.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:42:47 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:01:43 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 */
 # define BUITIN_CMD_AMOUNT 7 // export is not implemented yet
 # define CD "cd"
-# define ECHO "echo"
+# define ECHO_STR "echo"
 # define ENV "env"
 # define EXIT "exit"
 # define PWD "pwd"

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 21:11:14 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:57:40 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TKSH_TYPES_H
 
 # include "libft.h"
+# include <termios.h>
 
 typedef enum e_file_type
 {
@@ -61,5 +62,12 @@ enum e_corect{
 	ACCESS_SUCESS = 0,
 	ACCESS_ERROR = -1
 };
+
+
+typedef struct s_term
+{
+	struct termios	term;
+	struct termios 	term_backup;
+}	t_term;
 
 #endif
