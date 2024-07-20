@@ -1,43 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_var_envp.c                                     :+:      :+:    :+:   */
+/*   prs_process_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:49:26 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/17 06:57:23 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:51:23 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:51:26 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_parse.h"
 #include "libft.h"
-#include <stdio.h>
-
-size_t	prs_count_str_using_func(char *str,
-		t_bool (*f)(char *), t_bool count_if_true)
-{
-	size_t	count;
-
-	count = 0;
-	if (count_if_true)
-	{
-		while (*str && f(str))
-		{
-			count++;
-			str++;
-		}
-	}
-	else
-	{
-		while (*str && !f(str))
-		{
-			count++;
-			str++;
-		}
-	}
-	return (count);
-}
 
 char	*prs_find_value_in_envp(char *str, char ***envp)
 {
@@ -64,7 +38,6 @@ char	*prs_find_value_in_envp(char *str, char ***envp)
 	free(envp_key);
 	return (NULL);
 }
-
 char	*prs_handle_possible_var_space(char **str, char ***envp, char *result)
 {
 	char	*parsed_var;
@@ -77,7 +50,6 @@ char	*prs_handle_possible_var_space(char **str, char ***envp, char *result)
 	*str += count;
 	return (result);
 }
-
 char	*prs_process_variable(char **str,
 			char **start, char ***envp, char *result)
 {

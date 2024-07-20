@@ -1,45 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_file_utils.c                                   :+:      :+:    :+:   */
+/*   prs_err_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:51:06 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/14 13:51:07 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:36:10 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:36:14 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
-#include <stdio.h>
 
-t_bool	prs_is_redir(char *c)
+void	*handle_unbalanced_quote(char *result)
 {
-	return (prs_is_in_file(c) || prs_is_out_file(c));
+	free(result);
+	return (NULL);
 }
 
-t_bool	prs_is_in_file(char *c)
+void	prs_redir_err(t_prs_stack *stack)
 {
-	return (*c == PRS_IN_FILE);
+	if ((ft_strlen(stack->ori_str) > 1) && prs_is_redir(stack->ori_str + 2))
+	{
+		stack->err_flag = TRUE;
+		return ;
+	}
 }
 
-t_bool	prs_is_out_file(char *c)
+t_bool	is_check_err_in_stack(t_prs_stack *stack)
 {
-	return (*c == PRS_OUT_FILE);
-}
-
-t_bool	prs_is_append(char *c)
-{
-	if (prs_is_out_file(c) && prs_is_out_file(c + 1))
-		return (TRUE);
-	return (FALSE);
-}
-
-t_bool	prs_is_heredoc(char *c)
-{
-	if (prs_is_in_file(c) && prs_is_in_file(c + 1))
+	if (stack->err_flag)
 		return (TRUE);
 	return (FALSE);
 }

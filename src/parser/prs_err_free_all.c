@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   prs_err_free_all.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 17:53:14 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 16:45:49 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 17:36:36 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 17:36:39 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh_builtins.h"
-#include <unistd.h>
-#include <stdio.h>
+#include "tksh.h"
+#include "tksh_parse.h"
 
-t_exit_code	pwd(void)
+void	*prs_err_free_all(char *usr_input,
+		t_prs_stack **stack_list, t_token **token_list)
 {
-	char	buff[PWD_MAX_BUFF_SIZE];
-
-	ft_memset(buff, 0, PWD_MAX_BUFF_SIZE);
-	if (!getcwd(buff, PWD_MAX_BUFF_SIZE))
-	{
-		perror("pwd");
-		return (EXIT_FAILURE);
-	}
-	printf("%s\n", buff);
-	return (EXIT_SUCCESS);
+	free(usr_input);
+	prs_free_stack_list(stack_list);
+	tksh_free_token_list(token_list);
+	return (NULL);
 }

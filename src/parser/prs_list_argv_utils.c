@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_arg_list.c                                     :+:      :+:    :+:   */
+/*   prs_argv_list_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 13:50:45 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 19:50:48 by hyeonwch         ###   ########.fr       */
+/*   Created: 2024/07/19 16:33:16 by hyeonwch          #+#    #+#             */
+/*   Updated: 2024/07/19 16:33:17 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_parse.h"
-#include "libft.h"
-#include <stdio.h>
 
 t_argv_list	*prs_argv_list_new_node(char *str)
 {
@@ -28,9 +26,7 @@ t_argv_list	*prs_argv_list_new_node(char *str)
 	new->next = NULL;
 	return (new);
 }
-
-void	prs_argv_list_add_node(
-			char *str, t_prs_stack *stack)
+void	prs_argv_list_add_node(char *str, t_prs_stack *stack)
 {
 	t_argv_list	*last;
 	t_argv_list	**head;
