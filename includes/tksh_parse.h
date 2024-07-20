@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:37:54 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:45:35 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ char		*prs_handle_whitespace(t_prs_stack *stack, char *tmp, char *result);
 char		*prs_process_stack(t_prs_stack *stack,
 				t_token *token, char *result);
 char		*prs_process_quote(t_prs_stack *stack);
-void		prs_process_redir(t_token *token, t_prs_stack *stack, char **result);
+void		prs_process_redir(t_token *token,
+				t_prs_stack *stack, char **result);
 
 /* File setting functions */
 void		prs_setting_file(t_token *token, t_prs_stack *stack,
@@ -148,7 +149,7 @@ t_bool		prs_is_balanced_quote(char *start);
 void		prs_skip_qoute(char **ori_str);
 
 /* Quote processing functions */
-void	prs_process_judge_qoute(t_prs_stack *stack, char *start);
+void		prs_process_judge_qoute(t_prs_stack *stack, char *start);
 void		prs_process_single_qoute(t_prs_stack *stack, char **result);
 void		prs_process_double_qoute(t_prs_stack *stack, char **result);
 char		*prs_remove_quote(t_prs_stack *stack);
@@ -180,8 +181,10 @@ size_t		prs_count_str_using_func(char *str,
 
 /* Variable parsing functions */
 char		*prs_find_value_in_envp(char *str, char ***envp);
-char		*prs_handle_possible_var_space(char **str, char ***envp, char *result);
-char		*prs_process_variable(char **str, char **start, char ***envp, char *result);
+char		*prs_handle_possible_var_space(char **str,
+				char ***envp, char *result);
+char		*prs_process_variable(char **str,
+				char **start, char ***envp, char *result);
 char		*prs_parse_variable(char *str, char ***envp);
 
 #endif

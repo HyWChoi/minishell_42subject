@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_types.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 14:57:40 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:46:36 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ enum e_corect{
 	ACCESS_ERROR = -1
 };
 
-
 typedef struct s_term
 {
 	struct termios	term;
-	struct termios 	term_backup;
+	struct termios	term_backup;
 }	t_term;
 
 #endif
