@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_argv_list_utils.c                              :+:      :+:    :+:   */
+/*   prs_list_argv_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:33:16 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 16:33:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:39:33 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_argv_list	*prs_argv_list_new_node(char *str)
 	new->next = NULL;
 	return (new);
 }
+
 void	prs_argv_list_add_node(char *str, t_prs_stack *stack)
 {
 	t_argv_list	*last;

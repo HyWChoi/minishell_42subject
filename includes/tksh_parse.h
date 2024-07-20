@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 18:01:09 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:37:54 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_bool		prs_is_balanced_quote(char *start);
 void		prs_skip_qoute(char **ori_str);
 
 /* Quote processing functions */
-static void	prs_process_judge_qoute(t_prs_stack *stack, char *start);
+void	prs_process_judge_qoute(t_prs_stack *stack, char *start);
 void		prs_process_single_qoute(t_prs_stack *stack, char **result);
 void		prs_process_double_qoute(t_prs_stack *stack, char **result);
 char		*prs_remove_quote(t_prs_stack *stack);

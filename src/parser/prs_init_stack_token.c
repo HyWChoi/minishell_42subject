@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_stack_token_init.c                             :+:      :+:    :+:   */
+/*   prs_init_stack_token.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:41:44 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 16:41:45 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:28:41 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	prs_init_token(t_token **token, char	***envp)
 }
 
 static void	handle_stack_init(t_prs_stack **stack,
-				char *start, char *len, char ***envp)
+				char *start, long len, char ***envp)
 {
 	char	*ori_str;
 
-	ori_str = ft_strndup(start, len);
+	ori_str = ft_strndup(start, (size_t) len);
 	prs_stack_init(stack, ori_str, envp);
 	free(ori_str);
 }

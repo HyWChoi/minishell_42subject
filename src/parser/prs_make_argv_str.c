@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:37:56 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 17:44:28 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:37:58 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,16 @@ char	*prs_extract_var_by_split(char **result, t_prs_stack *stack)
 	return (*result);
 }
 
-char	*prs_finalize_file_result(t_prs_stack *stack, char *result, char *start)
+void	prs_finalize_result(char *result,
+		t_prs_stack *stack)
 {
-	if (stack->ori_str != start)
-		result = ft_strjoin_and_free(
-				result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
-	stack->ori_str += prs_count_str_using_func(
-			stack->ori_str, prs_is_white_space, TRUE);
-	if (*result && (*result == '<' || *result == '>' || *result == '|'))
-	{
+	if (!(*result))
 		free(result);
-		stack->err_flag = TRUE;
-		return (NULL);
+	else
+	{
+		prs_argv_list_add_node(result, stack);
+		free(result);
 	}
-	return (result);
 }
 
 char	*prs_handle_whitespace(t_prs_stack *stack, char *tmp, char *result)
