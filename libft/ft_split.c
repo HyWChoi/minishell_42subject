@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 23:15:42 by yechakim          #+#    #+#             */
-/*   Updated: 2024/04/17 15:57:47 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:03:27 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_word_len(char const *str, char end)
 
 	word_len = 0;
 	while (str[word_len] && str[word_len] != end)
-			word_len++;
+		word_len++;
 	return (word_len);
 }
 
