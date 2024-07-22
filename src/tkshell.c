@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 02:52:26 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 03:03:55 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 sig_atomic_t	g_sig_flag = 0;
 
-static char	**copy_envp(char ****target, const char **envp)
+static char	**copy_envp(char ***tmp, const char **envp)
 {
 	int		i;
 	char	**new_envp;
@@ -43,7 +43,7 @@ static char	**copy_envp(char ****target, const char **envp)
 		i++;
 	}
 	new_envp[i + 1] = NULL;
-	*target = &new_envp;
+	*tmp = new_envp;
 	return (new_envp);
 }
 
@@ -104,24 +104,23 @@ static t_exit_code	missing_operand_check(t_token **token_list_ptr, char ***envp)
 int	main(int argc, char **argv, const char **initial_envp)
 {
 	t_token		**token_list;
-	char		***envp;
+	char		**envp;
 	char		*origin_str;
 
 	(void)argc;
 	(void)argv;
 	if (!copy_envp(&envp, initial_envp))
 		return (EXIT_FAILURE);
-	printf("%p\n", envp);
-	set_exit_code(0, envp);
+	set_exit_code(0, &envp);
 	while (1)
 	{
 		origin_str = tksh_prompt();
 		if (!origin_str)
 			continue ;
-		token_list = prs_parse(origin_str, envp);
-		if (missing_operand_check(token_list, envp) == ECODE_SYNTAX)
+		token_list = prs_parse(origin_str, &envp);
+		if (missing_operand_check(token_list, &envp) == ECODE_SYNTAX)
 			continue ;
-		set_exit_code(execute(token_list), envp);
+		set_exit_code(execute(token_list), &envp);
 		ex_unlink_heredoc_hook(token_list);
 		tksh_free_token_list(token_list);
 	}
