@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tksh_prompt.h                                      :+:      :+:    :+:   */
+/*   trhow_syntax_error.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 18:14:12 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/20 22:01:56 by yechakim         ###   ########.fr       */
+/*   Created: 2024/07/22 17:40:23 by yechakim          #+#    #+#             */
+/*   Updated: 2024/07/22 17:41:55 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TKSH_PROMPT_H
-# define TKSH_PROMPT_H
+#include "tksh.h"
+#include "tksh_error.h"
 
-char	*tksh_prompt(char *envp);
-
-#endif
+int	throw_syntax_error(void)
+{
+	ft_putstr_fd(SHELL_NAME": Syntax Error\n", 2);
+	return (2);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 11:49:23 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:41:45 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 sig_atomic_t	g_sig_flag = 0;
 
@@ -45,10 +46,14 @@ static char	**copy_envp(const char **envp)
 	return (new_envp);
 }
 
-static void	set_exit_code(t_exit_code exit_code, char ***envp)
+void	set_exit_code(t_exit_code exit_code, char ***envp)
 {
-	free(*envp[0]);
-	**envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
+	static char	***static_envp;
+
+	if (envp)
+		static_envp = envp;
+	free(*static_envp[0]);
+	**static_envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
 }
 
 void	ex_unlink_heredoc_hook(t_token **token_list)
@@ -68,35 +73,27 @@ void	ex_unlink_heredoc_hook(t_token **token_list)
 	}
 }
 
-static t_exit_code missing_operand_check(t_token ***token_list_ptr)
+static t_exit_code	missing_operand_check(t_token **token_list_ptr)
 {
-	t_token 	**token_list;
-	t_file_list *file_list;
+	t_token		**temp_token;
+	t_file_list	*file_list;
 
-	if(!*token_list_ptr)
+	if (!token_list_ptr)
+		return (throw_syntax_error());
+	temp_token = token_list_ptr;
+	while (*temp_token)
 	{
-		ft_putstr_fd("tksh: Syntax Error precheck\n", 2);
-		return (2);
-	}
-	token_list = *token_list_ptr;
-	while (*token_list)
-	{
-		file_list = *(*token_list)->file;
-		while(file_list)
+		file_list = *(*temp_token)->file;
+		while (file_list)
 		{
 			if (ft_strncmp(file_list->file_name, "", 1) == 0)
-			{
-				ft_putstr_fd("tksh: Syntax Error\n", 2);
-				return (2);
-			}
-			if(file_list->type == HEREDOC && ft_strncmp(file_list->limiter, "", 1) == 0)
-			{
-				ft_putstr_fd("tksh: Syntax Error\n", 2);
-				return (2);
-			}
+				return (throw_syntax_error());
+			if (file_list->type == HEREDOC
+				&& ft_strncmp(file_list->limiter, "", 1) == 0)
+				return (throw_syntax_error());
 			file_list = file_list->next;
 		}
-		token_list++;
+		temp_token++;
 	}
 	return (0);
 }
@@ -114,23 +111,14 @@ int	main(int argc, char **argv, const char **initial_envp)
 	token_list = NULL;
 	tmp = copy_envp(initial_envp);
 	envp = &tmp;
-	exit_code = 0;
-	// set_exit_code(0);
+	set_exit_code(0, envp);
 	while (1)
 	{
-		g_sig_flag = SIGINT_FLAG_OFF;
 		origin_str = tksh_prompt(**envp);
-		if(!origin_str)
+		if (!origin_str)
 			continue ;
-		if (ft_strlen(origin_str) == 0)
-		{
-			if (g_sig_flag == SIGINT_FLAG_ON)
-				set_exit_code(1, envp);
-			continue ;
-		}
 		token_list = prs_parse(origin_str, envp);
-		// dbg_print_token(token_list);
-		exit_code = missing_operand_check(&token_list);
+		exit_code = missing_operand_check(token_list);
 		if (exit_code != 0)
 		{
 			set_exit_code(exit_code, envp);

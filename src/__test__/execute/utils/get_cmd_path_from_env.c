@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_path_from_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/20 16:48:56 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:05:47 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ char	*get_cmd_path_from_env(char *cmd, char **envp)
 	char	**paths;
 	char	*ret;
 
-	// if (ft_strchr(cmd, '/') == cmd)
-	// 	return (ft_strdup(cmd));
 	paths = get_paths_from_env(envp);
 	ret = ex_get_abs_path_of_cmd(cmd, paths);
 	if (paths)

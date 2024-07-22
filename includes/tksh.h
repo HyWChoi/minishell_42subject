@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:43:06 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:47:40 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:08:28 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define TK_HEREDOC_PATH "./."
 # define SHELL_NAME "tekkensh"
 # define PROMPT "tekkensh$ "
+
 
 /*** CUSTOM IMPORT ***/
 # include "tksh_types.h"
@@ -34,5 +35,6 @@ extern sig_atomic_t	g_sig_flag;
 
 void	tksh_free_token(t_token *token);
 void	tksh_free_token_list(t_token **token_list);
+void	set_exit_code(t_exit_code exit_code, char ***envp);
 
 #endif

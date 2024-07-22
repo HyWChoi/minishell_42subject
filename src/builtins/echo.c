@@ -3,16 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/12 18:03:49 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:05:28 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_builtins.h"
 #include "libft.h"
 #include <stdio.h>
+
+char	*ft_concat(char **strs, char *sep)
+{
+	size_t	len;
+	size_t	i;
+	char	*ret;
+
+	len = ft_strs_len((const char **)strs);
+	if (len == 0)
+		return (NULL);
+	if (len == 1)
+		return (ft_strdup(strs[0]));
+	ret = ft_strdup(strs[0]);
+	if (!ret)
+		return (NULL);
+	i = 1;
+	while (i < len)
+	{
+		ret = ft_strjoin_and_free(ret, sep, FREE_S1);
+		if (!ret)
+			return (NULL);
+		ret = ft_strjoin_and_free(ret, strs[i], FREE_S1);
+		if (!ret)
+			return (NULL);
+		i++;
+	}
+	return (ret);
+}
 
 int	len_zero(size_t len, char *option)
 {
@@ -38,18 +66,17 @@ t_exit_code	echo(char **strings, char *option)
 	if (ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
 		return (EXIT_FAILURE);
 	i = 0;
-	while (i < len)
-	{
-		ret = ft_strjoin_and_free(ret, strings[i], FREE_S1);
-		ret = ft_strjoin_and_free(ret, " ", FREE_S1);
-		i++;
-	}
+	ret = ft_concat(strings, " ");
+	if (!ret)
+		return (EXIT_FAILURE);
+	ret = ft_strjoin_and_free(ret, " ", FREE_S1);
+	if (!ret)
+		return (EXIT_FAILURE);
 	if (ft_strncmp(option, "-n", 2))
 		ret[ft_strlen(ret) - 1] = '\n';
 	else
 		ret[ft_strlen(ret) - 1] = '\0';
-	printf("%s", ret);
-	if (ret)
-		free(ret);
+	write(1, ret, ft_strlen(ret));
+	free(ret);
 	return (EXIT_SUCCESS);
 }
