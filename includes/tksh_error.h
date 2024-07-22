@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_error.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:29 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/22 17:40:53 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:46:52 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TKSH_ERROR_H
 
 void	put_err_msg(char *cmd, char *err_msg);
-int		throw_syntax_error(void);
+int		throw_syntax_error(char ***envp);
 
 typedef enum e_error_behavior
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tkshell.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/22 17:55:16 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:52:26 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 sig_atomic_t	g_sig_flag = 0;
 
-static char	**copy_envp(const char **envp)
+static char	**copy_envp(char ****target, const char **envp)
 {
 	int		i;
 	char	**new_envp;
@@ -43,6 +43,7 @@ static char	**copy_envp(const char **envp)
 		i++;
 	}
 	new_envp[i + 1] = NULL;
+	*target = &new_envp;
 	return (new_envp);
 }
 
@@ -60,6 +61,8 @@ void	ex_unlink_heredoc_hook(t_token **token_list)
 {
 	t_file_list	*temp;
 
+	if (!token_list)
+		return ;
 	while (*token_list)
 	{
 		temp = *(*token_list)->file;
@@ -73,13 +76,13 @@ void	ex_unlink_heredoc_hook(t_token **token_list)
 	}
 }
 
-static t_exit_code	missing_operand_check(t_token **token_list_ptr)
+static t_exit_code	missing_operand_check(t_token **token_list_ptr, char ***envp)
 {
 	t_token		**temp_token;
 	t_file_list	*file_list;
 
 	if (!token_list_ptr)
-		return (throw_syntax_error());
+		return (throw_syntax_error(envp));
 	temp_token = token_list_ptr;
 	while (*temp_token)
 	{
@@ -87,10 +90,10 @@ static t_exit_code	missing_operand_check(t_token **token_list_ptr)
 		while (file_list)
 		{
 			if (ft_strncmp(file_list->file_name, "", 1) == 0)
-				return (throw_syntax_error());
+				return (throw_syntax_error(envp));
 			if (file_list->type == HEREDOC
 				&& ft_strncmp(file_list->limiter, "", 1) == 0)
-				return (throw_syntax_error());
+				return (throw_syntax_error(envp));
 			file_list = file_list->next;
 		}
 		temp_token++;
@@ -102,15 +105,13 @@ int	main(int argc, char **argv, const char **initial_envp)
 {
 	t_token		**token_list;
 	char		***envp;
-	t_exit_code	exit_code;
-	char		**tmp;
 	char		*origin_str;
 
 	(void)argc;
 	(void)argv;
-	token_list = NULL;
-	tmp = copy_envp(initial_envp);
-	envp = &tmp;
+	if (!copy_envp(&envp, initial_envp))
+		return (EXIT_FAILURE);
+	printf("%p\n", envp);
 	set_exit_code(0, envp);
 	while (1)
 	{
@@ -118,18 +119,11 @@ int	main(int argc, char **argv, const char **initial_envp)
 		if (!origin_str)
 			continue ;
 		token_list = prs_parse(origin_str, envp);
-		exit_code = missing_operand_check(token_list);
-		if (exit_code != 0)
-		{
-			set_exit_code(exit_code, envp);
+		if (missing_operand_check(token_list, envp) == ECODE_SYNTAX)
 			continue ;
-		}
-		exit_code = execute(token_list);
-		if (token_list)
-			ex_unlink_heredoc_hook(token_list);
-		set_exit_code(exit_code, envp);
-		if (token_list)
-			tksh_free_token_list(token_list);
+		set_exit_code(execute(token_list), envp);
+		ex_unlink_heredoc_hook(token_list);
+		tksh_free_token_list(token_list);
 	}
 	return (0);
 }

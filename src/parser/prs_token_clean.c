@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:54:36 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 17:54:38 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:19:36 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	tksh_free_token_list(t_token **token_list)
 	int	i;
 
 	i = 0;
+	if (!token_list)
+		return ;
 	while (token_list[i])
 		tksh_free_token(token_list[i++]);
 	free(token_list);

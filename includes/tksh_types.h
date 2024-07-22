@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:46:36 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:47:21 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef unsigned char	t_exit_code;
 enum e_exit_code {
 	ECODE_SUCCESS = 0,
 	ECODE_ERROR = 1,
+	ECODE_SYNTAX = 2,
 	ECODE_BAD_FILE_DESCRIPTOR = 9,
 	ECODE_CMD_NOT_EXECUTABLE = 126,
 	ECODE_CMD_IS_DIR = 126,
