@@ -6,19 +6,16 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/22 18:00:11 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:34:33 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_prompt.h"
-#include "libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <termios.h>
-#include "get_next_line.h"
+
+
+
+
 
 static void	tks_stop_readline(int sig)
 {
@@ -32,7 +29,7 @@ static void	tks_stop_readline(int sig)
 	set_exit_code(1, NULL);
 }
 
-static int	sig_hook(void)
+static int	signal_event_hook(void)
 {
 	if (g_sig_flag == SIGINT_FLAG_ON)
 		g_sig_flag = SIGINT_FLAG_OFF;
@@ -48,7 +45,23 @@ static void	tksh_sig_hook(void)
 	tcsetattr(0, TCSANOW, &term);
 	signal(SIGINT, tks_stop_readline);
 	signal(SIGQUIT, SIG_IGN);
-	rl_signal_event_hook = sig_hook;
+	rl_signal_event_hook = signal_event_hook;
+}
+
+char *tksh_readline()
+{
+	char *input;
+	
+	tksh_sig_hook();
+	if (isatty(STDOUT_FILENO))
+		input = readline(PROMPT);
+	else
+	{
+		if (isatty(STDIN_FILENO))
+			write(STDERR_FILENO, PROMPT, ft_strlen(PROMPT));
+		input = get_next_line(STDIN_FILENO);
+	}
+	return (input);
 }
 
 char	*tksh_prompt()
@@ -56,20 +69,9 @@ char	*tksh_prompt()
 	char	*input;
 	char	*temp;
 
-	tksh_sig_hook();
-	if (isatty(STDOUT_FILENO))
-		input = readline(PROMPT);
-	else
-	{
-		if (isatty(STDIN_FILENO) != 0)
-			write(STDERR_FILENO, PROMPT, ft_strlen(PROMPT));
-		input = get_next_line(0);
-	}
+	input = tksh_readline();
 	if (!input)
-	{
-		printf("exit\n");
-		exit(0);
-	}
+		exit_on_eof();
 	else if (*input)
 	{
 		add_history(input);
@@ -77,7 +79,7 @@ char	*tksh_prompt()
 		free(input);
 		input = temp;
 	}
-	if(input && *input == '\0')
+	if (input && *input == '\0')
 	{
 		free(input);
 		return (NULL);

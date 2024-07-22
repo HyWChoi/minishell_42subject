@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tksh_prompt.h                                      :+:      :+:    :+:   */
+/*   exit_on_eof.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 18:14:12 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 02:34:34 by yechakim         ###   ########seoul.kr  */
+/*   Created: 2024/07/23 02:28:22 by yechakim          #+#    #+#             */
+/*   Updated: 2024/07/23 02:32:30 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TKSH_PROMPT_H
-# define TKSH_PROMPT_H
+#include "tksh_prompt.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include <signal.h>
-# include <termios.h>
-# include "get_next_line.h"
-
-char	*tksh_prompt();
-void	exit_on_eof();
-
-#endif
+void exit_on_eof()
+{
+    printf("exit\n");
+    exit(0);
+}
