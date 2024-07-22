@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:52:41 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 17:52:43 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:12:16 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 void	*prs_set_token(t_prs_stack *stack, t_token *token)
 {
-	t_argv_list	*argv_list;
 	char		*start;
 	char		*result;
 
-	argv_list = NULL;
 	result = ft_strdup("");
 	start = stack->ori_str;
 	while (!stack->err_flag && *stack->ori_str)

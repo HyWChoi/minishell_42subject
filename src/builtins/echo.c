@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/22 17:05:28 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:23:06 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ int	len_zero(size_t len, char *option)
 t_exit_code	echo(char **strings, char *option)
 {
 	const size_t	len = ft_strs_len((const char **)strings);
-	size_t			i;
 	char			*ret;
 
 	if (!len_zero(len, option))
 		return (EXIT_SUCCESS);
 	if (ft_calloc_guard((void **)&ret, 1, sizeof(char *)) == NULL)
 		return (EXIT_FAILURE);
-	i = 0;
 	ret = ft_concat(strings, " ");
 	if (!ret)
 		return (EXIT_FAILURE);

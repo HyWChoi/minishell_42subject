@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:45:55 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/20 16:51:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:12:30 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,12 @@ static void	us_remove_key(char **envp, size_t key_idx)
 
 t_exit_code	unset(char **argv, char **envp)
 {
-	size_t		env_len;
 	size_t		key_idx;
 	t_exit_code	exit_code;
 
 	exit_code = EXIT_SUCCESS;
 	while (*argv)
 	{
-		env_len = ft_strs_len((const char **)envp);
 		if (ft_strlen(*argv) == 0 || us_get_key_idx(*argv, envp) == -1)
 		{
 			if (export_is_valid_key(*argv) == FALSE)
