@@ -6,13 +6,13 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:14:12 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/20 22:01:56 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:55:34 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TKSH_PROMPT_H
 # define TKSH_PROMPT_H
 
-char	*tksh_prompt(char *envp);
+char	*tksh_prompt();
 
 #endif

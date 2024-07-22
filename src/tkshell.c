@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/22 17:41:45 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:55:16 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	main(int argc, char **argv, const char **initial_envp)
 	set_exit_code(0, envp);
 	while (1)
 	{
-		origin_str = tksh_prompt(**envp);
+		origin_str = tksh_prompt();
 		if (!origin_str)
 			continue ;
 		token_list = prs_parse(origin_str, envp);

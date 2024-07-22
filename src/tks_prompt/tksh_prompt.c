@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/22 17:28:01 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:00:11 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void	tksh_sig_hook(void)
 	rl_signal_event_hook = sig_hook;
 }
 
-char	*tksh_prompt(char *envp)
+char	*tksh_prompt()
 {
 	char	*input;
+	char	*temp;
 
-	(void)envp;
 	tksh_sig_hook();
 	if (isatty(STDOUT_FILENO))
 		input = readline(PROMPT);
@@ -71,8 +71,13 @@ char	*tksh_prompt(char *envp)
 		exit(0);
 	}
 	else if (*input)
+	{
 		add_history(input);
-	else
+		temp = ft_strtrim(input, " ");
+		free(input);
+		input = temp;
+	}
+	if(input && *input == '\0')
 	{
 		free(input);
 		return (NULL);
