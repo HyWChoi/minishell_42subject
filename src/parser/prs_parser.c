@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:19:27 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:38:25 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:06:17 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	prs_init_stack_token_lists(t_prs_stack ***stack_list,
 {
 	char	*trimed_input;
 
-	trimed_input = ft_strtrim(usr_input, PRS_WHITE_SPACE);
+	trimed_input = prs_safety_strtrim(usr_input, PRS_WHITE_SPACE);
 	if (*trimed_input == '\0' || *trimed_input == '|'
 		|| *(trimed_input + ft_strlen(trimed_input) - 1) == '|')
 	{

@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:46:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/19 17:46:19 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:13:09 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ char	*prs_process_quote_or_variable(
 
 	if (prs_is_quote(stack->ori_str))
 	{
-		result = ft_strjoin_and_free(result,
-				ft_strndup(*start, stack->ori_str - *start), FREE_BOTH);
+		result = prs_safety_strjoin_and_free(result,
+				prs_safety_strndup(*start, stack->ori_str - *start), FREE_BOTH);
 		temp = prs_remove_quote(stack);
-		result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+		result = prs_safety_strjoin_and_free(result, temp, FREE_BOTH);
 		*start = stack->ori_str;
 	}
 	else if (prs_is_variable(stack->ori_str))
 	{
-		result = ft_strjoin_and_free(result,
-				ft_strndup(*start, stack->ori_str - *start), FREE_BOTH);
+		result = prs_safety_strjoin_and_free(result,
+				prs_safety_strndup(*start, stack->ori_str - *start), FREE_BOTH);
 		temp = prs_parse_variable(stack->ori_str, stack->envp);
 		if (temp)
-			result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+			result = prs_safety_strjoin_and_free(result, temp, FREE_BOTH);
 		stack->ori_str += prs_count_str_using_func(
 				stack->ori_str, prs_is_end_of_name, TRUE);
 		*start = stack->ori_str;
@@ -87,7 +87,7 @@ char	*prs_find_file_name(t_prs_stack *stack)
 	char	*start;
 	char	*result;
 
-	result = ft_strdup("");
+	result = prs_safety_strdup("");
 	prs_skip_redir_and_whitespace(stack);
 	start = stack->ori_str;
 	while (!stack->err_flag
@@ -110,8 +110,9 @@ char	*prs_find_file_name(t_prs_stack *stack)
 char	*prs_finalize_file_result(t_prs_stack *stack, char *result, char *start)
 {
 	if (stack->ori_str != start)
-		result = ft_strjoin_and_free(
-				result, ft_strndup(start, stack->ori_str - start), FREE_BOTH);
+		result = prs_safety_strjoin_and_free(
+				result, prs_safety_strndup(start,
+					stack->ori_str - start), FREE_BOTH);
 	stack->ori_str += prs_count_str_using_func(
 			stack->ori_str, prs_is_white_space, TRUE);
 	if (*result && (*result == '<' || *result == '>' || *result == '|'))

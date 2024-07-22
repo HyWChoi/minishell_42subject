@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit_on_eof.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 02:28:22 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 02:32:30 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/23 06:09:55 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh_prompt.h"
 
-void exit_on_eof()
+void	exit_on_eof(void)
 {
-    printf("exit\n");
-    exit(0);
+	printf("exit\n");
+	exit(0);
 }

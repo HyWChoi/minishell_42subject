@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 02:34:33 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/23 06:10:40 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tksh.h"
 #include "tksh_prompt.h"
-
-
-
-
 
 static void	tks_stop_readline(int sig)
 {
@@ -48,10 +44,10 @@ static void	tksh_sig_hook(void)
 	rl_signal_event_hook = signal_event_hook;
 }
 
-char *tksh_readline()
+char	*tksh_readline(void)
 {
-	char *input;
-	
+	char	*input;
+
 	tksh_sig_hook();
 	if (isatty(STDOUT_FILENO))
 		input = readline(PROMPT);
@@ -64,7 +60,7 @@ char *tksh_readline()
 	return (input);
 }
 
-char	*tksh_prompt()
+char	*tksh_prompt(void)
 {
 	char	*input;
 	char	*temp;
@@ -75,7 +71,7 @@ char	*tksh_prompt()
 	else if (*input)
 	{
 		add_history(input);
-		temp = ft_strtrim(input, " ");
+		temp = prs_safety_strtrim(input, " ");
 		free(input);
 		input = temp;
 	}

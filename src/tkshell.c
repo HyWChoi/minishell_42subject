@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 03:03:55 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:13:55 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ static char	**copy_envp(char ***tmp, const char **envp)
 	if (!ft_calloc_guard((void **)&new_envp, i + 2, sizeof(char *)))
 		return (NULL);
 	i = 0;
-	new_envp[i] = ft_strdup("?=0");
+	new_envp[i] = prs_safety_strdup("?=0");
 	i++;
 	while (envp[i])
 	{
-		new_envp[i] = ft_strdup(envp[i]);
+		new_envp[i] = prs_safety_strdup((char *)envp[i]);
 		i++;
 	}
 	new_envp[i + 1] = NULL;
@@ -54,7 +54,8 @@ void	set_exit_code(t_exit_code exit_code, char ***envp)
 	if (envp)
 		static_envp = envp;
 	free(*static_envp[0]);
-	**static_envp = ft_strjoin_and_free("?=", ft_itoa(exit_code), FREE_S2);
+	**static_envp = prs_safety_strjoin_and_free("?=",
+			ft_itoa(exit_code), FREE_S2);
 }
 
 void	ex_unlink_heredoc_hook(t_token **token_list)
@@ -76,7 +77,8 @@ void	ex_unlink_heredoc_hook(t_token **token_list)
 	}
 }
 
-static t_exit_code	missing_operand_check(t_token **token_list_ptr, char ***envp)
+static t_exit_code	missing_operand_check(
+						t_token **token_list_ptr, char ***envp)
 {
 	t_token		**temp_token;
 	t_file_list	*file_list;

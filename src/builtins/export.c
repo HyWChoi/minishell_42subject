@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/22 16:37:44 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:05:32 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	add_env(t_token *token, char *key_value)
 		return ;
 	while (i < origin_env_len)
 	{
-		new_envp[i] = ft_strdup((*(token->envp))[i]);
+		new_envp[i] = prs_safety_strdup((*(token->envp))[i]);
 		i++;
 	}
-	new_envp[i] = ft_strdup(key_value);
+	new_envp[i] = prs_safety_strdup(key_value);
 	new_envp[i + 1] = NULL;
 	ft_free_strs(*(token->envp));
 	*token->envp = new_envp;
@@ -46,7 +46,7 @@ void	replace_value(t_token *token, char *key, char *new_key)
 	i = 0;
 	env_len = ft_strs_len((const char **)*(token->envp));
 	key_len = ft_strlen(key);
-	key_value = ft_strndup(new_key + key_len,
+	key_value = prs_safety_strndup(new_key + key_len,
 			prs_count_str_using_func(new_key, prs_is_end_of_str, FALSE));
 	if (!*key_value)
 		return (free_keys(key, key_value));

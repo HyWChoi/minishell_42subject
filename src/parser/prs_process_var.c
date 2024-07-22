@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:51:23 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:39:23 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:12:54 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ char	*prs_find_value_in_envp(char *str, char ***envp)
 		count = 1;
 	else
 		count = prs_count_str_using_func(str, prs_is_possible_var_name, TRUE);
-	envp_key = ft_strjoin_and_free(ft_strndup(str, count), "=", FREE_S1);
+	envp_key = prs_safety_strjoin_and_free(
+			prs_safety_strndup(str, count), "=", FREE_S1);
 	while (*(*envp + i))
 	{
 		if (ft_strncmp(envp_key, *(*envp + i), count + 1) == 0)
 		{
 			free(envp_key);
-			return (ft_strdup(*(*envp + i) + count + 1));
+			return (prs_safety_strdup(*(*envp + i) + count + 1));
 		}
 		i++;
 	}
@@ -47,7 +48,7 @@ char	*prs_handle_possible_var_space(char **str, char ***envp, char *result)
 	count = prs_count_str_using_func(*str + 1, prs_is_possible_var_name, TRUE);
 	parsed_var = prs_find_value_in_envp(*str + 1, envp);
 	if (parsed_var)
-		result = ft_strjoin_and_free(result, parsed_var, FREE_BOTH);
+		result = prs_safety_strjoin_and_free(result, parsed_var, FREE_BOTH);
 	*str += count;
 	return (result);
 }
@@ -59,8 +60,8 @@ char	*prs_process_variable(char **str,
 	size_t	count;
 
 	count = prs_count_str_using_func(*start, prs_is_variable, FALSE);
-	result = ft_strjoin_and_free(result,
-			ft_strndup(*start, count), FREE_BOTH);
+	result = prs_safety_strjoin_and_free(result,
+			prs_safety_strndup(*start, count), FREE_BOTH);
 	if (prs_is_possible_var_space(*str + 1))
 	{
 		result = prs_handle_possible_var_space(str, envp, result);
@@ -69,13 +70,13 @@ char	*prs_process_variable(char **str,
 	else if (*(*str + 1) == '?')
 	{
 		temp = prs_find_value_in_envp(*str + 1, envp);
-		result = ft_strjoin_and_free(result, temp, FREE_BOTH);
+		result = prs_safety_strjoin_and_free(result, temp, FREE_BOTH);
 		(*str)++;
 		*start = *str + 1;
 	}
 	else
 	{
-		result = ft_strjoin_and_free(result, "$", FREE_S1);
+		result = prs_safety_strjoin_and_free(result, "$", FREE_S1);
 		(*str)++;
 		*start = *str;
 	}
@@ -88,7 +89,7 @@ char	*prs_parse_variable(char *str, char ***envp)
 	char	*result;
 
 	start = str;
-	result = ft_strdup("");
+	result = prs_safety_strdup("");
 	while (*str)
 	{
 		if (prs_is_variable(str))
@@ -97,6 +98,6 @@ char	*prs_parse_variable(char *str, char ***envp)
 			str++;
 	}
 	if (*start)
-		result = ft_strjoin_and_free(result, start, FREE_S1);
+		result = prs_safety_strjoin_and_free(result, start, FREE_S1);
 	return (result);
 }

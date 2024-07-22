@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_path_from_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/22 17:05:47 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:05:00 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ex_handle_cmd_with_slash(char *cmd)
 		put_err_msg(cmd, "Permission denied\n");
 		exit(ECODE_PERMISSION_DENIED);
 	}
-	return (ft_strdup(cmd));
+	return (prs_safety_strdup(cmd));
 }
 
 char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
@@ -86,7 +86,7 @@ static char	**get_paths_from_env(char **envp)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			path = ft_strdup(envp[i] + 5);
+			path = prs_safety_strdup(envp[i] + 5);
 			if (!path)
 				return (NULL);
 			paths = ft_split(path, ':');

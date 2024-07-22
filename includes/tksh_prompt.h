@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:14:12 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 02:34:34 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/23 06:14:25 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <termios.h>
 # include "get_next_line.h"
 
-char	*tksh_prompt();
-void	exit_on_eof();
+char	*tksh_prompt(void);
+void	exit_on_eof(void);
 
 #endif

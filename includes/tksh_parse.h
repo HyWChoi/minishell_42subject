@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:45:35 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:14:04 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,4 +187,9 @@ char		*prs_process_variable(char **str,
 				char **start, char ***envp, char *result);
 char		*prs_parse_variable(char *str, char ***envp);
 
+/* String utility functions */
+char		*prs_safety_strdup(char *str);
+char		*prs_safety_strndup(char *str, size_t n);
+char		*prs_safety_strtrim(char *str, const char *set);
+char		*prs_safety_strjoin_and_free(char *s1, char *s2, int free_target);
 #endif

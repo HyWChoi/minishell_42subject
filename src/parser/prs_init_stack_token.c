@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:41:44 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:28:41 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:05:54 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	handle_stack_init(t_prs_stack **stack,
 {
 	char	*ori_str;
 
-	ori_str = ft_strndup(start, (size_t) len);
+	ori_str = prs_safety_strndup(start, (size_t) len);
 	prs_stack_init(stack, ori_str, envp);
 	free(ori_str);
 }
@@ -86,7 +86,7 @@ void	prs_stack_init(t_prs_stack	**stack, char *ori_str, char ***envp)
 
 	if (!ft_calloc_guard((void **)stack, 1, sizeof(t_prs_stack)))
 		return ;
-	(*stack)->ori_str = ft_strtrim((const char *)ori_str, PRS_WHITE_SPACE);
+	(*stack)->ori_str = prs_safety_strtrim(ori_str, PRS_WHITE_SPACE);
 	size = ft_strlen((const char *)(*stack)->ori_str);
 	if (!ft_calloc_guard((void **)&((*stack)->stack), size + 1, sizeof(char *)))
 		return ;

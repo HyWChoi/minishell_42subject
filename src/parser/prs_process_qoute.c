@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:41:59 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 02:13:55 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:06:58 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	prs_process_single_qoute(t_prs_stack *stack, char **result)
 	i = 0;
 	while (*(stack->ori_str + i) && !prs_is_single_quote(stack->ori_str + i))
 		i++;
-	*result = ft_strndup(stack->ori_str, i);
+	*result = prs_safety_strndup(stack->ori_str, i);
 	stack->ori_str += i + 1;
 }
 
@@ -52,7 +52,7 @@ void	prs_process_double_qoute(t_prs_stack *stack, char **result)
 	i = 0;
 	while (*(stack->ori_str + i) && !prs_is_double_quote(stack->ori_str + i))
 		i++;
-	*result = ft_strndup(stack->ori_str, i);
+	*result = prs_safety_strndup(stack->ori_str, i);
 	tmp = *result;
 	if (ft_strchr(*result, '$'))
 	{

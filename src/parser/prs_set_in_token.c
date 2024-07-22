@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:52:41 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 01:12:16 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:08:28 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*prs_set_token(t_prs_stack *stack, t_token *token)
 	char		*start;
 	char		*result;
 
-	result = ft_strdup("");
+	result = prs_safety_strdup("");
 	start = stack->ori_str;
 	while (!stack->err_flag && *stack->ori_str)
 		result = prs_process_stack(stack, token, result);
@@ -31,7 +31,7 @@ void	*prs_set_token(t_prs_stack *stack, t_token *token)
 void	prs_set_cmd_path_in_token(t_token *token)
 {
 	if (token->argv && token->argv[0])
-		token->cmd_path = ft_strdup(token->argv[0]);
+		token->cmd_path = prs_safety_strdup(token->argv[0]);
 }
 
 void	prs_set_argv_into_token(t_token *token, t_prs_stack *stack)
@@ -52,7 +52,7 @@ void	prs_set_argv_into_token(t_token *token, t_prs_stack *stack)
 		return ;
 	while (tmp)
 	{
-		*(token->argv + i) = ft_strdup(prs_argv_list_get_str(tmp));
+		*(token->argv + i) = prs_safety_strdup(prs_argv_list_get_str(tmp));
 		tmp = tmp->next;
 		i++;
 	}

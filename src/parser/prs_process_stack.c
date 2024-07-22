@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:49:32 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/20 16:39:17 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:07:35 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	prs_process_redir(t_token *token, t_prs_stack *stack, char **result)
 	if (**result)
 	{
 		prs_argv_list_add_node(*result, stack);
-		*result = ft_strdup("");
+		*result = prs_safety_strdup("");
 	}
 }

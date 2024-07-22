@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:14:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/18 20:09:37 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:05:41 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	display_declare(char **envp)
 
 	while (*envp)
 	{
-		key_name = ft_strndup(*envp,
+		key_name = prs_safety_strndup(*envp,
 				prs_count_str_using_func(*envp, prs_is_equal, FALSE) + 1);
 		len_key_name = ft_strlen(key_name);
-		key_value = ft_strndup(*envp + len_key_name,
+		key_value = prs_safety_strndup(*envp + len_key_name,
 				prs_count_str_using_func(*envp + len_key_name,
 					prs_is_end_of_str, FALSE));
 		if (ft_strncmp(key_name, "?", 1) != 0)

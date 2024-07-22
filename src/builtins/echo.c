@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 01:23:06 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:05:10 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,15 @@ char	*ft_concat(char **strs, char *sep)
 	if (len == 0)
 		return (NULL);
 	if (len == 1)
-		return (ft_strdup(strs[0]));
-	ret = ft_strdup(strs[0]);
+		return (prs_safety_strdup(strs[0]));
+	ret = prs_safety_strdup(strs[0]);
 	if (!ret)
 		return (NULL);
 	i = 1;
 	while (i < len)
 	{
-		ret = ft_strjoin_and_free(ret, sep, FREE_S1);
-		if (!ret)
-			return (NULL);
-		ret = ft_strjoin_and_free(ret, strs[i], FREE_S1);
-		if (!ret)
-			return (NULL);
+		ret = prs_safety_strjoin_and_free(ret, sep, FREE_S1);
+		ret = prs_safety_strjoin_and_free(ret, strs[i], FREE_S1);
 		i++;
 	}
 	return (ret);
@@ -67,7 +63,7 @@ t_exit_code	echo(char **strings, char *option)
 	ret = ft_concat(strings, " ");
 	if (!ret)
 		return (EXIT_FAILURE);
-	ret = ft_strjoin_and_free(ret, " ", FREE_S1);
+	ret = prs_safety_strjoin_and_free(ret, " ", FREE_S1);
 	if (!ret)
 		return (EXIT_FAILURE);
 	if (ft_strncmp(option, "-n", 2))
