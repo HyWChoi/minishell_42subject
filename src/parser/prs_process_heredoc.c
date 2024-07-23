@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_process_heredoc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:39:52 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 06:06:53 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:01:08 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*prs_remove_quote_in_heredoc(t_prs_stack *stack)
 	char	*result;
 
 	result = NULL;
-	printf("ori_str: %s\n", stack->ori_str);
 	if (prs_is_double_quote(stack->ori_str++))
 		result = prs_safety_strndup(stack->ori_str, prs_count_str_using_func
 				(stack->ori_str, prs_is_double_quote, FALSE));

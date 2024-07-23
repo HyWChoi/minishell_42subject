@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_path_from_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 06:05:00 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:05:50 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "libft.h"
 #include <dirent.h>
 #include <stdio.h>
+
+static char	**get_paths_from_env(char **envp);
+static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths);
+
+char	*get_cmd_path_from_env(char *cmd, char **envp)
+{
+	char	**paths;
+	char	*ret;
+
+	paths = get_paths_from_env(envp);
+	ret = ex_get_abs_path_of_cmd(cmd, paths);
+	if (paths)
+		ft_free_strs(paths);
+	if (!ret)
+		return (NULL);
+	return (ret);
+}
 
 static int	isdir(char *path)
 {
@@ -26,7 +43,7 @@ static int	isdir(char *path)
 	return (ACCESS_SUCESS);
 }
 
-char	*ex_handle_cmd_with_slash(char *cmd)
+static char	*ex_handle_cmd_with_slash(char *cmd)
 {
 	if (access(cmd, F_OK) == ACCESS_ERROR)
 	{
@@ -46,7 +63,7 @@ char	*ex_handle_cmd_with_slash(char *cmd)
 	return (prs_safety_strdup(cmd));
 }
 
-char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
+static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 {
 	char	*ret;
 	char	*temp;
@@ -98,18 +115,4 @@ static char	**get_paths_from_env(char **envp)
 		i++;
 	}
 	return (NULL);
-}
-
-char	*get_cmd_path_from_env(char *cmd, char **envp)
-{
-	char	**paths;
-	char	*ret;
-
-	paths = get_paths_from_env(envp);
-	ret = ex_get_abs_path_of_cmd(cmd, paths);
-	if (paths)
-		ft_free_strs(paths);
-	if (!ret)
-		return (NULL);
-	return (ret);
 }

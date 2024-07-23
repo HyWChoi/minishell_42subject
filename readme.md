@@ -1,4 +1,4 @@
 # tekkenshell (TKSHELL)
 
-It is minimum shell script.
+It is minimum shell like bash.
 
