@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_signal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:35 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:39:35 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:54:56 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

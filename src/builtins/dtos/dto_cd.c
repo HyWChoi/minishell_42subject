@@ -6,16 +6,11 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:51 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/22 13:22:03 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:45:23 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
 #include "tksh_builtins.h"
-#include "tksh_parse.h"
-#include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_exit_code	dto_cd(t_token *token)
 {

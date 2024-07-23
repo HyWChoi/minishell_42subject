@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_execute.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:41:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:42:41 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:54:51 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

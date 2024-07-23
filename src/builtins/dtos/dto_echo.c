@@ -6,15 +6,13 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:41 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 14:53:42 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:46:49 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh.h"
+
 #include "tksh_builtins.h"
-#include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
+
 
 static t_bool	is_option(char **str)
 {

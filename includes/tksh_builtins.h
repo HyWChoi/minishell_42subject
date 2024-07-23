@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 14:57:45 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:46:59 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define TKSH_BUILTINS_H
 
 # include "tksh.h"
-
+# include "tksh_parse.h"
+# include "libft.h"
+# include <stdlib.h>
+# include <stdio.h>
 # define PWD_MAX_BUFF_SIZE 4096
 
 /**
