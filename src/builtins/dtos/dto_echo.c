@@ -6,13 +6,11 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:41 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 15:46:49 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:12:27 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "tksh_builtins.h"
-
 
 static t_bool	is_option(char **str)
 {

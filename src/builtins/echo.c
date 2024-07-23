@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:19:17 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 14:59:47 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:12:18 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	len_zero(size_t len, t_bool option)
 		if (option)
 			write(0, "", 1);
 		else
-			write(0, "\n",1);
+			write(0, "\n", 1);
 		return (0);
 	}
 	return (-1);
