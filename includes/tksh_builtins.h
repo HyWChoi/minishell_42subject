@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 12:16:05 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:57:45 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_exit_code	pwd(void);
 t_exit_code	env(const char **env);
 t_exit_code	exit_shell(unsigned char exit_code);
 t_exit_code	unset(char **argv, char **envp);
-t_exit_code	echo(char **strings, char *option);
+t_exit_code	echo(char **strings, t_bool option);
 t_exit_code	export(t_token *token);
 
 //export

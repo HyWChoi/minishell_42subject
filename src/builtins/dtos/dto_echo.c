@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:41 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/18 20:30:46 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:53:42 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static t_bool	is_option(char **str)
 
 t_exit_code	dto_echo(t_token *token)
 {
-	char	*option;
 	char	**argv;
+	t_bool	option;
 
-	option = "";
+	option = FALSE;
 	argv = token-> argv + 1;
 	while (argv)
 	{
 		if (is_option(argv))
 		{
-			option = *(argv);
+			option = TRUE;
 			argv = argv + 1;
 		}
 		else
