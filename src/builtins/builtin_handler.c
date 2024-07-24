@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:21:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 12:22:15 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:09:12 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	handle_sig(int sig)
 {
 	if (sig == SIGPIPE)
 	{
-		write(STDERR_FILENO, "Borken pipe\n", 12);
+		write(STDERR_FILENO,
+			SHELL_NAME": Broken pipe\n", ft_strlen(SHELL_NAME) + 15);
 		exit(SIGPIPE);
 	}
 }

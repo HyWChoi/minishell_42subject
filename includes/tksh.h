@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:43:06 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 15:45:49 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:56:12 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft.h"
 # define TK_HEREDOC_PATH "./."
-# define SHELL_NAME "tekkensh"
-# define PROMPT "tekkensh$ "
+# define SHELL_NAME "minishell"
+# define PROMPT "minishell$ "
 
 /*** CUSTOM IMPORT ***/
 # include "tksh_types.h"
