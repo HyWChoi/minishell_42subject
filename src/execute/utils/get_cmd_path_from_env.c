@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 12:05:50 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:31:33 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	{
 		temp = ft_strjoin(paths[i], "/");
 		ret = ft_strjoin(temp, cmd);
-		if (access(ret, F_OK | X_OK) == ACCESS_SUCESS
+		if (access(ret, F_OK) == ACCESS_SUCESS
 			&& isdir(ret) != ACCESS_SUCESS)
 		{
 			free(temp);
