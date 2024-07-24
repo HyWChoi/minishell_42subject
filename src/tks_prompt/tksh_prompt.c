@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 06:10:40 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:48:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*tksh_prompt(void)
 	else if (*input)
 	{
 		add_history(input);
-		temp = prs_safety_strtrim(input, " ");
+		temp = prs_safety_strtrim(input, PRS_WHITE_SPACE);
 		free(input);
 		input = temp;
 	}
