@@ -2,7 +2,6 @@ NAME= libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# TODO: 제출하기 전에 shell find 명령어를 사용하지 않도록 수정해야 함
 SRCS := ft_strnstr.c \
 	ft_isdigit.c \
 	ft_putstr_fd.c \
