@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_types.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:39:28 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 02:47:21 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:19:31 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ enum e_exit_code {
 	ECODE_ERROR = 1,
 	ECODE_SYNTAX = 2,
 	ECODE_BAD_FILE_DESCRIPTOR = 9,
+	ECODE_MALLOC_FAIL = 12,
 	ECODE_CMD_NOT_EXECUTABLE = 126,
 	ECODE_CMD_IS_DIR = 126,
 	ECODE_PERMISSION_DENIED = 126,

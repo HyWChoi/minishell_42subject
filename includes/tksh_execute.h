@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:41:04 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 15:54:51 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:20:58 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_exit_code	ex_run_singlecmd(t_token *token);
 void		ex_run_child(t_token *token, t_pipe *pipes, int nth, int ps_len);
 
 /* UTILS */
+
+int			isdir(char *path);
 t_bool		ex_sig_catched(t_io_fd io_fd);
 t_exit_code	ex_wait_children_ended(int token_len, int last_pid);
 t_bool		ex_is_child(pid_t pid);

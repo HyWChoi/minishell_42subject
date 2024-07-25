@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_on_eof.c                                      :+:      :+:    :+:   */
+/*   is_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 02:28:22 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/25 14:29:32 by yechakim         ###   ########.fr       */
+/*   Created: 2024/07/25 12:12:36 by yechakim          #+#    #+#             */
+/*   Updated: 2024/07/25 12:13:22 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tksh_prompt.h"
+#include "tksh_execute.h"
+#include <dirent.h>
 
-void	exit_on_eof(void)
+int	isdir(char *path)
 {
-	if (isatty(0))
-		printf("exit\n");
-	exit(0);
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir == NULL)
+		return (ACCESS_ERROR);
+	closedir(dir);
+	return (ACCESS_SUCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/24 14:32:45 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:01:07 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	run_cmd(t_token *token)
 		perror(token->cmd_path);
 		if (errno == EACCES || errno == EISDIR)
 			exit(ECODE_PERMISSION_DENIED);
-		else
-			exit(ECODE_CMD_NOT_FOUND);
+		exit(ECODE_CMD_NOT_FOUND);
 	}
 }
