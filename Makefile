@@ -38,6 +38,7 @@ srcs = builtins/builtin_handler.c \
 	execute/utils/is_builtin.c \
 	execute/utils/sig_utils.c \
 	execute/wait_child.c \
+	execute/utils/is_dir.c \
 	parser/prs_count_utils.c \
 	parser/prs_err_check.c \
 	parser/prs_err_free_all.c \
@@ -62,7 +63,7 @@ srcs = builtins/builtin_handler.c \
 	parser/prs_token_clean.c \
 	tks_prompt/exit_on_eof.c \
 	tks_prompt/tksh_prompt.c \
-	tkshell.c 
+	tkshell.c
 
 srcs := $(addprefix src/, $(srcs))
 OBJS := $(srcs:.c=.o)

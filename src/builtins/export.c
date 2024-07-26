@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:00:53 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/23 06:05:32 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:20:15 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	add_env(t_token *token, char *key_value)
 	*token->envp = new_envp;
 }
 
-void	replace_value(t_token *token, char *key, char *new_key)
+void	export_replace_value(t_token *token, char *key, char *new_key)
 {
 	int		i;
 	int		env_len;
@@ -66,7 +66,7 @@ void	replace_value(t_token *token, char *key, char *new_key)
 static void	handle_export_key(t_token *token, char *key_name, char *arg)
 {
 	if (export_is_exist_env(token, key_name))
-		replace_value(token, key_name, arg);
+		export_replace_value(token, key_name, arg);
 	else
 	{
 		add_env(token, arg);

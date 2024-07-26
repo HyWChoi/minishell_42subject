@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:37:09 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 06:13:55 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:35:26 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,18 @@ static char	**copy_envp(char ***tmp, const char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	if (!ft_calloc_guard((void **)&new_envp, i + 2, sizeof(char *)))
+	if (!ft_calloc_guard((void **)&new_envp, i + 3, sizeof(char *)))
 		return (NULL);
 	i = 0;
 	new_envp[i] = prs_safety_strdup("?=0");
+	new_envp[++i] = prs_safety_strdup("?PWD=");
 	i++;
 	while (envp[i])
 	{
-		new_envp[i] = prs_safety_strdup((char *)envp[i]);
+		if (ft_strncmp(envp[i], "OLDPWD=", 7) == 0)
+			new_envp[i] = prs_safety_strdup("OLDPWD");
+		else
+			new_envp[i] = prs_safety_strdup((char *)envp[i]);
 		i++;
 	}
 	new_envp[i + 1] = NULL;

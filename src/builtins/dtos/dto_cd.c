@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dto_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:30:51 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 15:45:23 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:38:47 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_exit_code	dto_cd(t_token *token)
 			put_err_msg("cd", "HOME not set\n");
 			return (EXIT_FAILURE);
 		}
-		code = cd(result_home);
+		code = cd(token, result_home);
 		free(result_home);
 		return (code);
 	}
-	return (cd(*(token->argv + 1)));
+	return (cd(token, *(token->argv + 1)));
 }

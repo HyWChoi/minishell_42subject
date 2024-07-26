@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_builtins.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/23 15:46:59 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:57:42 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_exit_code	dto_exit(t_token *token);
 t_exit_code	dto_env(t_token *token);
 t_exit_code	dto_unset(t_token *token);
 t_exit_code	dto_export(t_token *token);
-t_exit_code	cd(char *path);
+t_exit_code	cd(t_token *token, char *path);
 t_exit_code	pwd(void);
 t_exit_code	env(const char **env);
 t_exit_code	exit_shell(unsigned char exit_code);
@@ -58,5 +58,6 @@ int			export_is_exist_env(t_token *token, char *key_name);
 t_bool		export_invalid_char(char *str);
 t_bool		export_is_valid_key(char *key);
 void		free_keys(char *key, char *value);
+void		export_replace_value(t_token *token, char *key, char *value);
 
 #endif
