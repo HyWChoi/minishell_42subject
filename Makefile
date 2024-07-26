@@ -3,6 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 srcs = builtins/builtin_handler.c \
 	builtins/cd.c \
+	builtins/cd_utils.c \
 	builtins/dtos/dto_cd.c \
 	builtins/dtos/dto_echo.c \
 	builtins/dtos/dto_env.c \

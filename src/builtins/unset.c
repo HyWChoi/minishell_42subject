@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:45:55 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/26 19:28:03 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:15:36 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_exit_code	unset(char **argv, char **envp)
 		}
 		key_idx = us_get_key_idx(*argv, envp);
 		if (*envp)
-		us_remove_key(envp, key_idx);
+			us_remove_key(envp, key_idx);
 		argv++;
 	}
 	return (exit_code);

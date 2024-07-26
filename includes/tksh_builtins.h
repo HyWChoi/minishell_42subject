@@ -6,7 +6,7 @@
 /*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:46 by hyeonwch          #+#    #+#             */
-/*   Updated: 2024/07/26 15:57:42 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:17:04 by hyeonwch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_exit_code	unset(char **argv, char **envp);
 t_exit_code	echo(char **strings, t_bool option);
 t_exit_code	export(t_token *token);
 
-//export
+// export
 t_bool		export_is_correct_key(size_t key_len, char *str, char *key);
 int			export_is_exist_env(t_token *token, char *key_name);
 t_bool		export_invalid_char(char *str);
@@ -60,4 +60,16 @@ t_bool		export_is_valid_key(char *key);
 void		free_keys(char *key, char *value);
 void		export_replace_value(t_token *token, char *key, char *value);
 
+// cd
+void		update_oldpwd(t_token *token);
+void		update_pwd(t_token *token, char *new_path,
+				char saved_pwd[PWD_MAX_BUFF_SIZE]);
+void		update_oldpwd_without_pwd(t_token *token);
+void		update_pwd_without_get_path(t_token *token, char *new_path,
+				char saved_pwd[PWD_MAX_BUFF_SIZE]);
+char		*cd_get_path(char **result);
+void		cd_set_path_in_buffer(char *path,
+				char saved_pwd[PWD_MAX_BUFF_SIZE]);
+void		cd_renew_path(t_token *token, char *new_path,
+				char saved_pwd[PWD_MAX_BUFF_SIZE]);
 #endif
