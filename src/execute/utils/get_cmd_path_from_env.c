@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/27 15:09:01 by yechakim         ###   ########seoul.kr  */
+/*   Updated: 2024/07/27 15:27:17 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,12 @@ static char	*ex_handle_cmd_without_slash(char *cmd, char **paths)
 		ret = ft_strjoin_and_free(temp, cmd, FREE_S1);
 		if (!ret)
 			exit(ECODE_MALLOC_FAIL);
-		if (access(ret, F_OK | X_OK) == ACCESS_SUCESS
-			&& isdir(ret) != ACCESS_SUCESS)
-		{
-			if (available_path)
-				free(available_path);
-			return (ret);
-		}
 		if (access(ret, F_OK) == ACCESS_SUCESS
 			&& isdir(ret) != ACCESS_SUCESS && !available_path)
 			available_path = ft_strdup(ret);
+		if (access(ret, F_OK | X_OK) == ACCESS_SUCESS
+			&& isdir(ret) != ACCESS_SUCESS)
+			return (free(available_path), ret);
 		free(ret);
 		i++;
 	}
