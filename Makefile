@@ -96,7 +96,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	@echo "$(CLEAR_LINE)		[ $(SKYBLUE)$(NAME) $(RESET)] $(GREEN)created$(RESET)"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libs -lft -I includes -I libft/includes $(READLINE_FLAGS)
 	@echo "\n How to run $(SKYBLUE)$(NAME)"
-	@echo "\n	$(SKYBLUE)./$(NAME)"
+	@echo "\n	$(SKYBLUE)./$(NAME)$(RESET)"
 
 $(LIBFT):
 	@make -C libft
