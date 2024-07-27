@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 23:12:46 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/25 18:01:07 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:56:52 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	run_cmd(t_token *token)
 		exit(ECODE_CMD_NOT_FOUND);
 	if (execve(cmd_abs_path, token->argv, *token->envp) == -1)
 	{
-		perror(token->cmd_path);
+		perror(cmd_abs_path);
 		if (errno == EACCES || errno == EISDIR)
 			exit(ECODE_PERMISSION_DENIED);
 		exit(ECODE_CMD_NOT_FOUND);
