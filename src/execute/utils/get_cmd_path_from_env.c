@@ -6,7 +6,7 @@
 /*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:12:37 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/25 18:01:56 by yechakim         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:09:01 by yechakim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 static char	**get_paths_from_env(char **envp);
 static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths);
-static char *ex_handle_cmd_without_slash(char *cmd, char **paths);
+static char	*ex_handle_cmd_without_slash(char *cmd, char **paths);
 static char	*ex_handle_cmd_with_slash(char *cmd, char *err_cmd);
 
 char	*get_cmd_path_from_env(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*ret;
-	
+
 	if (cmd == NULL)
 		return (NULL);
 	if (ft_strchr(cmd, '/') != NULL)
@@ -38,7 +38,6 @@ char	*get_cmd_path_from_env(char *cmd, char **envp)
 		return (NULL);
 	return (ret);
 }
-
 
 static char	*ex_handle_cmd_with_slash(char *cmd, char *err_cmd)
 {
@@ -60,7 +59,7 @@ static char	*ex_handle_cmd_with_slash(char *cmd, char *err_cmd)
 	return (prs_safety_strdup(cmd));
 }
 
-static char *ex_handle_cmd_without_slash(char *cmd, char **paths)
+static char	*ex_handle_cmd_without_slash(char *cmd, char **paths)
 {
 	char	*ret;
 	char	*temp;
@@ -72,34 +71,25 @@ static char *ex_handle_cmd_without_slash(char *cmd, char **paths)
 	while (paths && paths[i])
 	{
 		temp = ft_strjoin(paths[i], "/");
-		if(!temp)
+		if (!temp)
 			exit(ECODE_MALLOC_FAIL);
 		ret = ft_strjoin_and_free(temp, cmd, FREE_S1);
 		if (!ret)
 			exit(ECODE_MALLOC_FAIL);
-		if (access(ret, F_OK) == ACCESS_SUCESS
+		if (access(ret, F_OK | X_OK) == ACCESS_SUCESS
 			&& isdir(ret) != ACCESS_SUCESS)
 		{
-			if (access(ret, X_OK) == ACCESS_SUCESS)
-			{
-				if (available_path)
-				{
-					free(available_path);
-					available_path = NULL;
-				}
-				return (ret);
-			}
-			else
-			{
-				if (available_path == NULL)
-					available_path = ret;
-			}
+			if (available_path)
+				free(available_path);
+			return (ret);
 		}
+		if (access(ret, F_OK) == ACCESS_SUCESS
+			&& isdir(ret) != ACCESS_SUCESS && !available_path)
+			available_path = ft_strdup(ret);
+		free(ret);
 		i++;
 	}
-	if (available_path)
-		return (available_path);
-	return (NULL);
+	return (available_path);
 }
 
 static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
@@ -110,7 +100,7 @@ static char	*ex_get_abs_path_of_cmd(char *cmd, char **paths)
 	ret = ex_handle_cmd_without_slash(cmd, paths);
 	if (ret)
 		return (ret);
-	if(!paths || (paths && !paths[0]))
+	if (!paths || (paths && !paths[0]))
 	{
 		temp = ft_strjoin("./", cmd);
 		if (!temp)
