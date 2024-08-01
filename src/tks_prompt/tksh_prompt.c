@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tksh_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonwch <hyeonwch@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: yechakim <yechakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:59:50 by yechakim          #+#    #+#             */
-/*   Updated: 2024/07/24 16:48:47 by hyeonwch         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:06:03 by yechakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	tksh_sig_hook(void)
 	tcsetattr(0, TCSANOW, &term);
 	signal(SIGINT, tks_stop_readline);
 	signal(SIGQUIT, SIG_IGN);
+	rl_event_hook = NULL;
 	rl_signal_event_hook = signal_event_hook;
 }
 
